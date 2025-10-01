@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Origine del progetto — B4PhytoWeb</title>
+  <meta name="description" content="Origine accademica, obiettivi, metodologia, architettura e sviluppi futuri del progetto B4PhytoWeb.">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="nav">
+  <div class="navbar">
+    <a class="brand" href="index.html" aria-label="B4PhytoWeb Home">
+      <img src="assets/logo.svg" alt=""/>
+      <span>B4PhytoWeb</span>
+    </a>
+    <div style="display:flex;gap:.5rem;align-items:center">
+      <button class="theme-toggle" title="Tema chiaro/scuro" aria-label="Cambia tema">🌓</button>
+      <button class="menu-toggle" aria-label="Apri menu">☰</button>
+    </div>
+    <nav aria-label="Principale">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="funzionalita.html">Funzionalità</a></li>
+        <li><a href="vantaggi.html">Vantaggi</a></li>
+        <li><a href="origine.html">Origine</a></li>
+        <li><a href="supporto.html">Supporto</a></li>
+        <li><a href="lp-video.html"><span class="badge"><span class="dot"></span> Esplora</span></a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap">
+    <div>
+      <span class="badge"><span class="dot"></span> Origine</span>
+      <h1>L’evoluzione naturale di un progetto di tesi</h1>
+      <p>Nato come tesi magistrale presso il Dipartimento di Informatica dell’Università di Verona (Bioinformatica Medica), il progetto contribuisce alla missione del <strong>NFBC — National Biodiversity Future Center</strong>, promossa dal MUR.</p>
+    </div>
+    <div class="illustration">
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 400'>
+  <defs><linearGradient id='g' x1='0' x2='1' y1='0' y2='1'><stop offset='0' stop-color='#11c28d'/><stop offset='1' stop-color='#0b8ab2'/></linearGradient></defs>
+  <rect width='800' height='400' fill='#eef7f4'/>
+  <path d='M120,320 C240,260 360,300 480,240 C600,180 640,180 720,220' fill='none' stroke='url(#g)' stroke-width='10' stroke-linecap='round'/>
+  <circle cx='200' cy='220' r='60' fill='#fff' stroke='#dfe9e4'/>
+  <rect x='420' y='160' width='160' height='100' rx='16' fill='#fff' stroke='#dfe9e4'/>
+</svg>
+</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container prose">
+    <h2>Contesto e bisogni</h2>
+    <p>La comunità dei biologi e dei ricercatori metabolomici necessita di strumenti affidabili per la gestione di dati complessi: specie, campioni, metaboliti, spettri, attività biologiche. File destrutturati (ad esempio fogli Excel) introducono errori, duplicazioni e scarsa riproducibilità.</p>
+    <ul>
+      <li><strong>Standardizzazione:</strong> formati coerenti e campi controllati.</li>
+      <li><strong>Tracciabilità:</strong> legami chiari tra campione, specie, esperimento e risultato.</li>
+      <li><strong>Interoperabilità:</strong> collegamenti a database pubblici (PubChem, NCBI, HMDB, ChEMBL).</li>
+    </ul>
+
+    <hr/>
+
+    <h2>Obiettivi del sistema</h2>
+    <p>Ridurre errori e ridondanze, guidare l’inserimento con strumenti di annotazione, offrire ricerca e comparazione avanzate, favorire condivisione e riproducibilità.</p>
+    <ul>
+      <li>Modello dati normalizzato e vincoli di integrità.</li>
+      <li>Annotation per campioni, metaboliti e spettri LC‑MS.</li>
+      <li>Query flessibili per tassonomia, massa, RT, formula e bioattività.</li>
+    </ul>
+
+    <hr/>
+
+    <h2>Metodologia</h2>
+    <p>Approccio iterativo e <em>user-centered</em> in collaborazione con i ricercatori: raccolta requisiti, prototipi, validazione su casi reali e test di usabilità.</p>
+
+    <div class="callout">
+      <strong>Nota:</strong> i flussi sperimentali LC‑MS sono stati mappati per garantire coerenza tra dati analitici e metadati.
+    </div>
+
+    <hr/>
+
+    <h2>Architettura e modello dati</h2>
+    <p>Il modello separa chiaramente entità e relazioni:</p>
+    <ul>
+      <li><strong>Tassonomia</strong> (gerarchia specie ↔ campione)</li>
+      <li><strong>Campioni</strong> (provenienza, coordinate, data, condizioni)</li>
+      <li><strong>Metaboliti</strong> (nomenclatura, identificatori, classe chimica, bioattività)</li>
+      <li><strong>Analitica</strong> (spettri LC‑MS, massa, tempo di ritenzione)</li>
+    </ul>
+
+    <hr/>
+
+    <h2>Risultati</h2>
+    <p>Consolidamento di informazioni prima sparse, riduzione degli errori di trascrizione, uniformità nei formati e velocizzazione della ricerca di metaboliti e relazioni tassonomiche.</p>
+
+    <hr/>
+
+    <h2>Sviluppi futuri</h2>
+    <ul>
+      <li>API pubblica per integrazioni esterne</li>
+      <li>Esportazione FAIR</li>
+      <li>Ontologie estese</li>
+      <li>Dashboard analitiche e report per i gruppi di ricerca</li>
+    </ul>
+
+    <hr/>
+
+    <h2>Impatto atteso</h2>
+    <p>Un repository coerente che supporta la scoperta di bioattività, l’identificazione guidata di molecole e la comparazione tra specie e contesti.</p>
+
+    <p><a class="btn outline" href="index.html">Torna alla Home <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h12m0 0-5-5m5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="cols container">
+    <div>
+      <div class="brand" style="margin-bottom:.5rem">
+        <img src="assets/logo.svg" alt="" width="28" height="28"/>
+        <span>B4PhytoWeb</span>
+      </div>
+      <p class="muted">Piattaforma per ricerca su biodiversità e metabolomica. © 2025</p>
+    </div>
+    <div>
+      <h3>Sezioni</h3>
+      <ul>
+        <li><a href="funzionalita.html">Funzionalità</a></li>
+        <li><a href="vantaggi.html">Vantaggi</a></li>
+        <li><a href="origine.html">Origine</a></li>
+        <li><a href="supporto.html">Supporto</a></li>
+        <li><a href="lp-video.html">Esplora la piattaforma</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Contatti</h3>
+      <p>Università degli Studi di Verona · Dip. Informatica</p>
+      <p><a href="mailto:info@b4phytoweb.example">info@b4phytoweb.example</a></p>
+    </div>
+  </div>
+</footer>
+<script src="assets/script.js"></script>
+</body>
+</html>
+
