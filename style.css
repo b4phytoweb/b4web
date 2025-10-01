@@ -1,0 +1,86 @@
+
+/* === B4PhytoWeb v7 — spacing tweaks & prose origin === */
+:root{
+  --bg:#f6faf8;--surface:#fff;--surface-2:#f1f5f3;--text:#0e1613;--muted:#42514c;--line:#e1ece7;
+  --brand:#0fa968;--brand-2:#11c28d;--accent:#0b8ab2;
+  --shadow-sm:0 2px 8px rgba(6,24,18,.06);--shadow-md:0 10px 30px rgba(6,24,18,.08);
+  --radius:14px;--radius-lg:22px;--maxw:1200px;--pad:24px;--e1:cubic-bezier(.2,.8,.2,1);
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#0c1110;--surface:#0f1513;--surface-2:#0b1311;--text:#e9f5ef;--muted:#b2c5be;--line:#1e2a26;
+  --brand:#14c38a;--brand-2:#34d399;--accent:#22d3ee;
+  --shadow-sm:0 2px 8px rgba(0,0,0,.35);--shadow-md:0 10px 30px rgba(0,0,0,.4);}
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}html,body{margin:0;padding:0}
+body{background:linear-gradient(180deg,var(--bg),var(--surface-2));color:var(--text);
+  font:16px/1.6 "Inter",system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Helvetica,Arial,sans-serif}
+a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
+.container{max-width:var(--maxw);margin-inline:auto;padding:var(--pad)}
+.grid{display:grid;gap:28px}.cols-2{grid-template-columns:repeat(2,1fr)}.cols-3{grid-template-columns:repeat(3,1fr)}
+@media (max-width:980px){.cols-2,.cols-3{grid-template-columns:1fr}}
+h1{font-size:clamp(2.3rem,3.8vw,3.4rem);line-height:1.05;margin:.25rem 0 1rem;letter-spacing:-.5px}
+h2{font-size:clamp(1.8rem,2.6vw,2.3rem);line-height:1.1;margin:.25rem 0 .75rem}
+h3{font-size:1.12rem;margin:.4rem 0 .4rem}p{margin:.4rem 0 1rem;color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:22px}
+.badge{display:inline-flex;align-items:center;gap:.45rem;border:1px solid var(--line);background:var(--surface-2);
+  padding:.32rem .65rem;border-radius:999px;font-size:.8rem;color:var(--muted)}
+.badge .dot{width:8px;height:8px;border-radius:999px;background:linear-gradient(90deg,var(--brand),var(--brand-2));display:inline-block}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:.55rem;border-radius:999px;padding:.9rem 1.2rem;font-weight:700;
+  border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow-sm);
+  transition:transform .12s var(--e1), box-shadow .2s var(--e1), background .2s var(--e1)}
+.btn:hover{transform:translateY(-1px);box-shadow:var(--shadow-md);background:var(--surface-2)}
+.btn svg{width:18px;height:18px}
+.btn.primary{background:linear-gradient(90deg,var(--brand),var(--brand-2));color:#062418;border:0}
+.btn.outline{background:transparent}
+.btn.link{border:0;background:transparent;padding:.5rem .2rem;border-radius:8px}
+.btn.link:hover{text-decoration:underline}
+
+/* Nav */
+.nav{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--line);background:rgba(255,255,255,.7);backdrop-filter:saturate(140%) blur(8px)}
+@media (prefers-color-scheme: dark){.nav{background:rgba(12,17,16,.5)}}
+.navbar{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:var(--maxw);margin:auto;padding:10px var(--pad)}
+.brand{display:flex;align-items:center;gap:.7rem}.brand img{width:32px;height:32px}.brand span{font-weight:800;letter-spacing:.2px}
+nav ul{display:flex;gap:.2rem;list-style:none;margin:0;padding:0}
+nav a{display:inline-flex;align-items:center;gap:.4rem;padding:.55rem .8rem;border-radius:10px;border:1px solid transparent}
+nav a:hover, nav a[aria-current="page"]{border-color:var(--line);background:var(--surface-2)}
+.menu-toggle{display:none;border:1px solid var(--line);background:var(--surface-2);border-radius:10px;padding:.55rem .7rem}
+.theme-toggle{display:inline-flex;align-items:center;gap:.4rem;border:1px solid var(--line);background:var(--surface-2);border-radius:10px;padding:.45rem .6rem}
+@media (max-width:980px){nav ul{display:none;flex-direction:column}.menu-toggle{display:inline-flex}nav ul.open{display:flex}}
+
+/* Hero & page-hero */
+.hero{padding:72px var(--pad) 18px}
+.hero-inner{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center;max-width:var(--maxw);margin:auto}
+.hero-visual{position:relative;border:1px solid var(--line);border-radius:var(--radius-lg);min-height:340px;background:var(--surface);overflow:hidden}
+.cta-stack{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:14px;margin-bottom:40px}
+.kpi-band{padding:12px var(--pad) 32px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.kpis.center{justify-items:center;text-align:center}
+.kpis.center .card{max-width:360px;width:100%}
+
+.page-hero{padding:56px var(--pad) 0}
+.page-hero .wrap{max-width:var(--maxw);margin:auto;display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center}
+.page-hero .illustration{border:1px solid var(--line);border-radius:20px;background:var(--surface);overflow:hidden;box-shadow:var(--shadow-sm);min-height:300px}
+
+/* Alternating benefit rows (more spacing) */
+.benefit-row{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;margin:48px 0}  /* increased spacing */
+.benefit-row .art{border:1px solid var(--line);border-radius:20px;background:var(--surface);overflow:hidden;box-shadow:var(--shadow-sm);min-height:280px}
+.benefit-row.reverse .text{order:2}
+.benefit-row.reverse .art{order:1}
+@media (max-width:980px){.benefit-row{grid-template-columns:1fr;margin:36px 0}.benefit-row .text,.benefit-row .art{order:unset}}
+
+/* Prose layout for Origine */
+.prose{max-width:900px;margin:0 auto}
+.prose h2{margin-top:28px}
+.prose hr{border:0;border-top:1px solid var(--line);margin:22px 0}
+.prose .callout{border-left:4px solid var(--brand);background:var(--surface);border:1px solid var(--line);border-left-color:var(--brand);
+  padding:14px 16px;border-radius:12px}
+.prose ul{padding-left:1.2rem}
+.prose li{margin:.3rem 0}
+
+/* Sections & footer */
+.section{padding:30px var(--pad)}
+.table{width:100%;border-collapse:collapse}.table th,.table td{border-bottom:1px solid var(--line);padding:.75rem;text-align:left}
+.footer{padding:40px var(--pad);border-top:1px solid var(--line);background:linear-gradient(180deg,var(--surface),var(--surface-2))}
+.footer .cols{display:grid;grid-template-columns:2fr 1fr 1fr;gap:18px;max-width:var(--maxw);margin:auto}
