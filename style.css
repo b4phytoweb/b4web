@@ -55,7 +55,7 @@ nav a:hover, nav a[aria-current="page"]{border-color:var(--line);background:var(
 .hero-visual{position:relative;border:1px solid var(--line);border-radius:var(--radius-lg);min-height:340px;background:var(--surface);overflow:hidden}
 .cta-stack{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:14px;margin-bottom:40px}
 .kpi-band{padding:12px var(--pad) 32px}
-.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
 .kpis.center{justify-items:center;text-align:center}
 .kpis.center .card{max-width:360px;width:100%}
 
