@@ -127,3 +127,10 @@ nav a:hover, nav a[aria-current="page"]{border-color:var(--line);background:var(
     filter: brightness(1) contrast(1.25);
   }
 }
+
+.partner-list .partner img,
+.footer-logos img {
+  height: 80px; /* altezza desiderata per tutti i loghi */
+  width: auto;  /* mantiene le proporzioni originali */
+  object-fit: contain; /* assicura che l'immagine non venga distorta */
+}
