@@ -5,6 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Chi Siamo - B4Web</title>
   <link rel="stylesheet" href="assets/style.css">
+  <style>
+    /* Altezza uniforme per tutti i loghi */
+    .partner-list .partner img,
+    .footer-logos img {
+      height: 80px;  /* puoi cambiare l'altezza a piacere */
+      width: auto;   /* mantiene le proporzioni */
+      object-fit: contain; /* evita distorsioni */
+    }
+
+    /* Eventuale centratura verticale dei partner */
+    .partner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.5rem;
+    }
+  </style>
 </head>
 <body>
   <header class="nav">
@@ -55,37 +73,37 @@
     </div>
   </section>
 
-<footer class="footer">
-  <div class="cols container">
-    <div>
-      <div class="brand" style="margin-bottom:.5rem">
-        <img src="assets/logo.svg" alt="" width="28" height="28"/>
-        <span>B4PhytoWeb</span>
+  <footer class="footer">
+    <div class="cols container">
+      <div>
+        <div class="brand" style="margin-bottom:.5rem">
+          <img src="assets/logo.svg" alt="" width="28" height="28"/>
+          <span>B4PhytoWeb</span>
+        </div>
+        <p class="muted">
+          B4Web: una tassonomia Biomolecolare, delle Biofonti e delle Bioattività per liberare il potenziale della Biodiversità – finanziato da: 
+          Commissione Europea - Next Generation EU, Missione 4 Componente 1 CUP C33C24000340001
+        </p>
       </div>
-      <p class="muted">
-        B4Web: una tassonomia Biomolecolare, delle Biofonti e delle Bioattività per liberare il potenziale della Biodiversità – finanziato da: 
-        Commissione Europea - Next Generation EU, Missione 4 Componente 1 CUP C33C24000340001
-      </p>
-    </div>
 
-    <div>
-      <h3>Sezioni</h3>
-      <ul>
-        <li><a href="funzionalita.html">Funzionalità</a></li>
-        <li><a href="vantaggi.html">Vantaggi</a></li>
-        <li><a href="origine.html">Origine</a></li>
-        <li><a href="supporto.html">Supporto</a></li>
-        <li><a href="lp-video.html">Esplora la piattaforma</a></li>
-      </ul>
-    </div>
+      <div>
+        <h3>Sezioni</h3>
+        <ul>
+          <li><a href="funzionalita.html">Funzionalità</a></li>
+          <li><a href="vantaggi.html">Vantaggi</a></li>
+          <li><a href="origine.html">Origine</a></li>
+          <li><a href="supporto.html">Supporto</a></li>
+          <li><a href="lp-video.html">Esplora la piattaforma</a></li>
+        </ul>
+      </div>
 
-    <div class="footer-logos" style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:flex-start">
-      <img src="assets/20240209112418!LOGO_italiadomani.jpg" alt="Italia Domani" height="50" />
-      <img src="assets/EN_Funded_by_the_European_Union_RGB_POS.png" alt="Finanziato dall'Unione Europea" height="50" />
-      <img src="assets/LOGO_UniversitaRicerca.jpg" alt="Ministero dell'Università e della Ricerca" height="50" />
-      <img src="assets/Logo_NBFC.png" alt="NBFC" height="50" />
+      <div class="footer-logos" style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:flex-start">
+        <img src="assets/20240209112418!LOGO_italiadomani.jpg" alt="Italia Domani" />
+        <img src="assets/EN_Funded_by_the_European_Union_RGB_POS.png" alt="Finanziato dall'Unione Europea" />
+        <img src="assets/LOGO_UniversitaRicerca.jpg" alt="Ministero dell'Università e della Ricerca" />
+        <img src="assets/Logo_NBFC.png" alt="NBFC" />
+      </div>
     </div>
-  </div>
-</footer>
+  </footer>
 </body>
 </html>
