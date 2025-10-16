@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chi Siamo - B4Web</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="nav">
+    <div class="navbar">
+      <a class="brand" href="index.html" aria-label="B4Web Home">
+        <img src="assets/logo.svg" alt="Logo B4Web" />
+        <span>B4Web</span>
+      </a>
+      <nav aria-label="Principale">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="funzionalita.html">Funzionalità</a></li>
+          <li><a href="vantaggi.html">Vantaggi</a></li>
+          <li><a href="origine.html">Origine</a></li>
+          <li><a href="supporto.html">Supporto</a></li>
+          <li><a href="chi-siamo.html">Chi Siamo</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <h1>Chi Siamo</h1>
+      <p>Il progetto B4Web è frutto della collaborazione tra le seguenti istituzioni:</p>
+      <div class="partner-list">
+        <div class="partner">
+          <img src="https://www.uniupo.it/sites/default/files/styles/logo/public/2021-09/logo-uniupo.png?itok=Zy3VZyqZ" alt="Università del Piemonte Orientale" />
+          <p><strong>UPO</strong> – Università del Piemonte Orientale (Coordinatore)</p>
+        </div>
+        <div class="partner">
+          <img src="https://www.unipi.it/ateneo/logo/logo_unipi.png" alt="Università di Pisa" />
+          <p><strong>UniPI</strong> – Università di Pisa</p>
+        </div>
+        <div class="partner">
+          <img src="https://www.unipr.it/sites/default/files/styles/logo/public/2020-02/logo-unipr.png?itok=8kVJ6f4P" alt="Università di Parma" />
+          <p><strong>UniPR</strong> – Università di Parma</p>
+        </div>
+        <div class="partner">
+          <img src="https://www.vtenext.com/wp-content/uploads/2021/06/vtenext-logo.png" alt="VTENext" />
+          <p><strong>VTENext</strong> – Soluzione CRM all-in-one</p>
+        </div>
+        <div class="partner">
+          <img src="https://via.placeholder.com/150" alt="Museo" />
+          <p><strong>Museo</strong> – Istituzione culturale partner</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 B4Web. Tutti i diritti riservati.</p>
+    </div>
+  </footer>
+</body>
+</html>
