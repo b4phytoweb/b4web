@@ -84,3 +84,46 @@ nav a:hover, nav a[aria-current="page"]{border-color:var(--line);background:var(
 .table{width:100%;border-collapse:collapse}.table th,.table td{border-bottom:1px solid var(--line);padding:.75rem;text-align:left}
 .footer{padding:40px var(--pad);border-top:1px solid var(--line);background:linear-gradient(180deg,var(--surface),var(--surface-2))}
 .footer .cols{display:grid;grid-template-columns:2fr 1fr 1fr;gap:18px;max-width:var(--maxw);margin:auto}
+
+/* === Footer logos (update 2025-10) === */
+.footer-logos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 1.5rem;
+}
+
+.footer-logos img {
+  height: 48px;
+  max-width: 160px;
+  object-fit: contain;
+  filter: brightness(0.95) contrast(1.05);
+  transition: transform 0.2s var(--e1), filter 0.2s var(--e1);
+}
+
+.footer-logos img:hover {
+  transform: scale(1.05);
+  filter: brightness(1) contrast(1.1);
+}
+
+/* Responsive alignment */
+@media (max-width: 980px) {
+  .footer-logos {
+    justify-content: center;
+  }
+  .footer-logos img {
+    height: 40px;
+  }
+}
+
+/* Dark mode refinement */
+@media (prefers-color-scheme: dark) {
+  .footer-logos img {
+    filter: brightness(0.85) contrast(1.15);
+  }
+  .footer-logos img:hover {
+    filter: brightness(1) contrast(1.25);
+  }
+}
