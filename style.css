@@ -128,9 +128,29 @@ nav a:hover, nav a[aria-current="page"]{border-color:var(--line);background:var(
   }
 }
 
-.partner-list .partner img,
-.footer-logos img {
-  height: 80px; /* altezza desiderata per tutti i loghi */
-  width: auto;  /* mantiene le proporzioni originali */
-  object-fit: contain; /* assicura che l'immagine non venga distorta */
-}
+ /* Altezza uniforme per tutti i loghi */
+  .partner-list .partner img,
+  .footer-logos img {
+    height: 80px;  /* puoi cambiare l'altezza a piacere */
+    width: auto;
+    object-fit: contain;
+  }
+
+  /* Layout orizzontale per ogni partner */
+  .partner {
+    display: flex;
+    align-items: center;   /* centra verticalmente logo e testo */
+    gap: 1rem;             /* spazio tra logo e testo */
+    margin-bottom: 1.5rem; /* spazio tra i partner */
+  }
+
+  /* Testo accanto al logo */
+  .partner p {
+    margin: 0;
+    text-align: left;
+  }
+
+  /* (Opzionale) per ridurre il logo troppo grande rispetto al testo */
+  .partner img {
+    flex-shrink: 0;  /* evita che il logo si deformi */
+  }
