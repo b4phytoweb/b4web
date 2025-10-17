@@ -128,20 +128,19 @@ nav a:hover, nav a[aria-current="page"]{border-color:var(--line);background:var(
   }
 }
 
- /* Altezza uniforme per tutti i loghi */
-  .partner-list .partner img,
-  .footer-logos img {
-    height: 80px;  /* puoi cambiare l'altezza a piacere */
-    width: auto;
-    object-fit: contain;
-  }
-
-  /* Layout orizzontale per ogni partner */
   .partner {
     display: flex;
-    align-items: center;   /* centra verticalmente logo e testo */
-    gap: 1rem;             /* spazio tra logo e testo */
-    margin-bottom: 1.5rem; /* spazio tra i partner */
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Dimensioni uniformi per il riquadro logo */
+  .partner img {
+    width: 150px;       /* ✅ stessa larghezza per tutti */
+    height: 80px;       /* altezza fissa */
+    object-fit: contain;/* mantiene proporzioni */
+    flex-shrink: 0;     /* impedisce che si riduca */
   }
 
   /* Testo accanto al logo */
@@ -150,7 +149,23 @@ nav a:hover, nav a[aria-current="page"]{border-color:var(--line);background:var(
     text-align: left;
   }
 
-  /* (Opzionale) per ridurre il logo troppo grande rispetto al testo */
-  .partner img {
-    flex-shrink: 0;  /* evita che il logo si deformi */
+  /* Spazio sotto la lista partner */
+  .partner-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  /* Opzionale: comportamento responsive */
+  @media (max-width: 600px) {
+    .partner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .partner img {
+      width: 100%;
+      max-width: 250px;
+      height: auto;
+    }
   }
