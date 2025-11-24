@@ -3,119 +3,63 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Manuale Tecnico — B4PhytoWeb</title>
-  <meta name="description" content="Manuale tecnico completo di B4PhytoWeb.">
+  <title>Manuale — B4PhytoWeb</title>
+  <meta name="description" content="Manuale tecnico di installazione, configurazione e utilizzo delle API B4PhytoWeb.">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/style.css">
-
-  <style>
-    /* Stile interno solo per toc e leggibilità */
-    .toc {
-      background: #f7f7f7;
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-      border: 1px solid #e0e0e0;
-    }
-    .toc h2 {
-      margin-top: 0;
-    }
-    .toc ul {
-      list-style: none;
-      padding-left: 0;
-    }
-    .toc ul li {
-      margin: 6px 0;
-    }
-    .toc ul li a {
-      text-decoration: none;
-      color: #0060df;
-      font-weight: 600;
-    }
-    .toc ul li a:hover {
-      text-decoration: underline;
-    }
-    .section-content h2, 
-    .section-content h3, 
-    .section-content h4 {
-      scroll-margin-top: 90px;
-    }
-  </style>
 </head>
-
 <body>
 
 <header class="nav">
   <div class="navbar">
-    <a class="brand" href="index.html" aria-label="B4PhytoWeb Home">
+    <a class="brand" href="index.html">
       <img src="assets/logo.svg" alt=""/>
       <span>B4PhytoWeb</span>
     </a>
     <div style="display:flex;gap:.5rem;align-items:center">
       <button class="menu-toggle" aria-label="Apri menu">☰</button>
     </div>
-    <nav aria-label="Principale">
+    <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="funzionalita.html">Funzionalità</a></li>
         <li><a href="vantaggi.html">Vantaggi</a></li>
         <li><a href="origine.html">Origine</a></li>
         <li><a href="supporto.html">Supporto</a></li>
-        <li><a href="chi-siamo.html">Chi Siamo</a></li>
-        <li><a href="lp-video.html"><span class="badge"><span class="dot"></span> Esplora</span></a></li>
+        <li><a href="manuale.html" class="active">Manuale</a></li>
       </ul>
     </nav>
   </div>
 </header>
 
+<!-- HERO -->
 <section class="page-hero">
   <div class="wrap">
     <div>
-      <span class="badge"><span class="dot"></span> Manuale Tecnico</span>
-      <h1>Manuale Tecnico B4PhytoWeb</h1>
-      <p>Installazione, API, flussi ETL, modelli, autenticazione, interfacce e procedure.</p>
+      <span class="badge"><span class="dot"></span> Manuale</span>
+      <h1>Manuale Tecnico di B4PhytoWeb</h1>
+      <p>Installazione, configurazione, API, moduli interni ed ETL: tutto il necessario per sviluppatori e amministratori di sistema.</p>
     </div>
     <div class="illustration">
-      <img src="assets/support.jpg" alt="manuale" loading="lazy" />
+      <img src="assets/support.jpg" alt="manuale tecnico" loading="lazy"/>
     </div>
   </div>
 </section>
 
+<!-- ======================== -->
+<!-- INSTALLAZIONE -->
+<!-- ======================== -->
+
 <section class="section">
-<div class="container section-content">
+  <div class="container card">
+    <h2>🛠️ Installazione</h2>
+    <p>Il backend può essere eseguito in locale, tramite Docker o distribuito su Kubernetes. Assicurarsi che il database PostgreSQL sia attivo e correttamente configurato.</p>
 
-<!-- ========================= -->
-<!-- INDICE CLICCABILE         -->
-<!-- ========================= -->
-<div class="toc">
-  <h2>Indice</h2>
-  <ul>
-    <li><a href="#installazione">🛠️ Installazione</a></li>
-    <li><a href="#avvio-server">🚀 All’avvio del server</a></li>
-    <li><a href="#files">🧩 Descrizione dei file</a></li>
-    <li><a href="#usermanager">👤 UserManager</a></li>
-    <li><a href="#apiusers">🌐 Endpoint APIusers.py</a></li>
-    <li><a href="#datamanager">📦 DataManager & ETL</a></li>
-    <li><a href="#connectors">📦 Connectors</a></li>
-    <li><a href="#machinelearning">📦 Machine Learning</a></li>
-  </ul>
-</div>
-
-<!-- ========================= -->
-<!-- INSTALLAZIONE             -->
-<!-- ========================= -->
-<h2 id="installazione">🛠️ INSTALLAZIONE</h2>
-
-<p>Questo progetto può essere installato su Docker o Kubernetes.<br>
-⚠️ Prima di iniziare, assicurarsi che il database sia avviato e configurato correttamente.</p>
-
-<h3>📄 Configurazione (.env)</h3>
-
-<pre>
-COMPOSE_PROJECT_NAME=b4web_backend_api
+    <h3>📄 Configurazione (.env)</h3>
+    <pre><code>COMPOSE_PROJECT_NAME=b4web_backend_api
 DB_HOST='host.docker.internal'
 DB_USER='thisuser'
 DB_PASSWORD='xxxxxyyyy123!'
@@ -136,25 +80,25 @@ SMTP_PASSWORD='plutoPW'
 EMAIL_SENDER='DoNotReply@mailsend.disney.com'
 ALLOWED_ORIGINS=http://localhost:3000
 EXTTERNAL_ML_DATA_PATH='./external_ml_data'
-</pre>
+</code></pre>
 
-<h3>▶️ Esecuzione in locale</h3>
-<pre>
-uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --env-file .env
-</pre>
+    <h3>▶️ Esecuzione in locale</h3>
+    <pre><code>uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --env-file .env
+</code></pre>
 
-<h3>🐳 Installazione su Docker</h3>
-<pre>docker-compose up --build -d</pre>
-<pre>docker-compose down</pre>
+    <h3>🐳 Installazione su Docker</h3>
+    <pre><code>docker-compose up --build -d
+docker-compose down
+</code></pre>
 
-<h3>☸️ Installazione su Kubernetes</h3>
+    <h3>☸️ Installazione su Kubernetes</h3>
 
-<h4>1. Namespace</h4>
-<pre>kubectl create namespace b4web</pre>
+    <h4>1. Namespace</h4>
+    <pre><code>kubectl create namespace b4web
+</code></pre>
 
-<h4>2. Secrets</h4>
-<pre>
-apiVersion: v1
+    <h4>2. Secrets</h4>
+    <pre><code>apiVersion: v1
 kind: Secret
 metadata:
   name: b4web-env-secrets
@@ -165,158 +109,188 @@ stringData:
   admin-pass: "pippoPW"
   smtp-password: "plutoPW"
   secret-key: "PIPPO_SECRET_KEY"
-</pre>
+</code></pre>
 
-<h4>3. Deployment</h4>
-<pre>kubectl apply -f deployment.yml</pre>
+    <h4>3. Deployment</h4>
+    <pre><code>kubectl apply -f deployment.yml
+</code></pre>
 
-<h4>4. Service</h4>
-<pre>kubectl apply -f service.yml</pre>
+    <h4>4. Service</h4>
+    <p>Espone l’applicazione all’interno del cluster Kubernetes.</p>
 
-<h4>5. Accesso</h4>
-<p>
-• Ingress Controller o LoadBalancer per accesso esterno<br>
-• Impostare APP_DOMAIN, es: https://b4web-api.neodatagroup.ai<br>
-• Accesso allo Swagger: https://b4web-api.neodatagroup.ai/docs<br>
-</p>
+    <h4>5. Accesso</h4>
+    <p>Per esposizione esterna utilizzare un Ingress Controller o LoadBalancer.</p>
 
-<!-- ========================= -->
-<!-- AVVIO SERVER              -->
-<!-- ========================= -->
-<h2 id="avvio-server">🚀 ALL’AVVIO DEL SERVER</h2>
+  </div>
+</section>
 
-<p>Quando l’applicazione parte, FastAPI esegue:</p>
-<ul>
-  <li>Creazione FastAPI()</li>
-  <li>Caricamento .env</li>
-  <li>Configurazione CORS</li>
-  <li>Registrazione router /users, /data, /conn</li>
-  <li>Avvio uvicorn</li>
-</ul>
+<!-- ======================== -->
+<!-- ALL’AVVIO DEL SERVER -->
+<!-- ======================== -->
 
-<!-- ========================= -->
-<!-- FILES                     -->
-<!-- ========================= -->
-<h2 id="files">🧩 Descrizione dei file</h2>
+<section class="section">
+  <div class="container">
 
-<h3>📄 main.py & models.py</h3>
-<p>main.py gestisce avvio e routing.<br>models.py contiene tutte le tabelle SQLAlchemy.</p>
+    <h2>🚀 All’avvio del server</h2>
 
-<h3>📄 settings.py</h3>
-<p>Gestione delle variabili ambiente.</p>
+    <p>Il main.py inizializza l’app FastAPI, carica l’ambiente, registra i router e avvia il server.</p>
 
-<h3>📄 database_session.py</h3>
-<p>Connessione al DB + get_db()</p>
+    <h3>🧩 Descrizione dei file principali</h3>
 
-<h3>📄 tableparams.py</h3>
-<p>Strutture dati per form/JSON/ETL.</p>
+    <h4>📄 main.py & models.py</h4>
+    <ul>
+      <li><strong>main.py</strong>: punto di ingresso FastAPI, include router, middleware e config.</li>
+      <li><strong>models.py</strong>: definisce tutte le tabelle SQLAlchemy (utenti, metaboliti, bioassay, tassonomia, spettrometria...).</li>
+    </ul>
 
-<h3>🔄 Interazioni</h3>
-<ol>
-  <li>main.py → avvio</li>
-  <li>settings.py → configurazioni</li>
-  <li>database_session → dipendenze DB</li>
-  <li>models.py → tabelle</li>
-  <li>tableparams → input</li>
-  <li>routers → API</li>
-  <li>datamanager → ETL logiche</li>
-  <li>usermanager → utenti</li>
-</ol>
+    <h4>📄 settings.py</h4>
+    <p>Centralizza le variabili d'ambiente.</p>
 
-<!-- ========================= -->
-<!-- USERMANAGER               -->
-<!-- ========================= -->
-<h2 id="usermanager">👤 UserManager</h2>
+    <h4>📄 database_session.py</h4>
+    <p>Gestione connessione DB, espone <code>get_db()</code> per dependency injection.</p>
 
-<p>Modulo dedicato a:</p>
-<ul>
-  <li>autenticazione</li>
-  <li>gestione password</li>
-  <li>OTP via email</li>
-  <li>superuser</li>
-  <li>scheduler pulizia OTP</li>
-</ul>
+    <h4>📄 tableparams.py</h4>
+    <p>Definisce parametri e modelli di input (metaboliti, bioassay, tassonomia, utenti...).</p>
 
-<!-- ========================= -->
-<!-- API USERS                 -->
-<!-- ========================= -->
-<h2 id="apiusers">🌐 Endpoint APIusers.py</h2>
+    <h4>🔄 Come interagiscono</h4>
+    <ol>
+      <li>main.py → avvio server</li>
+      <li>settings.py → lettura configurazione</li>
+      <li>database_session.py → connessione</li>
+      <li>models.py → strutture DB</li>
+      <li>tableparams.py → modelli di input</li>
+      <li>routers → API</li>
+    </ol>
 
-<h3>🔐 Autenticazione</h3>
-<ul>
-  <li>/request_access</li>
-  <li>/login</li>
-  <li>JWT token</li>
-</ul>
+  </div>
+</section>
 
-<h3>🔁 Gestione Password</h3>
-<ul>
-  <li>/change_password</li>
-  <li>/reset_password</li>
-</ul>
+<!-- ======================== -->
+<!-- USER MANAGER -->
+<!-- ======================== -->
 
-<h3>👤 Gestione Utenti</h3>
-<ul>
-  <li>/create_user</li>
-  <li>/verify_email</li>
-  <li>/get_list</li>
-  <li>/delete/{id}</li>
-  <li>/change_role</li>
-</ul>
+<section class="section">
+  <div class="container card">
+    <h2>👤 User Manager</h2>
+    <p>Gestione completa utenti: OTP, login, reset password, ruoli, automazioni.</p>
 
-<!-- ========================= -->
-<!-- DATAMANAGER ETL           -->
-<!-- ========================= -->
-<h2 id="datamanager">📦 DataManager & ETL</h2>
+    <h3>🔐 Flusso autenticazione</h3>
+    <ul>
+      <li>/request_access → invio OTP</li>
+      <li>/login → login con password + OTP</li>
+      <li>JWT token → accesso alle rotte protette</li>
+    </ul>
 
-<p>Contiene:</p>
-<ul>
-  <li>insert_metabolite.py</li>
-  <li>insert_spectrometry.py</li>
-  <li>insert_taxonomy.py</li>
-  <li>insert_bioactivity.py</li>
-  <li>metabolite_detail.py</li>
-  <li>index.py (ricerca)</li>
-</ul>
+    <h3>🔁 Gestione Password</h3>
+    <ul>
+      <li>/change_password</li>
+      <li>/reset_password</li>
+    </ul>
 
-<!-- ========================= -->
-<!-- CONNECTORS                -->
-<!-- ========================= -->
-<h2 id="connectors">📦 Connectors</h2>
+    <h3>👤 Gestione Utenti</h3>
+    <ul>
+      <li>/create_user</li>
+      <li>/verify_email</li>
+      <li>/get_list</li>
+      <li>/delete/{id}</li>
+      <li>/change_role</li>
+    </ul>
 
-<h3>Da Excel</h3>
-<ul>
-  <li>POST /spectrometry_graph</li>
-  <li>POST /add_bioactivity</li>
-  <li>POST /add_taxonomy_and_sample</li>
-  <li>POST /add_experimental_metabolite</li>
-</ul>
+  </div>
+</section>
 
-<h3>Da PubChem</h3>
-<ul>
-  <li>GET /get_metabolite_data</li>
-  <li>GET /get_pubchem_taxonomy</li>
-  <li>GET /get_pug_view_data</li>
-  <li>GET /get_bioassays_from_cid</li>
-  <li>GET /get_bioassays_from_aid</li>
-</ul>
+<!-- ======================== -->
+<!-- API USERS -->
+<!-- ======================== -->
 
-<!-- ========================= -->
-<!-- MACHINE LEARNING          -->
-<!-- ========================= -->
-<h2 id="machinelearning">📦 Machine Learning</h2>
+<section class="section">
+  <div class="container">
 
-<p>match_ms2.py:</p>
+    <h2>🌐 Endpoint APIusers.py</h2>
+    <p>Endpoint FastAPI per autenticazione, accesso, gestione utenti, verifiche e ruoli.</p>
 
-<ul>
-  <li>matches_filters()</li>
-  <li>find_ready_reference()</li>
-  <li>load_spectra_from_json()</li>
-  <li>generate_output()</li>
-  <li>match_spectra()</li>
-</ul>
+    <h3>🔐 Autenticazione e Accesso</h3>
+    <ul>
+      <li><strong>/request_access</strong>: richiede OTP</li>
+      <li><strong>/login</strong>: login con OTP</li>
+      <li>Token JWT</li>
+    </ul>
 
-</div>
+    <h3>🔁 Gestione Password</h3>
+    <ul>
+      <li>/change_password</li>
+      <li>/reset_password</li>
+    </ul>
+
+    <h3>👤 Gestione Utenti</h3>
+    <ul>
+      <li>/create_user</li>
+      <li>/verify_email</li>
+      <li>/get_list</li>
+      <li>/delete/{user_id}</li>
+      <li>/change_role</li>
+    </ul>
+
+  </div>
+</section>
+
+<!-- ======================== -->
+<!-- DATAMANAGER, CONNECTORS, ML -->
+<!-- ======================== -->
+
+<section class="section">
+  <div class="container card">
+
+    <h2>📦 DataManager</h2>
+
+    <h3>🌐 Endpoint APIdata.py</h3>
+    <ul>
+      <li>Modelli Request/Response</li>
+      <li>Logiche interne</li>
+      <li>Endpoint principali</li>
+    </ul>
+
+    <h3>📁 Script ETL principali</h3>
+    <ul>
+      <li>insert_metabolite.py</li>
+      <li>insert_spectrometry.py</li>
+      <li>insert_taxonomy.py</li>
+      <li>insert_bioactivity.py</li>
+      <li>metabolite_detail.py</li>
+    </ul>
+
+    <h2>📦 Connectors</h2>
+    <h3>Da file Excel</h3>
+    <ul>
+      <li>POST /spectrometry_graph</li>
+      <li>POST /add_bioactivity</li>
+      <li>POST /add_taxonomy_and_sample</li>
+      <li>POST /add_experimental_metabolite</li>
+    </ul>
+
+    <h3>Da PubChem</h3>
+    <ul>
+      <li>GET /get_metabolite_data</li>
+      <li>GET /get_pubchem_taxonomy</li>
+      <li>GET /get_pug_view_data</li>
+      <li>GET /get_bioassays_from_cid</li>
+      <li>GET /get_bioassays_from_aid</li>
+    </ul>
+
+    <h2>📦 Machine Learning</h2>
+    <h3>Endpoint APImodel.py</h3>
+    <p>Modelli ML e API predittivi.</p>
+
+    <h3>match_ms2.py</h3>
+    <ul>
+      <li>matches_filters()</li>
+      <li>find_ready_reference()</li>
+      <li>load_spectra_from_json()</li>
+      <li>generate_output()</li>
+      <li>match_spectra()</li>
+    </ul>
+
+  </div>
 </section>
 
 <footer class="footer">
@@ -327,31 +301,12 @@ stringData:
         <span>B4PhytoWeb</span>
       </div>
       <p class="muted">
-        B4Web — finanziato da: Commissione Europea - Next Generation EU
+        B4Web: una tassonomia Biomolecolare delle Biofonti e delle Bioattività – finanziato da Commissione Europea - Next Generation EU, Missione 4.
       </p>
-    </div>
-
-    <div>
-      <h3>Sezioni</h3>
-      <ul>
-        <li><a href="funzionalita.html">Funzionalità</a></li>
-        <li><a href="vantaggi.html">Vantaggi</a></li>
-        <li><a href="origine.html">Origine</a></li>
-        <li><a href="supporto.html">Supporto</a></li>
-        <li><a href="lp-video.html">Esplora</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-logos" style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:flex-start">
-      <img src="assets/20240209112418!LOGO_italiadomani.jpg" alt="Italia Domani" height="50" />
-      <img src="assets/EN_Funded_by_the_European_Union_RGB_POS.png" alt="Finanziato dall'Unione Europea" height="50" />
-      <img src="assets/LOGO_UniversitaRicerca.jpg" alt="Ministero Università e Ricerca" height="50" />
-      <img src="assets/Logo_NBFC.png" alt="NBFC" height="50" />
     </div>
   </div>
 </footer>
 
 <script src="assets/script.js"></script>
-
 </body>
 </html>
