@@ -3,15 +3,51 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Manuale tecnico — B4PhytoWeb</title>
-  <meta name="description" content="Manuale tecnico API FastAPI — indice, endpoint e schemi.">
+  <title>Manuale Tecnico — B4PhytoWeb</title>
+  <meta name="description" content="Manuale tecnico completo di B4PhytoWeb.">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/style.css">
+
+  <style>
+    /* Stile interno solo per toc e leggibilità */
+    .toc {
+      background: #f7f7f7;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border: 1px solid #e0e0e0;
+    }
+    .toc h2 {
+      margin-top: 0;
+    }
+    .toc ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .toc ul li {
+      margin: 6px 0;
+    }
+    .toc ul li a {
+      text-decoration: none;
+      color: #0060df;
+      font-weight: 600;
+    }
+    .toc ul li a:hover {
+      text-decoration: underline;
+    }
+    .section-content h2, 
+    .section-content h3, 
+    .section-content h4 {
+      scroll-margin-top: 90px;
+    }
+  </style>
 </head>
+
 <body>
+
 <header class="nav">
   <div class="navbar">
     <a class="brand" href="index.html" aria-label="B4PhytoWeb Home">
@@ -29,7 +65,6 @@
         <li><a href="origine.html">Origine</a></li>
         <li><a href="supporto.html">Supporto</a></li>
         <li><a href="chi-siamo.html">Chi Siamo</a></li>
-        <li><a href="manuale-tecnico.html" class="active">Manuale tecnico</a></li>
         <li><a href="lp-video.html"><span class="badge"><span class="dot"></span> Esplora</span></a></li>
       </ul>
     </nav>
@@ -39,344 +74,249 @@
 <section class="page-hero">
   <div class="wrap">
     <div>
-      <span class="badge"><span class="dot"></span> Manuale tecnico</span>
-      <h1>Documento API — FastAPI</h1>
-      <p>Guida tecnica agli endpoint, schemi e connettori dell'API B4PhytoWeb (versione 0.1.0).</p>
+      <span class="badge"><span class="dot"></span> Manuale Tecnico</span>
+      <h1>Manuale Tecnico B4PhytoWeb</h1>
+      <p>Installazione, API, flussi ETL, modelli, autenticazione, interfacce e procedure.</p>
     </div>
     <div class="illustration">
-      <img src="assets/productivity.jpg" alt="manuale tecnico" loading="lazy" />
+      <img src="assets/support.jpg" alt="manuale" loading="lazy" />
     </div>
   </div>
 </section>
 
 <section class="section">
-  <div class="container">
-    <nav aria-label="Indice manuale" class="card" style="margin-bottom:1rem">
-      <h2>Indice</h2>
-      <ol>
-        <li><a href="#informazioni-generali">I. Informazioni Generali</a></li>
-        <li><a href="#gestione-utenti">II. Gestione Utenti (Users Manager)</a>
-          <ul>
-            <li><a href="#accesso-autenticazione">A. Accesso e Autenticazione</a></li>
-            <li><a href="#gestione-amministratori">B. Gestione Utenti (Amministratori)</a></li>
-          </ul>
-        </li>
-        <li><a href="#gestione-dati">III. Gestione Dati (Data Manager)</a>
-          <ul>
-            <li><a href="#metaboliti">A. Gestione Metaboliti</a></li>
-            <li><a href="#spettrometria">B. Gestione Spettrometria</a></li>
-            <li><a href="#tassonomia">C. Gestione Tassonomia e Specie</a></li>
-            <li><a href="#campioni">D. Gestione Campioni e Località</a></li>
-            <li><a href="#ricerca-dati">E. Ricerca Dati</a></li>
-            <li><a href="#settings-adducts">F. Gestione Settings e Adducts</a></li>
-            <li><a href="#gruppi-composti">G. Gestione Gruppi di Ricerca e Composti</a></li>
-            <li><a href="#replicati">H. Gestione Replicati Biologici</a></li>
-            <li><a href="#bioattivita">I. Gestione Bioattività e Classi</a></li>
-            <li><a href="#sinonimi">J. Ricerca per Sinonimi</a></li>
-          </ul>
-        </li>
-        <li><a href="#ml">IV. Machine Learning</a></li>
-        <li><a href="#pubchem">V. Connettore PubChem</a></li>
-        <li><a href="#excel">VI. Connettore Excel</a></li>
-        <li><a href="#schemi">VII. Schemi dei Dati (Schemas)</a></li>
-      </ol>
-    </nav>
+<div class="container section-content">
 
-    <!-- I. Informazioni Generali -->
-    <article id="informazioni-generali" class="card">
-      <h2>I. Informazioni Generali</h2>
-      <p>L'API è basata su <strong>FastAPI</strong> e utilizza lo standard <strong>OAS 3.1</strong>. Versione API: <code>0.1.0</code>.</p>
-      <p>La documentazione OpenAPI è disponibile via <code>/openapi.json</code> e la UI interattiva supporta l'operazione di <em>Authorize</em> per impostare token di accesso.</p>
-      <p>Nota: molte chiamate possono restituire <code>422 Validation Error</code> in caso di payload non validi.</p>
-    </article>
+<!-- ========================= -->
+<!-- INDICE CLICCABILE         -->
+<!-- ========================= -->
+<div class="toc">
+  <h2>Indice</h2>
+  <ul>
+    <li><a href="#installazione">🛠️ Installazione</a></li>
+    <li><a href="#avvio-server">🚀 All’avvio del server</a></li>
+    <li><a href="#files">🧩 Descrizione dei file</a></li>
+    <li><a href="#usermanager">👤 UserManager</a></li>
+    <li><a href="#apiusers">🌐 Endpoint APIusers.py</a></li>
+    <li><a href="#datamanager">📦 DataManager & ETL</a></li>
+    <li><a href="#connectors">📦 Connectors</a></li>
+    <li><a href="#machinelearning">📦 Machine Learning</a></li>
+  </ul>
+</div>
 
-    <!-- II. Gestione Utenti -->
-    <article id="gestione-utenti" class="card">
-      <h2>II. Gestione Utenti (Users Manager)</h2>
+<!-- ========================= -->
+<!-- INSTALLAZIONE             -->
+<!-- ========================= -->
+<h2 id="installazione">🛠️ INSTALLAZIONE</h2>
 
-      <section id="accesso-autenticazione">
-        <h3>A. Accesso e Autenticazione</h3>
-        <p>Endpoint principali per login, richiesta OTP e gestione password:</p>
+<p>Questo progetto può essere installato su Docker o Kubernetes.<br>
+⚠️ Prima di iniziare, assicurarsi che il database sia avviato e configurato correttamente.</p>
 
-        <table class="endpoint-table" style="width:100%;border-collapse:collapse">
-          <thead>
-            <tr>
-              <th style="text-align:left;padding:.5rem;border-bottom:1px solid #eee">Endpoint</th>
-              <th style="text-align:left;padding:.5rem;border-bottom:1px solid #eee">Metodo</th>
-              <th style="text-align:left;padding:.5rem;border-bottom:1px solid #eee">Descrizione</th>
-              <th style="text-align:left;padding:.5rem;border-bottom:1px solid #eee">Body / Parametri</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="padding:.5rem;border-bottom:1px solid #f6f6f6"><code>/users/request_access</code></td>
-              <td style="padding:.5rem;border-bottom:1px solid #f6f6f6">POST</td>
-              <td style="padding:.5rem;border-bottom:1px solid #f6f6f6">Richiede OTP per accesso (invia OTP a email dopo verifica credenziali).</td>
-              <td style="padding:.5rem;border-bottom:1px solid #f6f6f6">username, password (string)</td>
-            </tr>
-            <tr>
-              <td style="padding:.5rem;border-bottom:1px solid #f6f6f6"><code>/users/login</code></td>
-              <td style="padding:.5rem;border-bottom:1px solid #f6f6f6">POST</td>
-              <td style="padding:.5rem;border-bottom:1px solid #f6f6f6">Effettua login e restituisce token.</td>
-              <td style="padding:.5rem;border-bottom:1px solid #f6f6f6">username, password, otp</td>
-            </tr>
-            <tr>
-              <td style="padding:.5rem;border-bottom:1px solid #f6f6f6"><code>/users/change_password</code></td>
-              <td style="padding:.5rem;border-bottom:1px solid #f6f6f6">POST</td>
-              <td style="padding:.5rem;border-bottom:1px solid #f6f6f6">Cambio password (richiede vecchia password).</td>
-              <td style="padding:.5rem;border-bottom:1px solid #f6f6f6">new_password (string)</td>
-            </tr>
-            <tr>
-              <td style="padding:.5rem;border-bottom:1px solid #f6f6f6"><code>/users/reset_password</code></td>
-              <td style="padding:.5rem;border-bottom:1px solid #f6f6f6">POST</td>
-              <td style="padding:.5rem;border-bottom:1px solid #f6f6f6">Reset password tramite username + email.</td>
-              <td style="padding:.5rem;border-bottom:1px solid #f6f6f6">username, email, new_password</td>
-            </tr>
-          </tbody>
-        </table>
+<h3>📄 Configurazione (.env)</h3>
 
-        <p>Tipicamente la risposta di <code>/users/login</code> ha la forma:</p>
-        <pre><code>{
-  "access_token": "eyJ... (jwt)",
-  "token_type": "bearer",
-  "user_type": "researcher"
-}</code></pre>
-      </section>
+<pre>
+COMPOSE_PROJECT_NAME=b4web_backend_api
+DB_HOST='host.docker.internal'
+DB_USER='thisuser'
+DB_PASSWORD='xxxxxyyyy123!'
+DB_NAME='b4web'
+APP_DOMAIN='localhost'
+DB_PORT=5432
+APP_PORT=8000
+DB_DATA_PATH=b4web_db_data
+admin_user='pippoAdmin'
+admin_pass='pippoPW'
+admin_email='pippo.disney@topolina.com'
+SECRET_KEY='PIPPO_SECRET_KEY'
+ALGORITHM='HS256'
+SMTP_SERVER='smtp.disney.com'
+SMTP_PORT=313
+SMTP_USERNAME='disney-mail.blablablabla-0123456-yumyum'
+SMTP_PASSWORD='plutoPW'
+EMAIL_SENDER='DoNotReply@mailsend.disney.com'
+ALLOWED_ORIGINS=http://localhost:3000
+EXTTERNAL_ML_DATA_PATH='./external_ml_data'
+</pre>
 
-      <section id="gestione-amministratori" style="margin-top:1rem">
-        <h3>B. Gestione Utenti (Amministratori)</h3>
-        <p>Questi endpoint sono riservati ai superuser (admin).</p>
+<h3>▶️ Esecuzione in locale</h3>
+<pre>
+uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --env-file .env
+</pre>
 
-        <ul>
-          <li><strong><code>/users/create_user</code> POST</strong> — crea un utente: <code>username, email, password, type</code>.</li>
-          <li><strong><code>/users/get_list</code> GET</strong> — lista utenti con paginazione: <code>page</code>, <code>limit</code>. Restituisce <code>total_users</code>, <code>total_pages</code>, <code>page</code>, <code>limit</code>, <code>users</code>.</li>
-          <li><strong><code>/users/delete/{user_id}</code> DELETE</strong> — cancella utente (path param <code>user_id</code>).</li>
-          <li><strong><code>/users/change_role</code> PUT</strong> — cambia ruolo: body <code>{ "user_id": int, "new_role": "string" }</code>.</li>
-          <li><strong><code>/users/verify_email</code> GET</strong> — verifica email per abilitare login: query param <code>check</code>.</li>
-        </ul>
-      </section>
-    </article>
+<h3>🐳 Installazione su Docker</h3>
+<pre>docker-compose up --build -d</pre>
+<pre>docker-compose down</pre>
 
-    <!-- III. Gestione Dati -->
-    <article id="gestione-dati" class="card">
-      <h2>III. Gestione Dati (Data Manager)</h2>
+<h3>☸️ Installazione su Kubernetes</h3>
 
-      <section id="metaboliti">
-        <h3>A. Gestione Metaboliti</h3>
-        <p>Endpoint per CRUD sui metaboliti e per accedere ai dettagli e alle relazioni con specie e sperimentazioni.</p>
+<h4>1. Namespace</h4>
+<pre>kubectl create namespace b4web</pre>
 
-        <ul>
-          <li><code>/data/get_all_metabolites</code> GET — lista completa di metaboliti.</li>
-          <li><code>/data/get_metabolite</code> GET — dettaglio metabolita (query: <code>metabolite_name</code>).</li>
-          <li><code>/data/add_metabolite</code> POST — aggiunta metabolita (payload complesso: name, cid, molecularformula, smile, InChIKey, dati spettrometria, tassonomia, ecc.).</li>
-          <li><code>/data/update_metabolite</code> PUT — aggiornamento (modello metabolita).</li>
-          <li><code>/data/delete_metabolite/{name}</code> DELETE — elimina per nome.</li>
-          <li><code>/data/metabolite_detail</code> GET — dettagli estesi (query: <code>metabolite_name</code>).</li>
-        </ul>
-      </section>
+<h4>2. Secrets</h4>
+<pre>
+apiVersion: v1
+kind: Secret
+metadata:
+  name: b4web-env-secrets
+  namespace: b4web
+type: Opaque
+stringData:
+  db-password: "xxxxyyyy123!"
+  admin-pass: "pippoPW"
+  smtp-password: "plutoPW"
+  secret-key: "PIPPO_SECRET_KEY"
+</pre>
 
-      <section id="spettrometria" style="margin-top:1rem">
-        <h3>B. Gestione Spettrometria</h3>
-        <p>Endpoint per gestire dati sperimentali (mz, rt, adducts, peaks, immagini/file in base64).</p>
+<h4>3. Deployment</h4>
+<pre>kubectl apply -f deployment.yml</pre>
 
-        <ul>
-          <li><code>/data/get_spectrometry</code> GET — restituisce adduct e settings di base.</li>
-          <li><code>/data/add_spectrometry</code> POST — inserisce dati spettrometria (parametri dettagliati, peaks, image_base64, file_base64).</li>
-          <li><code>/data/get_spectrometry/{id}</code> GET — ottiene spettrometria per id.</li>
-          <li><code>/data/get_all_spectrometries</code> GET — lista paginata.</li>
-          <li><code>/data/delete_spectrometry/{id}</code> DELETE — rimozione per id; attenzione alle dipendenze.</li>
-          <li><code>/data/delete_all_metabolite_experiment</code> DELETE — elimina tutti gli esperimenti di un metabolita (query: <code>name</code>).</li>
-          <li><code>/data/delete_metabolite_experiment</code> DELETE — elimina esperimento specifico (query: <code>name, rt, replicate_num, sample_id</code>).</li>
-        </ul>
-      </section>
+<h4>4. Service</h4>
+<pre>kubectl apply -f service.yml</pre>
 
-      <section id="tassonomia" style="margin-top:1rem">
-        <h3>C. Gestione Tassonomia e Specie</h3>
-        <ul>
-          <li><code>/data/get_all_species</code> GET — lista specie (paginata).</li>
-          <li><code>/data/get_specie</code> GET — cerca specie e metaboliti associati (query: <code>scientific_name</code>).</li>
-          <li><code>/data/get_all_genera</code>, <code>/data/get_genus</code>, <code>/data/get_all_families</code>, <code>/data/get_family</code>.</li>
-          <li><code>/data/add_taxonomy</code> POST — aggiunge tassonomia (campi come <code>id_taxa, scientific_name, kingdom, phylum, class_taxa, taxa_order, family, ...</code>).</li>
-          <li><code>/data/update_taxonomy</code> PUT — aggiorna tassonomia (by id).</li>
-          <li><code>/data/delete_taxonomy/{id_taxa}</code> DELETE — elimina tassonomia (attenzione: cascata su altre tabelle).</li>
-          <li><code>/data/taxonomy_detail</code> GET — dettaglio tassonomia con metaboliti e esperimenti (query: <code>scientific_name</code>).</li>
-        </ul>
-      </section>
+<h4>5. Accesso</h4>
+<p>
+• Ingress Controller o LoadBalancer per accesso esterno<br>
+• Impostare APP_DOMAIN, es: https://b4web-api.neodatagroup.ai<br>
+• Accesso allo Swagger: https://b4web-api.neodatagroup.ai/docs<br>
+</p>
 
-      <section id="campioni" style="margin-top:1rem">
-        <h3>D. Gestione Campioni e Località</h3>
-        <ul>
-          <li><code>/data/add_sample</code> POST — aggiunge un campione (campi geo e tassonomici: <code>istat_code, date, taxonomy_id, locality, decimalLatitude, occurrenceRemarks</code>).</li>
-          <li><code>/data/get_all_samples</code> GET — lista campioni con paginazione.</li>
-          <li><code>/data/get_sample/{sample_id}</code> GET — dettaglio campione.</li>
-          <li><code>/data/update_sample/{sample_id}</code> PUT — aggiornamento campione.</li>
-          <li><code>/data/delete_sample/{sample_id}</code> DELETE — eliminazione (attenzione alle dipendenze).</li>
-          <li>Varie utility: <code>/data/search_occurrence</code>, <code>/data/get_all_sample_localities</code>, <code>/data/get_all_sample_identifies</code>.</li>
-          <li>Endpoint geografici: <code>/data/get_comuni</code>, <code>/data/get_province</code>, <code>/data/get_all_provinces</code>, <code>/data/get_sigla</code>.</li>
-        </ul>
-      </section>
+<!-- ========================= -->
+<!-- AVVIO SERVER              -->
+<!-- ========================= -->
+<h2 id="avvio-server">🚀 ALL’AVVIO DEL SERVER</h2>
 
-      <section id="ricerca-dati" style="margin-top:1rem">
-        <h3>E. Ricerca Dati (Metaboliti e Spettrometria)</h3>
-        <p>Funzionalità di ricerca avanzata basate su m/z sperimentale, formula + RT, o frammenti:</p>
-        <ul>
-          <li><code>/data/search_metabolite_by_experimental_mz</code> GET — query: <code>experimental_mz</code>, <code>experimental_mz_type</code> (1/-1), <code>error_window_mz</code>.</li>
-          <li><code>/data/get_metabolite_by_neg_mz_expected</code> GET — ottiene Mz negative attese (param: <code>name</code>).</li>
-          <li><code>/data/search_metabolite_by_formula_rt</code> GET — ricerca per <code>molecular_formula</code> e <code>rt</code> (+ finestre di errore).</li>
-          <li><code>/data/search_metabolite_by_fragments</code> GET — ricerca per frammenti (array di frammenti, tipo, finestra di errore).</li>
-        </ul>
-      </section>
+<p>Quando l’applicazione parte, FastAPI esegue:</p>
+<ul>
+  <li>Creazione FastAPI()</li>
+  <li>Caricamento .env</li>
+  <li>Configurazione CORS</li>
+  <li>Registrazione router /users, /data, /conn</li>
+  <li>Avvio uvicorn</li>
+</ul>
 
-      <section id="settings-adducts" style="margin-top:1rem">
-        <h3>F. Gestione Settings e Adducts</h3>
-        <ul>
-          <li><code>/data/get_all_adducts</code> GET — lista adduct distinti per tipo (<code>adduct_type=pos|neg</code>).</li>
-          <li><code>/data/get_all_settings</code> GET — lista settings.</li>
-          <li><code>/data/get_setting</code> GET — ricerca setting per parametri (<code>ionization_source</code>, <code>ionization_type</code>, <code>device_model</code>, <code>collision_energy</code>, <code>capillary_voltage</code>, <code>conical_voltage</code>).</li>
-          <li><code>/data/add_setting</code> POST, <code>/data/update_setting/{id}</code> PUT, <code>/data/delete_setting/{id}</code> DELETE.</li>
-        </ul>
-      </section>
+<!-- ========================= -->
+<!-- FILES                     -->
+<!-- ========================= -->
+<h2 id="files">🧩 Descrizione dei file</h2>
 
-      <section id="gruppi-composti" style="margin-top:1rem">
-        <h3>G. Gestione Gruppi di Ricerca e Composti</h3>
-        <ul>
-          <li><code>/data/get_all_compounds</code> GET — composti (paginati).</li>
-          <li><code>/data/get_all_research_groups</code> GET — gruppi di ricerca (paginati).</li>
-        </ul>
-      </section>
+<h3>📄 main.py & models.py</h3>
+<p>main.py gestisce avvio e routing.<br>models.py contiene tutte le tabelle SQLAlchemy.</p>
 
-      <section id="replicati" style="margin-top:1rem">
-        <h3>H. Gestione Replicati Biologici</h3>
-        <ul>
-          <li><code>/data/add_biological_replicate</code> POST — aggiunge replicato (campi: <code>number, sample_id, setting_id?, notes?, scientific_name</code>).</li>
-          <li><code>/data/delete_biological_replicate</code> DELETE — elimina replicato (query: <code>number, sample_id</code>).</li>
-          <li><code>/data/get_list_biologicalreplicate</code> GET — lista replicati (filtri: <code>sample_id</code>, paginazione).</li>
-        </ul>
-      </section>
+<h3>📄 settings.py</h3>
+<p>Gestione delle variabili ambiente.</p>
 
-      <section id="bioattivita" style="margin-top:1rem">
-        <h3>I. Gestione Bioattività e Classi</h3>
-        <p>Endpoint per bioassay, bioactivities e classi:</p>
-        <ul>
-          <li><code>/data/get_bioassays_from_db</code> GET — bioassay dal DB per un metabolita (query <code>metabolite_name</code>).</li>
-          <li><code>/data/get_all_bioactivities</code> GET — lista bioactivities (paginata).</li>
-          <li><code>/data/get_bioactivities_for_taxonomy/{scientific_name}</code> GET — bioactivities per tassonomia.</li>
-          <li><code>/data/get_bioactivity/{bioactivity_id}</code>, <code>/data/add_bioactivity</code> POST, <code>/data/update_bioactivity</code> PUT, <code>/data/delete_bioactivity/{id}</code> DELETE.</li>
-          <li>Endpoint per gestione classi: <code>/data/get_all_bioactivity_classes</code>, <code>/data/add_bioactivity_class</code>, <code>/data/update_bioactivity_class/{id}</code>, <code>/data/delete_bioactivity_class/{id}</code>.</li>
-          <li>Analoghi endpoint per <code>bioassay classes</code>.</li>
-        </ul>
-      </section>
+<h3>📄 database_session.py</h3>
+<p>Connessione al DB + get_db()</p>
 
-      <section id="sinonimi" style="margin-top:1rem">
-        <h3>J. Ricerca per Sinonimi</h3>
-        <ul>
-          <li><code>/data/metabolite_synonyms</code> GET — ricerca sinonimi metaboliti (query: <code>synonym</code>).</li>
-          <li><code>/data/taxonomy_synonyms</code> GET — ricerca tassonomia per sinonimi (query: <code>synonym</code>).</li>
-        </ul>
-      </section>
-    </article>
+<h3>📄 tableparams.py</h3>
+<p>Strutture dati per form/JSON/ETL.</p>
 
-    <!-- IV. Machine Learning -->
-    <article id="ml" class="card">
-      <h2>IV. Machine Learning</h2>
-      <p>Endpoint dedicato al confronto / matching spettri:</p>
-      <ul>
-        <li><code>/ml/spectrum_match</code> POST — form multipart con file JSON binario contenente spettri (<code>input_file</code>), opzionali <code>machine</code> (default <code>QTOF</code>), <code>ion_mode</code> (<code>POSITIVE</code> o <code>NEGATIVE</code>), <code>compound_class</code> (default <code>Natural Product</code>), opzionale <code>top_n</code>.</li>
-      </ul>
-      <p>Tipicamente la risposta è un oggetto con le top N corrispondenze e punteggi di similarità; payload e parametri sono multipart/form-data.</p>
-    </article>
+<h3>🔄 Interazioni</h3>
+<ol>
+  <li>main.py → avvio</li>
+  <li>settings.py → configurazioni</li>
+  <li>database_session → dipendenze DB</li>
+  <li>models.py → tabelle</li>
+  <li>tableparams → input</li>
+  <li>routers → API</li>
+  <li>datamanager → ETL logiche</li>
+  <li>usermanager → utenti</li>
+</ol>
 
-    <!-- V. PubChem connector -->
-    <article id="pubchem" class="card">
-      <h2>V. Connettore PubChem (Pubchem connector)</h2>
-      <p>Call che interrogano PubChem per arricchire i dati interni:</p>
-      <ul>
-        <li><code>/conn/pubchem/get_metabolite_data</code> GET — query: <code>name</code> restituisce informazioni pubbliche (es. CID, proprietà chimiche).</li>
-        <li><code>/conn/pubchem/get_pubchem_taxonomy</code> GET — dato il nome di un esemplare restituisce tassonomia.</li>
-        <li><code>/conn/pubchem/get_pug_view_data</code> GET — dato il <code>cid</code> restituisce la pagina PUG-View completa.</li>
-        <li><code>/conn/pubchem/get_bioassays_from_cid</code> GET — bioassay da PubChem per CID.</li>
-        <li><code>/conn/pubchem/get_bioassays_from_aid</code> GET — bioassay da PubChem per AID (paginato con <code>page</code>, <code>limit</code>).</li>
-      </ul>
-    </article>
+<!-- ========================= -->
+<!-- USERMANAGER               -->
+<!-- ========================= -->
+<h2 id="usermanager">👤 UserManager</h2>
 
-    <!-- VI. Excel connector -->
-    <article id="excel" class="card">
-      <h2>VI. Connettore Excel (Excel connector)</h2>
-      <p>Endpoint per import massivo da file Excel/CSV e per generare grafici di spettrometria dal file:</p>
-      <ul>
-        <li><code>/conn/excel/spectrometry_chart</code> POST — carica file (.xlsx/.xls) e parametro <code>intensity_threshold</code> per generare grafico dei picchi.</li>
-        <li><code>/conn/excel/add_bioactivity</code> POST — importa bioactivity da file xlsx/csv.</li>
-        <li><code>/conn/excel/add_taxonomy_and_sample</code> POST — importa tassonomia e/o campioni.</li>
-        <li><code>/conn/excel/add_experimental_metabolite</code> POST — importa experimental metabolite da CSV/XLSX/XLS.</li>
-      </ul>
-      <p>Questi endpoint usano <code>multipart/form-data</code> per l'upload dei file.</p>
-    </article>
+<p>Modulo dedicato a:</p>
+<ul>
+  <li>autenticazione</li>
+  <li>gestione password</li>
+  <li>OTP via email</li>
+  <li>superuser</li>
+  <li>scheduler pulizia OTP</li>
+</ul>
 
-    <!-- VII. Schemi -->
-    <article id="schemi" class="card">
-      <h2>VII. Schemi dei Dati (Schemas)</h2>
-      <p>Riepilogo degli schemi principali (modelli Pydantic / OpenAPI):</p>
+<!-- ========================= -->
+<!-- API USERS                 -->
+<!-- ========================= -->
+<h2 id="apiusers">🌐 Endpoint APIusers.py</h2>
 
-      <h3>Schemi Utente</h3>
-      <ul>
-        <li><strong>LoginRequest</strong>: <code>{ username: string, password: string, otp?: string }</code></li>
-        <li><strong>LoginResponse</strong>: <code>{ access_token: string, token_type: string, user_type: string }</code></li>
-        <li><strong>CreateUserRequest</strong>: <code>{ username: string, email: string, password: string }</code></li>
-        <li><strong>ChangeUserRoleRequest</strong>: <code>{ user_id: integer, new_role: string }</code></li>
-      </ul>
+<h3>🔐 Autenticazione</h3>
+<ul>
+  <li>/request_access</li>
+  <li>/login</li>
+  <li>JWT token</li>
+</ul>
 
-      <h3>Metaboliti e Tassonomia</h3>
-      <ul>
-        <li><strong>MetaboliteModel</strong>: modello complesso con campi quali <code>name, molecularformula, InChIKey, smile, molecularclass, neg_mz, pos_adduct, ...</code></li>
-        <li><strong>MetaboliteDetailResponse</strong>: <code>{ data: object, classes: array, unique_neg_fragments: array, unique_pos_fragments: array }</code></li>
-        <li><strong>TaxonomyModel</strong>: <code>{ id_taxa: string, scientific_name: string, kingdom: string, phylum: string, class_taxa: string, taxa_order: string, family: string }</code></li>
-        <li><strong>TaxonomyDetailResponse</strong>: include dettagli tassonomici, metaboliti e campioni associati.</li>
-      </ul>
+<h3>🔁 Gestione Password</h3>
+<ul>
+  <li>/change_password</li>
+  <li>/reset_password</li>
+</ul>
 
-      <h3>Schemi Campioni (Samples)</h3>
-      <ul>
-        <li><strong>SampleModel</strong>: include <code>istat_code, date, taxonomy_id, locality, decimalLatitude, occurrenceRemarks, notes</code> e altri campi di contesto.</li>
-        <li><strong>OccurrenceRemarksItem</strong>: <code>{ sample_id, scientific_name, municipality, province_abbreviation, replicate_number }</code></li>
-      </ul>
+<h3>👤 Gestione Utenti</h3>
+<ul>
+  <li>/create_user</li>
+  <li>/verify_email</li>
+  <li>/get_list</li>
+  <li>/delete/{id}</li>
+  <li>/change_role</li>
+</ul>
 
-      <h3>Schemi Spettrometria e Settings</h3>
-      <ul>
-        <li><strong>SpectrometryRequestModel</strong>: <code>{ metabolite_name, rt: number, intensity_threshold: number, ionization: 1|-1, adduct: string, device: {...}, filtered_peaks: [{mz, intensity, percentBIC}], image_base64?, file_base64? }</code></li>
-        <li><strong>SettingModel</strong>: <code>{ ionization_source, ionization_type, device_model, collision_energy: number, capillary_voltage: number, conical_voltage: number }</code></li>
-      </ul>
+<!-- ========================= -->
+<!-- DATAMANAGER ETL           -->
+<!-- ========================= -->
+<h2 id="datamanager">📦 DataManager & ETL</h2>
 
-      <h3>Schemi Bioattività</h3>
-      <ul>
-        <li><strong>BioactivityInsertRequest</strong>: struttura dettagliata per collegare bioactivity a campioni, tassonomia e settings.</li>
-        <li><strong>BioactivityClassRequest / Response</strong>: <code>{ id: string, bioactivity: string }</code></li>
-        <li><strong>BioassayClassRequest / Response</strong>: <code>{ id: string, bioassay: string }</code></li>
-      </ul>
+<p>Contiene:</p>
+<ul>
+  <li>insert_metabolite.py</li>
+  <li>insert_spectrometry.py</li>
+  <li>insert_taxonomy.py</li>
+  <li>insert_bioactivity.py</li>
+  <li>metabolite_detail.py</li>
+  <li>index.py (ricerca)</li>
+</ul>
 
-      <h4>Nota sull'uso degli schemi</h4>
-      <p>Per implementare client robusti si consiglia di scaricare <code>/openapi.json</code> e generare client (es. <code>openapi-generator</code> o <code>swagger-codegen</code>) in modo da avere tipi e validazioni coerenti lato client.</p>
-    </article>
+<!-- ========================= -->
+<!-- CONNECTORS                -->
+<!-- ========================= -->
+<h2 id="connectors">📦 Connectors</h2>
 
-    <article class="card" style="margin-top:1rem">
-      <h3>Analogia operativa</h3>
-      <p>Per semplificare la comprensione: il sistema API funziona come una biblioteca specializzata:</p>
-      <ul>
-        <li><strong>Users Manager</strong> = ufficio di registrazione (tessere / ruoli).</li>
-        <li><strong>Data Manager</strong> = sale di lettura e cataloghi (metaboliti, spettrometria, tassonomia, campioni).</li>
-        <li><strong>Connettori</strong> = servizi esterni o import (PubChem, Excel).</li>
-        <li><strong>Ricerca</strong> = motore di ricerca avanzato (per formula, frammenti, m/z sperimentale).</li>
-      </ul>
-    </article>
+<h3>Da Excel</h3>
+<ul>
+  <li>POST /spectrometry_graph</li>
+  <li>POST /add_bioactivity</li>
+  <li>POST /add_taxonomy_and_sample</li>
+  <li>POST /add_experimental_metabolite</li>
+</ul>
 
-    <div style="margin-top:1.5rem" class="card">
-      <h3>Suggerimenti per prossimi passi</h3>
-      <ol>
-        <li>Vuoi che trasformi ogni sezione in un elenco tabellare completo con esempi di request/response (JSON) per copy-paste nella console?</li>
-        <li>Ti serve un file OpenAPI (YAML/JSON) d'esempio ricavato da queste specifiche (posso generare uno skeleton)?</li>
-      </ol>
-      <p style="margin-top:.5rem" class="muted">Se preferisci, posso già generare uno skeleton OpenAPI 3.1 basato su queste descrizioni — dimmi se lo vuoi in JSON o YAML e lo preparo direttamente.</p>
-    </div>
+<h3>Da PubChem</h3>
+<ul>
+  <li>GET /get_metabolite_data</li>
+  <li>GET /get_pubchem_taxonomy</li>
+  <li>GET /get_pug_view_data</li>
+  <li>GET /get_bioassays_from_cid</li>
+  <li>GET /get_bioassays_from_aid</li>
+</ul>
 
-  </div>
+<!-- ========================= -->
+<!-- MACHINE LEARNING          -->
+<!-- ========================= -->
+<h2 id="machinelearning">📦 Machine Learning</h2>
+
+<p>match_ms2.py:</p>
+
+<ul>
+  <li>matches_filters()</li>
+  <li>find_ready_reference()</li>
+  <li>load_spectra_from_json()</li>
+  <li>generate_output()</li>
+  <li>match_spectra()</li>
+</ul>
+
+</div>
 </section>
 
 <footer class="footer">
@@ -387,8 +327,7 @@
         <span>B4PhytoWeb</span>
       </div>
       <p class="muted">
-        B4Web: una tassonomia Biomolecolare, delle Biofonti e delle Bioattività per liberare il potenziale della Biodiversità – finanziato da: 
-        Commissione Europea - Next Generation EU, Missione 4 Componente 1 CUP C33C24000340001
+        B4Web — finanziato da: Commissione Europea - Next Generation EU
       </p>
     </div>
 
@@ -399,18 +338,20 @@
         <li><a href="vantaggi.html">Vantaggi</a></li>
         <li><a href="origine.html">Origine</a></li>
         <li><a href="supporto.html">Supporto</a></li>
-        <li><a href="lp-video.html">Esplora la piattaforma</a></li>
+        <li><a href="lp-video.html">Esplora</a></li>
       </ul>
     </div>
 
     <div class="footer-logos" style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:flex-start">
       <img src="assets/20240209112418!LOGO_italiadomani.jpg" alt="Italia Domani" height="50" />
       <img src="assets/EN_Funded_by_the_European_Union_RGB_POS.png" alt="Finanziato dall'Unione Europea" height="50" />
-      <img src="assets/LOGO_UniversitaRicerca.jpg" alt="Ministero dell'Università e della Ricerca" height="50" />
+      <img src="assets/LOGO_UniversitaRicerca.jpg" alt="Ministero Università e Ricerca" height="50" />
       <img src="assets/Logo_NBFC.png" alt="NBFC" height="50" />
     </div>
   </div>
 </footer>
+
 <script src="assets/script.js"></script>
+
 </body>
 </html>
