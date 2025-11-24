@@ -1,312 +1,940 @@
 <!doctype html>
 <html lang="it">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Manuale — B4PhytoWeb</title>
-  <meta name="description" content="Manuale tecnico di installazione, configurazione e utilizzo delle API B4PhytoWeb.">
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/style.css">
-</head>
-<body>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Documentazione Tecnica — B4Web API</title>
+    <meta name="description" content="Manuale di installazione e descrizione dei moduli e degli endpoint dell'API backend.">
+    <style>
+        :root {
+            --color-primary: #007bff;
+            --color-secondary: #6c757d;
+            --color-success: #28a745;
+            --color-danger: #dc3545;
+            --color-warning: #ffc107;
+            --color-info: #17a2b8;
+            --color-light: #f8f9fa;
+            --color-dark: #343a40;
+            --color-text-body: #212529;
+            --color-text-muted: #6c757d;
+            --font-inter: 'Inter', sans-serif;
+            --spacing-unit: 1rem;
+        }
 
+        /* Reset and Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-inter);
+            color: var(--color-text-body);
+            line-height: 1.6;
+            background-color: #ffffff;
+            scroll-behavior: smooth;
+        }
+
+        a {
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .wrap, .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-unit) * 2;
+        }
+
+        .section {
+            padding: var(--spacing-unit) * 4 0;
+        }
+
+        /* Header/Nav */
+        .nav {
+            border-bottom: 1px solid var(--color-light);
+            background: var(--color-dark);
+            color: var(--color-light);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-unit) 2rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--color-light);
+        }
+
+        .brand img {
+            height: 28px;
+            width: 28px;
+            margin-right: 0.5rem;
+        }
+
+        .navbar nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .navbar nav a {
+            color: var(--color-light);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        /* Hero Section */
+        .page-hero {
+            background: #e9f0ff; /* Light blue background for hero */
+            padding: 4rem 0;
+            border-bottom: 1px solid #c2d2ff;
+        }
+        
+        .page-hero .wrap {
+            display: flex;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .page-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--color-dark);
+        }
+        
+        .page-hero p {
+            font-size: 1.1rem;
+            color: var(--color-text-body);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            background-color: #d1e7dd;
+            color: #0f5132;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .badge .dot {
+            width: 8px;
+            height: 8px;
+            background-color: #0f5132;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+        
+        /* Manual Layout (Sidebar + Content) */
+        .manual-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr; /* 250px for sidebar, rest for content */
+            gap: 3rem;
+            align-items: start;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar-nav {
+            position: sticky;
+            top: 2rem;
+            padding: 1rem;
+            border: 1px solid var(--color-light);
+            border-radius: 6px;
+            background-color: var(--color-light);
+        }
+
+        .sidebar-nav ul {
+            list-style: none;
+        }
+
+        .sidebar-nav > ul > li {
+            margin-top: 0.75rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #ddd;
+        }
+        
+        .sidebar-nav > ul > li:first-child {
+            border-top: none;
+            margin-top: 0;
+        }
+
+        .sidebar-nav > ul > li > a {
+            font-weight: 700;
+            display: block;
+            padding: 0.25rem 0;
+            color: var(--color-dark);
+        }
+
+        .sidebar-nav ul ul {
+            padding-left: 1rem;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .sidebar-nav ul ul li {
+            margin-top: 0.25rem;
+        }
+
+        .sidebar-nav ul ul a {
+            font-weight: 400;
+            color: var(--color-text-body);
+            display: block;
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 0 1rem;
+        }
+        
+        .main-content h2 {
+            font-size: 2rem;
+            margin: 2rem 0 1rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+            color: var(--color-primary);
+        }
+        
+        .main-content h3 {
+            font-size: 1.5rem;
+            margin: 1.5rem 0 0.75rem;
+            color: var(--color-dark);
+        }
+        
+        .main-content h4 {
+            font-size: 1.25rem;
+            margin: 1rem 0 0.5rem;
+            color: var(--color-text-body);
+        }
+
+        .main-content pre {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .main-content ul, .main-content ol {
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .main-content ul li, .main-content ol li {
+            margin-bottom: 0.5rem;
+        }
+
+        .main-content p {
+            margin-bottom: 1rem;
+        }
+
+        .main-content .code-block-title {
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .main-content .warning {
+            padding: 1rem;
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            margin: 1rem 0;
+            color: #664d03;
+        }
+        
+        /* Footer Styles */
+        .footer {
+            background: var(--color-dark);
+            color: var(--color-light);
+            padding: 3rem 0;
+            border-top: 5px solid var(--color-primary);
+        }
+
+        .footer .cols {
+            display: grid;
+            grid-template-columns: 2fr 1fr 2fr;
+            gap: 2rem;
+        }
+
+        .footer .brand {
+            color: var(--color-light);
+        }
+
+        .footer h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--color-light);
+        }
+
+        .footer ul {
+            list-style: none;
+        }
+
+        .footer ul a {
+            color: #bbb;
+            display: block;
+            padding: 0.25rem 0;
+        }
+
+        .footer .muted {
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+
+        .footer-logos img {
+            opacity: 0.8;
+            max-width: 100px;
+            height: auto;
+        }
+        
+        /* Media Queries for Responsiveness (optional but good practice) */
+        @media (max-width: 992px) {
+            .manual-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar-nav {
+                position: relative;
+                top: auto;
+            }
+            
+            .footer .cols {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-hero .wrap {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .page-hero .illustration {
+                display: none;
+            }
+        }
+    </style>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    </head>
+<body>
 <header class="nav">
-  <div class="navbar">
-    <a class="brand" href="index.html">
-      <img src="assets/logo.svg" alt=""/>
-      <span>B4PhytoWeb</span>
-    </a>
-    <div style="display:flex;gap:.5rem;align-items:center">
-      <button class="menu-toggle" aria-label="Apri menu">☰</button>
+    <div class="navbar">
+        <a class="brand" href="#" aria-label="B4Web Home">
+            <span>B4Web API</span>
+        </a>
+        <div style="display:flex;gap:.5rem;align-items:center">
+            <button class="menu-toggle" aria-label="Apri menu" style="display:none;">☰</button>
+        </div>
+        <nav aria-label="Principale">
+            <ul>
+                <li><a href="#installazione">Installazione</a></li>
+                <li><a href="#moduli">Moduli</a></li>
+                <li><a href="#connettori">Connettori</a></li>
+                <li><a href="#machine-learning">ML</a></li>
+            </ul>
+        </nav>
     </div>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="funzionalita.html">Funzionalità</a></li>
-        <li><a href="vantaggi.html">Vantaggi</a></li>
-        <li><a href="origine.html">Origine</a></li>
-        <li><a href="supporto.html">Supporto</a></li>
-        <li><a href="manuale.html" class="active">Manuale</a></li>
-      </ul>
-    </nav>
-  </div>
 </header>
 
-<!-- HERO -->
 <section class="page-hero">
-  <div class="wrap">
-    <div>
-      <span class="badge"><span class="dot"></span> Manuale</span>
-      <h1>Manuale Tecnico di B4PhytoWeb</h1>
-      <p>Installazione, configurazione, API, moduli interni ed ETL: tutto il necessario per sviluppatori e amministratori di sistema.</p>
+    <div class="wrap">
+        <div>
+            <span class="badge"><span class="dot"></span> Documentazione Tecnica</span>
+            <h1>Manuale Operativo API Backend</h1>
+            <p>Guida completa all'installazione, configurazione e utilizzo di tutti i moduli (User Manager, Data Manager, Connectors e Machine Learning) dell'applicazione API.</p>
+        </div>
+        </div>
+</section>
+
+<section class="section">
+    <div class="container manual-layout">
+        <nav class="sidebar-nav" aria-label="Sommario">
+            <h3>Sommario</h3>
+            <ul>
+                <li><a href="#installazione">🛠️ Installazione</a>
+                    <ul>
+                        <li><a href="#configurazione">Configurazione</a></li>
+                        <li><a href="#esecuzione-locale">Esecuzione in locale</a></li>
+                        <li><a href="#docker">Installazione su Docker</a></li>
+                        <li><a href="#kubernetes">Installazione su Kubernetes</a></li>
+                    </ul>
+                </li>
+                <li><a href="#avvio-server">🚀 All’avvio del Server</a></li>
+                <li><a href="#descrizione-file">🧩 Descrizione dei file</a>
+                    <ul>
+                        <li><a href="#main-models">main.py & models.py</a></li>
+                        <li><a href="#settings">settings.py</a></li>
+                        <li><a href="#database-session">database_session.py</a></li>
+                        <li><a href="#tableparams">tableparams.py</a></li>
+                    </ul>
+                </li>
+                <li><a href="#usermanager">👤 User Manager</a>
+                    <ul>
+                        <li><a href="#endpoints-users">Endpoint APIusers.py</a></li>
+                        <li><a href="#esempi-users">Esempi di utilizzo</a></li>
+                        <li><a href="#tasks">Script background_tasks.py</a></li>
+                        <li><a href="#scheduler">Script scheduler.py</a></li>
+                    </ul>
+                </li>
+                <li><a href="#datamanager">📦 Data Manager</a>
+                    <ul>
+                        <li><a href="#endpoints-data">Endpoint APIdata.py</a></li>
+                        <li><a href="#insert-metabolite">Script insert_metabolite.py</a></li>
+                        <li><a href="#insert-spectrometry">Script insert_spectrometry.py</a></li>
+                        <li><a href="#metabolite-detail">Script metabolite_detail.py</a></li>
+                        <li><a href="#index-py">Script index.py (Metodi search)</a></li>
+                    </ul>
+                </li>
+                <li><a href="#connettori">📦 Connectors</a>
+                    <ul>
+                        <li><a href="#connector-excel">Da file Excel</a></li>
+                        <li><a href="#connector-pubchem">Da PubChem</a></li>
+                    </ul>
+                </li>
+                <li><a href="#machine-learning">📦 Machine Learning</a>
+                    <ul>
+                        <li><a href="#endpoints-ml">Endpoint APImodel.py</a></li>
+                        <li><a href="#match-ms2">Script match_ms2.py</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <article class="main-content">
+
+            [cite_start]<h2 id="installazione">🛠️ INSTALLAZIONE [cite: 1]</h2>
+            [cite_start]<p>Questo progetto può essere installato su <strong>Docker</strong> o su <strong>Kubernetes</strong>. [cite: 91]</p>
+            <div class="warning">
+                [cite_start]<strong>⚠️ Attenzione:</strong> Prima di tutto, assicurati che il <strong>database sia avviato</strong> e correttamente configurato. [cite: 91]
+            </div>
+
+            [cite_start]<h3 id="configurazione">📄 Configurazione [cite: 2, 92]</h3>
+            [cite_start]<p>Tutte le variabili di ambiente si trovano nel file <code>.env</code>: [cite: 93]</p>
+            [cite_start]<pre>COMPOSE_PROJECT_NAME=b4web_backend_api [cite: 94]
+[cite_start]DB_HOST='host.docker.internal' [cite: 95]
+[cite_start]DB_USER='thisuser' [cite: 96]
+[cite_start]DB_PASSWORD='xxxxxyyyy123!' [cite: 97]
+[cite_start]DB_NAME='b4web' [cite: 98]
+[cite_start]APP_DOMAIN='localhost' [cite: 99]
+[cite_start]DB_PORT=5432 [cite: 100]
+[cite_start]APP_PORT=8000 [cite: 101]
+[cite_start]DB_DATA_PATH=b4web_db_data [cite: 102]
+[cite_start]admin_user='pippoAdmin' [cite: 103]
+[cite_start]admin_pass='pippoPW' [cite: 104]
+[cite_start]admin_email='pippo.disney@topolina.com' [cite: 105]
+[cite_start]SECRET_KEY='PIPPO_SECRET_KEY' [cite: 106]
+[cite_start]ALGORITHM='HS256' [cite: 107]
+[cite_start]SMTP_SERVER='smtp.disney.com' [cite: 108]
+[cite_start]SMTP_PORT=313 [cite: 109]
+[cite_start]SMTP_USERNAME='disney-mail.blablablabla-0123456-yumyum' [cite: 110]
+[cite_start]SMTP_PASSWORD='plutoPW' [cite: 111]
+[cite_start]EMAIL_SENDER='DoNotReply@mailsend.disney.com' [cite: 112]
+[cite_start]ALLOWED_ORIGINS=http://localhost:3000 [cite: 113]
+[cite_start]EXTTERNAL_ML_DATA_PATH='./external_ml_data' [cite: 114]</pre>
+
+            [cite_start]<h3 id="esecuzione-locale">▶️ Esecuzione in locale [cite: 3, 115]</h3>
+            [cite_start]<p>Per eseguire il backend localmente in ambiente di sviluppo: [cite: 116]</p>
+            [cite_start]<pre>uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --env-file .env [cite: 117]</pre>
+
+            [cite_start]<h3 id="docker">🐳 Installazione su Docker [cite: 4, 118]</h3>
+            [cite_start]<p>Per avviare il servizio con Docker: [cite: 119]</p>
+            [cite_start]<pre>docker-compose up --build -d [cite: 120]</pre>
+            [cite_start]<p>Per fermare il servizio: [cite: 121]</p>
+            [cite_start]<pre>docker-compose down [cite: 122]</pre>
+
+            [cite_start]<h3 id="kubernetes">☸️ Installazione su Kubernetes [cite: 5, 123]</h3>
+            [cite_start]<p>Richiede cluster Kubernetes attivo e configurato con accesso a <strong>Secrets</strong>, <strong>PVC</strong>, e <strong>Image Registry</strong>. [cite: 124]</p>
+
+            <h4 id="namespace">1. [cite_start]Namespace [cite: 6, 125]</h4>
+            [cite_start]<p>Assicurati che il namespace <code>b4web</code> esista: [cite: 126]</p>
+            [cite_start]<pre>kubectl create namespace b4web [cite: 127]</pre>
+
+            <h4 id="secrets">2. [cite_start]Secrets [cite: 7, 128]</h4>
+            [cite_start]<p>I segreti sensibili (password, token, ecc.) sono montati da <code>SecretProviderClass</code> tramite CSI driver. [cite: 129]</p>
+            [cite_start]<p><strong>Esempio:</strong> [cite: 130]</p>
+            [cite_start]<pre># b4web-env-secrets.yaml [cite: 131]
+[cite_start]apiVersion: v1 [cite: 132]
+[cite_start]kind: Secret [cite: 133]
+[cite_start]metadata: [cite: 134]
+  [cite_start]name: b4web-env-secrets [cite: 135]
+  [cite_start]namespace: b4web [cite: 136]
+[cite_start]type: Opaque [cite: 137]
+[cite_start]stringData: [cite: 138]
+  [cite_start]db-password: "xxxxyyyy123!" [cite: 139]
+  [cite_start]admin-pass: "pippoPW" [cite: 140]
+  [cite_start]smtp-password: "plutoPW" [cite: 141]
+  [cite_start]secret-key: "PIPPO_SECRET_KEY" [cite: 142]</pre>
+            <div class="warning">
+                [cite_start]<strong>⚠️ Attenzione:</strong> Montato su <code>/mnt/secrets-store</code> in <code>deployment.yml</code>. [cite: 143]
+            </div>
+
+            <h4 id="deployment">3. [cite_start]Deployment [cite: 8, 144]</h4>
+            [cite_start]<p>Serve per avviare, aggiornare e mantenere in esecuzione una o più repliche di un’applicazione containerizzata, in questo caso l’API chiamata <code>b4web-api</code>. [cite: 145]</p>
+            [cite_start]<p>Il file <code>deployment.yml</code> definisce l’app: [cite: 146]</p>
+            [cite_start]<pre>kubectl apply -f deployment.yml [cite: 147]</pre>
+            [cite_start]<p>Contiene: [cite: 148]</p>
+            <ul>
+                [cite_start]<li>1 replica dell’app [cite: 148]</li>
+                [cite_start]<li>Immagine <code>inserire_la_tua_immagine_docker</code> [cite: 148]</li>
+                [cite_start]<li>Montaggio secrets tramite CSI [cite: 148]</li>
+                [cite_start]<li>Variabili d’ambiente per connessione a DB, SMTP, ecc. [cite: 148]</li>
+            </ul>
+
+            <h4 id="service">4. [cite_start]Service [cite: 9, 149]</h4>
+            [cite_start]<p>Questo file definisce un oggetto Kubernetes di tipo <strong>Service</strong> per l’applicazione <code>b4web-api</code>. [cite: 150]</p>
+            [cite_start]<p>Serve per: [cite: 150]</p>
+            <ul>
+                [cite_start]<li>esporre la porta dell’applicazione all’interno del cluster, [cite: 151]</li>
+                [cite_start]<li>astrarre l’accesso ai pod dietro un nome DNS stabile, [cite: 152]</li>
+                [cite_start]<li>permettere la comunicazione tra servizi Kubernetes (es. da un altro pod). [cite: 153]</li>
+            </ul>
+            [cite_start]<p>Espone il backend all’interno del cluster: [cite: 154]</p>
+            [cite_start]<pre>kubectl apply -f service.yml [cite: 155]</pre>
+            [cite_start]<p>Crea un <strong>punto di accesso stabile (ClusterIP)</strong> verso i pod gestiti dal deployment. [cite: 156]</p>
+            [cite_start]<p>Permette al traffico interno al cluster di raggiungere l’API <code>b4web-api</code> attraverso l’indirizzo: [cite: 157, 158]</p>
+            [cite_start]<pre>http://b4web-api.b4web.svc.cluster.local:8000 [cite: 158]</pre>
+            [cite_start]<p>Rende possibile <strong>scalare i pod</strong> (es. 2, 3, 10) senza dover conoscere i singoli IP: il Service gestisce il bilanciamento. [cite: 159]</p>
+            [cite_start]<p><strong>✅ Schema del flusso:</strong> [cite: 160]</p>
+            <ol>
+                [cite_start]<li>Richiesta dal cluster [cite: 161]</li>
+                <li>↓</li>
+                [cite_start]<li>Service: <code>b4web-api</code> (porta 8000) [cite: 163]</li>
+                <li>↓</li>
+                [cite_start]<li>Instrada ai pod con label <code>app=b4web-api</code> [cite: 165]</li>
+                <li>↓</li>
+                [cite_start]<li>Container che ascolta su <code>targetPort: 8000</code> [cite: 167]</li>
+            </ol>
+
+            <h4 id="accesso">5. [cite_start]Accesso [cite: 10, 168]</h4>
+            [cite_start]<p>In ambiente cloud (es. AKS), abbina un <strong>Ingress Controller</strong> o un <strong>LoadBalancer</strong> per rendere disponibile il servizio all’esterno. [cite: 169]</p>
+            [cite_start]<p>Settare il valore di <code>APP_DOMAIN</code> per l’ambiente Kubernetes ad esempio: [cite: 170]</p>
+            [cite_start]<pre>https://b4web-api.neodatagroup.ai [cite: 171]</pre>
+            [cite_start]<p>All’avvio il sistema produrrà uno <strong>SWAGGER</strong> con la descrizione degli endpoint, ad esempio: [cite: 172, 173]</p>
+            [cite_start]<pre>https://b4web-api.neodatagroup.ai/docs#/ [cite: 173]</pre>
+            [cite_start]<p>Settare il valore <code>ALLOWED_ORIGINS</code> per evitare problemi di <strong>CORS</strong>. [cite: 174]</p>
+
+            <hr/>
+
+            [cite_start]<h2 id="avvio-server">🚀 ALL’AVVIO DEL SERVER [cite: 11, 175]</h2>
+            [cite_start]<p>Quando esegui <code>main.py</code>, <strong>FastAPI</strong> avvia l’app seguendo questi passaggi: [cite: 176]</p>
+            <ol>
+                [cite_start]<li><strong>Creazione dell’app FastAPI</strong> [cite: 177][cite_start]<pre>app = FastAPI() [cite: 178]</pre></li>
+                [cite_start]<li><strong>Caricamento variabili d’ambiente</strong> [cite: 179][cite_start]<pre>load_dotenv() [cite: 180][cite_start]</pre>Carica <code>.env</code> e recupera le origini consentite per il CORS. [cite: 182]</li>
+                [cite_start]<li><strong>Configurazione CORS</strong> [cite: 183][cite_start]<pre>app.add_middleware(CORSMiddleware, ...) [cite: 184][cite_start]</pre>Permette a frontend (es. React) su <code>localhost:3000</code> o domini configurati di comunicare con l’API. [cite: 185]</li>
+                [cite_start]<li><strong>Registrazione dei router</strong> [cite: 186][cite_start]<pre>app.include_router(...) # utenti, dati, connettori [cite: 187][cite_start]</pre>Collega i moduli che gestiscono: [cite: 188]
+                    <ul>
+                        [cite_start]<li><code>/users</code> → autenticazione, gestione utenti [cite: 189]</li>
+                        [cite_start]<li><code>/data</code> → operazioni sul database locale (metaboliti, specie, spettrometria) [cite: 190]</li>
+                        [cite_start]<li><code>/conn/pubchem</code> → integrazione esterna con PubChem [cite: 191]</li>
+                        [cite_start]<li><code>/conn/excel</code> → caricamento dati da file Excel [cite: 192]</li>
+                    </ul>
+                </li>
+                [cite_start]<li><strong>Avvio del server</strong> [cite: 193][cite_start]<pre>if __name__ == "__main__": [cite: 194]
+    [cite_start]uvicorn.run(app, host="0.0.0.0", port=8000) [cite: 195][cite_start]</pre>Avvia il server FastAPI con Uvicorn, ascoltando sulla porta 8000. [cite: 196]</li>
+            </ol>
+
+            <hr/>
+
+            [cite_start]<h2 id="descrizione-file">🧩 Descrizione dei file [cite: 12, 197]</h2>
+
+            [cite_start]<h3 id="main-models">📄 <code>main.py</code> & <code>models.py</code> [cite: 13, 198]</h3>
+            <ul>
+                <li>Il <code>main.py</code> è il <strong>punto d’ingresso</strong> dell’applicazione FastAPI. [cite_start]Registra middleware, include i router, carica l’ambiente e avvia il server. [cite: 199, 200]</li>
+                [cite_start]<li>Il <code>models.py</code> contiene <strong>tutte le tabelle del database</strong>, mappate con <strong>SQLAlchemy ORM</strong>. [cite: 201]
+                    <ul>
+                        [cite_start]<li><span style="font-weight: 600;">Autenticazione:</span> <code>User</code>, <code>OTP</code> [cite: 201]</li>
+                        [cite_start]<li><span style="font-weight: 600;">Struttura biologica:</span> <code>Taxonomy</code>, <code>Sample</code>, <code>BiologicalReplicate</code> [cite: 201]</li>
+                        [cite_start]<li><span style="font-weight: 600;">Dati metabolomici:</span> <code>Metabolite</code>, <code>ExperimentalMetabolite</code>, <code>Spectrometry</code> [cite: 201]</li>
+                        [cite_start]<li><span style="font-weight: 600;">Dati PubChem/biochimici:</span> <code>Bioassay</code>, <code>Substance</code>, <code>MetaboliteBioassay</code>, <code>Bioactivity</code>, <code>BioactivityClass</code>, <code>BioassayClass</code>, <code>CompoundClass</code> [cite: 201]</li>
+                        [cite_start]<li><span style="font-weight: 600;">Altro:</span> <code>Province</code>, <code>Municipality</code>, <code>Setting</code>, <code>MolecularClass</code>, <code>MolecularFormula</code>, <code>MolecularStructure</code>, <code>ResearchGroup</code> [cite: 201]</li>
+                    </ul>
+                </li>
+            </ul>
+
+            [cite_start]<h3 id="settings">📄 <code>settings.py</code> [cite: 14, 203]</h3>
+            [cite_start]<p>Classe <code>Config</code> che legge e centralizza le variabili di configurazione ambientale (es. <code>DB_HOST</code>, <code>DB_USER</code>, <code>DB_PASSWORD</code>). [cite: 204]</p>
+            [cite_start]<p>Utilizzato da <code>database_session.py</code> per creare la connessione al database. [cite: 204]</p>
+
+            [cite_start]<h3 id="database-session">📄 <code>database_session.py</code> [cite: 15, 205]</h3>
+            [cite_start]<p>Gestisce la connessione al database <strong>PostgreSQL</strong>. [cite: 206]</p>
+            [cite_start]<p>Crea un <code>SessionLocal</code> tramite SQLAlchemy. [cite: 207]</p>
+            [cite_start]<p>Espone la funzione <code>get_db()</code> per usarla nei router via <code>Depends(get_db)</code>. [cite: 208, 209]</p>
+
+            [cite_start]<h3 id="tableparams">📄 <code>tableparams.py</code> [cite: 16, 210]</h3>
+            [cite_start]<p>Definisce classi Python che rappresentano <strong>dati in ingresso</strong> da form, JSON o chiamate esterne. [cite: 211]</p>
+            [cite_start]<p>Esempi: [cite: 212]</p>
+            <ul>
+                [cite_start]<li><code>MetaboliteParams</code>, <code>ExperimentalMetaboliteParams</code> → usati per costruire record da inserire [cite: 212]</li>
+                [cite_start]<li><code>BioassayParams</code>, <code>TaxonomyParams</code>, <code>SubstanceParams</code> → dati provenienti da PubChem [cite: 212]</li>
+                [cite_start]<li><code>UserParams</code> → gestione utenti [cite: 212]</li>
+            </ul>
+
+            [cite_start]<h3 id="come-interagiscono">🔄 Come interagiscono [cite: 17, 214]</h3>
+            [cite_start]<p>Ecco come i componenti interagiscono tra loro all’avvio e durante l’utilizzo: [cite: 215]</p>
+            <ol>
+                [cite_start]<li><code>main.py</code> → avvia il server FastAPI [cite: 216]</li>
+                [cite_start]<li><code>settings.py</code> → legge configurazioni ambiente [cite: 217]</li>
+                [cite_start]<li><code>database_session.py</code> → apre connessione DB [cite: 218]</li>
+                [cite_start]<li><code>models.py</code> → definisce le tabelle su cui operano gli endpoint [cite: 219]</li>
+                [cite_start]<li><code>tableparams.py</code> → costruisce oggetti input da request/form [cite: 220]</li>
+                [cite_start]<li><code>/routers</code> (APIusers, APIdata, APIconnector) → definiscono le rotte [cite: 221]</li>
+                [cite_start]<li><code>/connectors</code> e <code>/datamanager</code> → logiche di elaborazione dati [cite: 222]</li>
+                [cite_start]<li><code>/usermanager</code> → gestione utenti e autenticazione [cite: 223]</li>
+            </ol>
+
+            <hr/>
+
+            [cite_start]<h2 id="usermanager">👤 usermanager [cite: 18, 224]</h2>
+            [cite_start]<p>Questo modulo contiene l’implementazione delle API per la <strong>gestione degli utenti</strong> della piattaforma. [cite: 225]</p>
+            [cite_start]<p>Funzionalità principali: autenticazione, OTP, gestione password, creazione/verifica utente e operazioni amministrative. [cite: 226]</p>
+            [cite_start]<p><strong>Flusso completo di registrazione e login:</strong> [cite: 230]</p>
+            <ol>
+                [cite_start]<li>Creazione utente (superuser) → <code>/create_user</code> [cite: 231]</li>
+                [cite_start]<li>Verifica email (utente) → <code>/verify_email?check=...</code> [cite: 232]</li>
+                [cite_start]<li>Richiesta OTP (utente) → <code>/request_access</code> [cite: 233]</li>
+                [cite_start]<li>Login (utente) → <code>/login</code> → Ottieni <code>access_token</code> JWT per autenticazioni future [cite: 234]</li>
+                [cite_start]<li>Cambia password → <code>/change_pasword</code> [cite: 235]</li>
+                [cite_start]<li>Password dimenticata → <code>/reset_password</code> [cite: 236]</li>
+            </ol>
+            [cite_start]<p>L'autenticazione è <strong>two-factor (2FA)</strong> basata su password e OTP via email. [cite: 241]</p>
+
+            [cite_start]<h3 id="endpoints-users">🌐 Endpoint <code>APIusers.py</code> [cite: 19, 246]</h3>
+            [cite_start]<p>Definisce una serie di endpoint FastAPI per la <strong>gestione completa degli utenti</strong> (registrazione, autenticazione sicura con OTP, gestione delle password, assegnazione dei ruoli e verifica e-mail). [cite: 247, 248]</p>
+            [cite_start]<p>Utilizza <strong>modelli Pydantic</strong>, <strong>SQLAlchemy</strong> e <strong>JWT</strong> (JSON Web Token). [cite: 249]</p>
+            [cite_start]<p>L'endpoint è montato in <code>main.py</code> con il prefisso <code>/users</code>. [cite: 254]</p>
+
+            [cite_start]<h4>🔐 Autenticazione e Accesso [cite: 20, 255]</h4>
+            <ul>
+                [cite_start]<li><strong>/request_access [POST]:</strong> Richiesta OTP. [cite: 256, 259]
+                    <ul>
+                        [cite_start]<li><strong>Body Model:</strong> <code>RequestAccessRequest</code> (username, password). [cite: 261]</li>
+                        [cite_start]<li><strong>Funzioni:</strong> <code>generate_otp()</code>, <code>store_otp_in_db()</code>, <code>send_otp_email()</code>. [cite: 262, 263, 264, 265]</li>
+                    </ul>
+                </li>
+                [cite_start]<li><strong>/login [POST]:</strong> Login dell’utente con OTP. [cite: 257, 267]
+                    <ul>
+                        [cite_start]<li><strong>Body Model:</strong> <code>LoginRequest</code> (username, password, otp). [cite: 269]</li>
+                        <li><strong>Processo:</strong> Verifica credenziali e OTP (<code>verify_otp_from_db()</code>). [cite_start]Ritorna <code>LoginResponse</code> con <strong>token JWT</strong>. [cite: 271, 272, 274]</li>
+                    </ul>
+                </li>
+            </ul>
+
+            [cite_start]<h4>🔁 Gestione Password [cite: 21, 275]</h4>
+            <ul>
+                [cite_start]<li><strong>/change_password [POST]:</strong> Cambio password autenticato (richiede vecchia password). [cite: 276, 279, 280, 281]</li>
+                [cite_start]<li><strong>/reset_password [POST]:</strong> Reset password dimenticata. [cite: 277, 284]
+                    <ul>
+                        [cite_start]<li><strong>Processo:</strong> Verifica username + email, imposta nuova password, imposta <code>checked = False</code> e invia mail di verifica. [cite: 287, 288]</li>
+                    </ul>
+                </li>
+            </ul>
+
+            [cite_start]<h4>👤 Gestione Utenti [cite: 22, 289]</h4>
+            <ul>
+                <li><strong>/create_user [POST]:</strong> Crea un nuovo utente. [cite_start]<strong>Restrizioni:</strong> Solo superuser. [cite: 290, 295, 298]</li>
+                <li><strong>/verify_email [GET]:</strong> Attiva l’account tramite token di conferma. [cite_start]Imposta <code>user.checked = True</code>. [cite: 291, 305, 307]</li>
+                <li><strong>/get_list [GET]:</strong> Lista utenti con paginazione (default: <code>page=1</code>, <code>limit=10</code>). [cite_start]<strong>Restrizioni:</strong> Solo superuser. [cite: 292, 309, 311, 312, 313]</li>
+                <li><strong>/delete/{user_id} [DELETE]:</strong> Elimina un utente. [cite_start]<strong>Restrizioni:</strong> Solo superuser. [cite: 293, 315, 317]</li>
+                <li><strong>/change_role [PUT]:</strong> Modifica ruolo utente. [cite_start]<strong>Restrizioni:</strong> Solo superuser. [cite: 294, 319, 321]</li>
+            </ul>
+
+            [cite_start]<h3 id="esempi-users">🚀 Esempi di utilizzo degli endpoint [cite: 24, 327]</h3>
+            <p>Di seguito alcuni esempi di chiamate API per la gestione utenti:</p>
+            <ul>
+                <li><strong>1. [cite_start]Creazione utente (/create_user)</strong> [cite: 328][cite_start]: POST, richiede <code>Authorization: Bearer &lt;token_superuser&gt;</code>. [cite: 329, 330]</li>
+                <li><strong>2. [cite_start]Verifica email (/verify_email)</strong> [cite: 343][cite_start]: GET <code>/verify_email?check=&lt;token&gt;</code>. [cite: 344]</li>
+                <li><strong>3. [cite_start]Richiesta OTP (/request_access)</strong> [cite: 350][cite_start]: POST (username, password). [cite: 351, 352]</li>
+                <li><strong>4. [cite_start]Login con OTP (/login)</strong> [cite: 360][cite_start]: POST (username, password, otp). [cite: 361, 362]</li>
+                <li><strong>5. [cite_start]Cambio password (/change_password)</strong> [cite: 373][cite_start]: POST, richiede <code>Authorization: Bearer &lt;JWT_TOKEN&gt;</code>. [cite: 374, 375]</li>
+                <li><strong>6. [cite_start]Reset password (/reset_password)</strong>[cite: 381]: POST (username, email, new_password). [cite_start]Invia nuova email di verifica. [cite: 382, 388]</li>
+                <li><strong>7. [cite_start]Elenco utenti (/get_list)</strong> [cite: 389][cite_start]: GET <code>/get_list?page=1&limit=10</code>, richiede <code>Authorization: Bearer &lt;token_superuser&gt;</code>. [cite: 390, 391]</li>
+            </ul>
+
+            [cite_start]<h3 id="tasks">📁 Script <code>background_tasks.py</code> [cite: 25, 402]</h3>
+            [cite_start]<p>Script ausiliario per la <strong>pulizia automatica degli OTP scaduti o usati</strong>. [cite: 403]</p>
+            <ul>
+                [cite_start]<li><strong>cleanup_expired_otps(db):</strong> Cancella gli OTP scaduti o già utilizzati (oltre i 5 minuti). [cite: 405]</li>
+                [cite_start]<li><strong>schedule_cleanup():</strong> Avvia un ciclo infinito che esegue <code>cleanup_expired_otps</code> ogni 5 minuti. [cite: 406]</li>
+            </ul>
+
+            [cite_start]<h3 id="scheduler">📁 Script <code>scheduler.py</code> [cite: 27, 408]</h3>
+            [cite_start]<p>Script per schedulare automaticamente la <strong>pulizia periodica degli OTP</strong> ogni 5 minuti utilizzando <strong>APScheduler</strong>. [cite: 409]</p>
+            [cite_start]<p>Utilizza <code>AsyncIOScheduler</code> e importa <code>cleanup_expired_otps</code> da <code>APIusers.py</code>. [cite: 411, 412]</p>
+
+            <hr/>
+
+            [cite_start]<h2 id="datamanager">📦 datamanager [cite: 28, 414]</h2>
+            [cite_start]<p>Gestisce l’inserimento, la trasformazione, la consultazione e l’aggiornamento dei dati relativi a <strong>metaboliti</strong>, <strong>spettrometria</strong> e dettagli associati alle <strong>specie biologiche</strong>. [cite: 415]</p>
+
+            [cite_start]<h3 id="endpoints-data">🌐 Endpoint <code>APIdata.py</code> [cite: 29, 416]</h3>
+            [cite_start]<p>Implementa diverse API dedicate alla gestione dei dati, fungendo da controller per il frontend. [cite: 417]</p>
+            [cite_start]<p>Funzionalità: [cite: 419]</p>
+            <ul>
+                [cite_start]<li>inserimento e aggiornamento dei metaboliti e dati spettrometrici, [cite: 420]</li>
+                [cite_start]<li>ricerca per nome, formula, frammenti o parametri spettrometrici, [cite: 421]</li>
+                [cite_start]<li>esplorazione di informazioni tassonomiche, [cite: 422]</li>
+                [cite_start]<li>accesso a dettagli e bioassay associati ai metaboliti. [cite: 423]</li>
+            </ul>
+            [cite_start]<p>L'endpoint è montato in <code>main.py</code> con il prefisso <code>/data</code>. [cite: 428]</p>
+
+            [cite_start]<h4>🧱 Modelli (Request & Response) [cite: 30, 429]</h4>
+            [cite_start]<p>Esempi di modelli (strutture dati) usati dagli endpoint: [cite: 430]</p>
+            <ul>
+                [cite_start]<li><code>MetaboliteModel</code>: Inserimento metabolita (chimiche, tassonomiche, sperimentali). [cite: 431]</li>
+                [cite_start]<li><code>SpectrometryRequestModel</code>: Inserimento spettro (nome, m/z, intensità, adduct). [cite: 432]</li>
+                [cite_start]<li><code>MetaboliteResponse</code>, <code>GetMetabolitesResponse</code>: Risposte per i metaboliti trovati. [cite: 433]</li>
+                [cite_start]<li><code>MetaboliteDetailResponse</code>: Dettagli completi su un metabolita (specie collegate, frammenti unici). [cite: 437]</li>
+                [cite_start]<li>Modelli per Bioactivity, Bioassay e Replicati Biologici (es. <code>BioactivityInsertRequest</code>, <code>GetAllBioactivityClassesResponse</code>). [cite: 445, 448, 451, 454]</li>
+                [cite_start]<li><code>TaxonomyModel</code>, <code>TaxonomyData</code>, <code>TaxonomySynonymResponse</code>. [cite: 470, 471, 472]</li>
+            </ul>
+
+            [cite_start]<h4>⚙️ Funzioni interne (logiche) [cite: 31, 473]</h4>
+            [cite_start]<p>Le logiche provengono dai moduli: [cite: 474]</p>
+            <ul>
+                [cite_start]<li><code>InsertMetaboliteLogic</code> (<code>insert_metabolite.py</code>) [cite: 475]</li>
+                [cite_start]<li><code>InsertSpectrometryLogic</code> (<code>insert_spectrometry.py</code>) [cite: 476]</li>
+                [cite_start]<li><code>InsertTaxonomyLogic</code> (<code>insert_taxonomy.py</code>) [cite: 477]</li>
+                [cite_start]<li><code>InsertBioactivityLogic</code> (<code>insert_bioactivity.py</code>) [cite: 478]</li>
+                [cite_start]<li><code>FragmentedMetabolites</code> e metodi <code>*_data_manipulation</code> (<code>metabolite_detail.py</code>) [cite: 479, 480]</li>
+            </ul>
+
+            [cite_start]<h4>🚀 Endpoint Data Manager [cite: 32, 484]</h4>
+            [cite_start]<p>Endpoint protetti da autenticazione (<code>current_user</code>) e accesso differenziato per ruolo. [cite: 485]</p>
+            <ul>
+                [cite_start]<li><strong>🔍 Ricerca Metaboliti:</strong> <code>GET /get_all_metabolites</code>, <code>GET /get_metabolite</code> (per nome), <code>GET /data/metabolite_synonyms</code> (per sinonimo). [cite: 486, 487, 488]</li>
+                [cite_start]<li><strong>🧪 Gestione Spettrometria:</strong> <code>POST /add_spectrometry</code>, <code>DELETE /data/delete_spectrometry/{id}</code>, <code>GET /data/get_all_spectrometries</code> (lista con paginazione). [cite: 490, 491, 492]</li>
+                [cite_start]<li><strong>➕ Inserimento Metaboliti:</strong> <code>POST /add_metabolite</code> (inserisce o aggiorna). [cite: 498]</li>
+                [cite_start]<li><strong>🧬 Ricerca Tassonomica:</strong> <code>GET /get_all_species</code>, <code>GET /get_specie</code> (per nome scientifico), <code>GET /get_all_genera</code>, <code>GET /get_all_families</code>. [cite: 499, 500, 501, 503]</li>
+                [cite_start]<li><strong>🧬 Gestione Tassonomica:</strong> <code>DELETE /data/delete_taxonomy/{id_taxa}</code> (eliminazione a cascata), <code>POST /data/add_taxonomy</code>, <code>PUT /data/update_taxonomy</code>. [cite: 506, 509, 510]</li>
+                [cite_start]<li><strong>📋 Dettaglio:</strong> <code>GET /metabolite_detail</code> (dettaglio completo metabolita), <code>GET /taxonomy_detail</code>. [cite: 511, 512]</li>
+                [cite_start]<li><strong>🧭 Ricerca Sperimentale:</strong> <code>GET /search_metabolite_by_experimental_mz</code>, <code>GET /search_metabolite_by_formula_rt</code>, <code>GET /search_metabolite_by_fragments</code>. [cite: 514, 516, 520]</li>
+                <li><strong>🧫 Gestione Bioactivity e Classi:</strong> <code>POST /data/add_bioactivity</code>, <code>PUT /data/update_bioactivity/{id}</code>, <code>DELETE /data/delete_bioactivity/{id}</code>. [cite_start]Endpoint dedicati per <code>BioactivityClass</code> e <code>BioassayClass</code> (Add/Update/Delete/Get All). [cite: 528, 529, 530, 532, 536]</li>
+                [cite_start]<li><strong>⚗️ Gestione Campioni e Setting:</strong> Endpoint per Add/Update/Delete/Get All di <code>samples</code> e <code>settings</code>. [cite: 547, 549, 550, 551, 553, 558, 559, 560]</li>
+            </ul>
+
+            [cite_start]<h3 id="insert-metabolite">📁 Script <code>insert_metabolite.py</code> [cite: 33, 565]</h3>
+            [cite_start]<p>Contiene funzioni per gestire l’inserimento e la manipolazione dei dati relativi ai metaboliti. [cite: 566]</p>
+
+            [cite_start]<h4>Procedura ETL [cite: 34, 568]</h4>
+            <ul>
+                [cite_start]<li><strong>🟢 Extract:</strong> Estrazione dati dal JSON con <code>load_bioassay(json_string)</code> e <code>load_substance(json_string, compound_name)</code>. [cite: 569, 570]</li>
+                <li><strong>🔵 Transform:</strong> Conversione dei dati JSON in oggetti <code>BioassayParams</code> e <code>SubstanceParams</code>. [cite_start]Trasformazione dei dati del modulo in oggetti da inserire con <code>metaboliteinsert_data_manipulation(form_data, db)</code>, gestendo anche la conversione di immagini in binario. [cite: 571, 572]</li>
+                [cite_start]<li><strong>🔴 Load:</strong> Inserimento di: nuovi metaboliti, strutture molecolari, bioassay, metabolite bioassay, sostanze, impostazioni, campioni, replicati biologici e metaboliti sperimentali. [cite: 573, 574, 575, 576, 577, 578, 579, 580]</li>
+            </ul>
+
+            [cite_start]<h4>🛠️ Metodo <code>metaboliteinsert_data_manipulation</code> [cite: 37, 601]</h4>
+            [cite_start]<p>Metodo core che gestisce l'intero flusso ETL per il metabolita. [cite: 599, 603]</p>
+            [cite_start]<p><strong>Operazioni chiave:</strong> Inizio transazione (<code>db.begin()</code>), estrazione di numerosi campi dal <code>form_data</code>, conversione immagine 2D in binario, verifica e inserimento/aggiornamento di <code>Metabolite</code>, <code>MolecularStructure</code>, <code>MolecularClass</code>, dati biochimici, impostazioni e dati sperimentali (<code>ExperimentalMetabolite</code>). [cite: 606, 609, 611, 613, 615, 616, 619, 621, 623, 624, 627, 628, 631, 633]</p>
+
+            [cite_start]<h4>🧩 Classe <code>BioactivityLoading</code> [cite: 38, 634]</h4>
+            [cite_start]<p>Responsabile del recupero e della trasformazione dei dati <strong>biochimici</strong> (bioassay) e <strong>chimici</strong> (substances) da risposte JSON (es. PubChem). [cite: 635]</p>
+            <ul>
+                [cite_start]<li><strong><code>load_bioassay(json_string: str)</code>:</strong> Elabora i dati dei bioassay da JSON, li converte in <code>BioassayParams</code> e li passa alla logica di inserimento. [cite: 638, 642, 644]</li>
+                [cite_start]<li><strong><code>load_substance(json_string: str, compound_name: str)</code>:</strong> Elabora le informazioni chimiche da JSON (numero di registrazione, nome IUPAC, ecc.), le organizza in <code>SubstanceParams</code> e le passa alla logica di inserimento. [cite: 646, 650, 652]</li>
+            </ul>
+
+            [cite_start]<h3 id="insert-spectrometry">📁 Script <code>insert_spectrometry.py</code> [cite: 41, 654]</h3>
+            [cite_start]<p>Gestisce l’inserimento dei dati di <strong>spettrometria LC-MS</strong> (grafici, picchi, parametri strumentali). [cite: 655]</p>
+
+            [cite_start]<h4>Procedura ETL [cite: 42, 657]</h4>
+            <ul>
+                [cite_start]<li><strong>🟢 Extract:</strong> Ricezione di <code>filtered_peaks</code>, <code>image_base64</code> (opzionale), parametri strumentali e <code>metabolite_name</code>. [cite: 659, 660, 661, 662]</li>
+                <li><strong>🔵 Transform:</strong> Se non fornita, generazione automatica del grafico dello spettro in base64. [cite_start]Conversione dati numerici e verifica esistenza metabolita/parametri. [cite: 666, 667, 668]</li>
+                [cite_start]<li><strong>🔴 Load:</strong> Inserimento di un nuovo record nella tabella <code>Spectrometry</code>, associando i dati al metabolita e al setting strumentale. [cite: 670, 671]</li>
+            </ul>
+
+            [cite_start]<h4>🧩 Classe <code>InsertSpectrometryLogic</code> [cite: 43, 674]</h4>
+            [cite_start]<p>Classe principale per l'elaborazione e il caricamento dei dati spettrometrici. [cite: 675]</p>
+            <ul>
+                [cite_start]<li><strong><code>get_unique_adducts</code>:</strong> Restituisce la lista di tutti gli adducts (positivi/negativi) senza duplicati. [cite: 677]</li>
+                [cite_start]<li><strong><code>create_graph_base64</code>:</strong> Genera un grafico dello spettro in formato base64. [cite: 678]</li>
+                [cite_start]<li><strong><code>insert_spectrometry_data</code>:</strong> Gestisce l’intero flusso di inserimento, inclusa la generazione del grafico e il salvataggio nel DB. [cite: 679]</li>
+            </ul>
+
+            [cite_start]<h3 id="insert-taxonomy">📁 Script <code>insert_taxonomy.py</code> [cite: 45, 683]</h3>
+            [cite_start]<p>Gestisce inserimento, aggiornamento, eliminazione e recupero di dati relativi a <strong>tassonomie</strong> e <strong>campioni</strong>. [cite: 684]</p>
+
+            [cite_start]<h4>Procedura ETL [cite: 46, 686]</h4>
+            <ul>
+                <li><strong>🟢 Extract:</strong> Dati di tassonomie e campioni ricevuti da richieste API o form. [cite_start]Possibile recupero automatico da PubChem per dati tassonomici mancanti. [cite: 688, 690]</li>
+                [cite_start]<li><strong>🔵 Transform:</strong> Validazione, arricchimento dei dati e verifica dei riferimenti a entità collegate (comuni, tassonomie). [cite: 692, 694]</li>
+                [cite_start]<li><strong>🔴 Load:</strong> Inserimento/Aggiornamento/Eliminazione di nuove tassonomie e gestione completa dei campioni associati. [cite: 696, 698, 699, 700]</li>
+            </ul>
+
+            [cite_start]<h3 id="metabolite-detail">📁 Script <code>metabolite_detail.py</code> [cite: 49, 717]</h3>
+            <p>Responsabile della <strong>generazione e aggregazione dei dettagli completi</strong> relativi a un metabolita. [cite_start]Lavora su dati esistenti per fornire una visione completa (chimiche, tassonomiche, spettrometriche, esperimentali). [cite: 718, 719, 720]</p>
+
+            [cite_start]<h4>Procedura ETL (interpretata come aggregazione) [cite: 50, 721]</h4>
+            [cite_start]<p>La fase "Load" in questo contesto è la preparazione di una <strong>risposta aggregata</strong>, non un salvataggio nel database. [cite: 728, 729]</p>
+            <ul>
+                [cite_start]<li><strong>🟢 Extract:</strong> Interrogazione del database per estrarre informazioni chimiche, bioassay, tassonomiche, frammenti sperimentali e spettri LC-MS. [cite: 723]</li>
+                [cite_start]<li><strong>🔵 Transform:</strong> Trasformazione dei dati estratti in dizionari Python strutturati e formattati (raggruppati per specie o impostazione sperimentale). [cite: 725, 726]</li>
+                [cite_start]<li><strong>🔴 Load:</strong> Consegna dei dati strutturati al controller API. [cite: 728]</li>
+            </ul>
+
+            [cite_start]<h4>🛠️ Metodo <code>metabolitedetail_data_manipulation</code> [cite: 51, 730]</h4>
+            [cite_start]<p>Aggrega tutte le informazioni disponibili su un dato metabolita (formula, massa, struttura, bioassay, CAS, classe molecolare, dati spettrometrici e tassonomici), organizzando frammenti e dati LC-MS per specie e configurazione strumentale. [cite: 731, 733]</p>
+
+            [cite_start]<h4>🧩 Classe <code>FragmentedMetabolites</code> [cite: 55, 742]</h4>
+            <ul>
+                [cite_start]<li><strong><code>get_fragmented_metabolites_by_name_species</code>:</strong> Raccoglie tutti i frammenti LC-MS registrati per un metabolita e una specie, con i relativi parametri sperimentali (raggruppati per Setting). [cite: 744, 745]</li>
+            </ul>
+            
+            [cite_start]<h4>🧩 Classe <code>UpdateMetabolite</code> [cite: 58, 749]</h4>
+            <ul>
+                [cite_start]<li><strong><code>update_metabolite_check</code>:</strong> Permette la modifica controllata dei dati di un metabolita esistente (rinomina, formula, massa, classe molecolare, msi_level, parametri spettrometrici, aggiunta/rimpiazzo Setting e frammenti), mantenendo l'integrità. [cite: 751, 752]</li>
+            </ul>
+
+            [cite_start]<h3 id="insert-bioactivity">📁 Script <code>insert_bioactivity.py</code> [cite: 60, 753]</h3>
+            [cite_start]<p>Garantisce l’inserimento di un nuovo record di bioattività. [cite: 754]</p>
+
+            [cite_start]<h4>Procedura ETL [cite: 61, 755]</h4>
+            [cite_start]<p>La logica verifica e crea record correlati in tabelle associate prima di inserire il record principale. [cite: 754, 757]</p>
+            <ul>
+                [cite_start]<li><strong>🟢 Extract:</strong> Il dizionario di dati in input è considerato il dato estratto. [cite: 756]</li>
+                <li><strong>🔵 Transform:</strong> I metodi della classe effettuano verifiche sull’esistenza di record correlati (<code>ResearchGroup</code>, <code>Taxonomy</code>, <code>Municipality</code>, <code>Sample</code>, <code>Setting</code>, <code>BiologicalReplicate</code>, <code>BioassayClass</code>, <code>BioactivityClass</code>). [cite_start]Se mancante, si procede a crearlo. [cite: 757, 758, 763, 766, 767, 769, 773, 776, 779, 783, 784, 787, 790]</li>
+                [cite_start]<li><strong>🔴 Load:</strong> Creazione e salvataggio del nuovo record <code>Bioactivity</code>. [cite: 759, 792]</li>
+            </ul>
+
+            [cite_start]<h3 id="index-py">📁 Script <code>index.py</code> [cite: 63, 796]</h3>
+            <p>Script di <strong>orchestrazione</strong> che coordina le chiamate tra moduli, gestisce input e li inoltra ai componenti logici. [cite_start]Funge da facciata coordinatrice. [cite: 797, 799, 800]</p>
+
+            [cite_start]<h4>🔍 Metodi search [cite: 64, 802]</h4>
+            [cite_start]<p>Metodi per la ricerca di metaboliti, specie e famiglie. [cite: 803]</p>
+            <ul>
+                [cite_start]<li><strong>search_metabolites, search_species, search_all_genus, search_all_families:</strong> Estraggono liste ordinate. [cite: 804, 805, 806, 807]</li>
+                [cite_start]<li><strong>search_metabolite, search_specie, search_genu, search_family:</strong> Ricerca per nome e restituisce i dettagli tassonomici e i metaboliti associati. [cite: 808, 809, 811, 813]</li>
+                [cite_start]<li><strong>search_experimental_mz:</strong> Ricerca tramite m/z sperimentale (positivo o negativo) e finestra di errore. [cite: 815]</li>
+                [cite_start]<li><strong>search_formula_rt:</strong> Ricerca opzionale per formula molecolare e/o valore RT e finestra di errore RT. [cite: 817, 818]</li>
+                [cite_start]<li><strong>search_metabolites_by_fragments:</strong> Ricerca attraverso frammenti, definendo finestra di errore e filtrando per frammenti positivi/negativi. [cite: 820, 821]</li>
+            </ul>
+
+            <hr/>
+
+            [cite_start]<h2 id="connettori">📦 Connectors [cite: 65, 823]</h2>
+            <p>Modulo per interagire con dati esterni, come quelli da <strong>PubChem</strong> e da <strong>file Excel</strong>. [cite_start]Tutti gli endpoint sono protetti da autenticazione (<code>current_user</code>). [cite: 824, 825]</p>
+
+            [cite_start]<h3 id="connector-excel">Da file Excel [cite: 66, 826]</h3>
+            <p>API per l'importazione di dati da file Excel/CSV. [cite_start]Montate con prefisso <code>/conn/excel</code>. [cite: 827, 831]</p>
+            <h4>🚀 Endpoint Excel</h4>
+            <ul>
+                [cite_start]<li><strong>🧫 POST /spectrometry_graph:</strong> Carica un file Excel con dati di spettrometria, filtra i picchi per soglia di intensità relativa (%BIC) e restituisce dati filtrati e grafico in base64. [cite: 833, 834]</li>
+                <li><strong>🔬 POST /add_bioactivity:</strong> Importa e inserisce dati di bioactivity da file Excel o CSV. [cite_start]Restituisce un elenco di inserimenti riusciti ed errori. [cite: 854, 855, 861, 862]</li>
+                [cite_start]<li><strong>🔬 POST /add_taxonomy_and_sample:</strong> Carica file Excel con dati di tassonomia e/o campioni, li valida e li inserisce nel DB. [cite: 863, 864]</li>
+                [cite_start]<li><strong>🔬 POST /add_experimental_metabolite:</strong> Carica file Excel o CSV con dati degli experimental metabolite (template ufficiale), li valida e li inserisce. [cite: 874, 875]</li>
+            </ul>
+
+            [cite_start]<h3 id="connector-pubchem">Da PubChem [cite: 72, 885]</h3>
+            <p>API per l'importazione di dati da PubChem. [cite_start]Montate con prefisso <code>/conn/pubchem</code>. [cite: 886, 890]</p>
+            <h4>🚀 Endpoint PubChem</h4>
+            <ul>
+                [cite_start]<li><strong>🔬 GET /get_metabolite_data:</strong> Dato il nome di un metabolita, ottiene da PubChem informazioni chimiche di base (formula, peso, SMILES, InChI). [cite: 892, 893]</li>
+                [cite_start]<li><strong>🧬 GET /get_pubchem_taxonomy:</strong> Dato il nome di un organismo, restituisce l’intera tassonomia PubChem. [cite: 907, 908]</li>
+                [cite_start]<li><strong>📖 GET /get_pug_view_data:</strong> Restituisce il contenuto completo della pagina PUG-View di PubChem, dato il <code>cid</code>. [cite: 922, 923]</li>
+                [cite_start]<li><strong>🧪 GET /get_bioassays_from_cid:</strong> Ottiene tutti i bioassay associati a un metabolita da PubChem, usando il suo <code>cid</code>. [cite: 930, 931]</li>
+                [cite_start]<li><strong>📊 GET /get_bioassays_from_aid:</strong> Cerca i bioassay prendendo gli AID dal database interno (<code>MetaboliteBioassay</code>) e recuperando i dettagli da PubChem. [cite: 938, 939]</li>
+            </ul>
+
+            <hr/>
+
+            [cite_start]<h2 id="machine-learning">📦 machine_learning [cite: 79, 964]</h2>
+            [cite_start]<p>Modulo per elaborare le spettrometrie concentrandosi sulle <strong>similarità</strong>. [cite: 965]</p>
+
+            [cite_start]<h3 id="endpoints-ml">🌐 Endpoint <code>APImodel.py</code> [cite: 80, 966]</h3>
+            [cite_start]<p>Permette di calcolare la <strong>similarità tra spettri</strong> forniti in input con spettri presenti nella base di dati di <strong>MassBank</strong>. [cite: 968]</p>
+            [cite_start]<p>L'endpoint è montato in <code>main.py</code> con il prefisso <code>/ml</code>. [cite: 973]</p>
+
+            <h4>🚀 Endpoint Machine Learning</h4>
+            <ul>
+                [cite_start]<li><strong>🧪 POST /ml/spectrum_match:</strong> [cite: 981, 982]
+                    <ul>
+                        [cite_start]<li><strong>Scopo:</strong> Calcolo della similarità dello spettro. [cite: 968]</li>
+                        [cite_start]<li><strong>Query param:</strong> <code>input_file</code> (JSON), <code>top_n</code> (default: 1), <code>machine</code> (default: QTOF), <code>ion_mode</code> (default: NEGATIVE), <code>compound_class</code> (default: Natural Product). [cite: 982]</li>
+                    </ul>
+                </li>
+            </ul>
+
+            [cite_start]<h3 id="match-ms2">📁 Script <code>match_ms2.py</code> [cite: 83, 984]</h3>
+            [cite_start]<p>Contiene metodi per gestire il caricamento dello spettro e il calcolo della similarità. [cite: 985]</p>
+
+            [cite_start]<h4>Procedura ETL [cite: 987]</h4>
+            <ul>
+                <li><strong>🟢 Extract:</strong> Effettuata in <code>load_spectra_from_json</code>. [cite_start]I filtri (<code>matches_filters</code>) determinano se un oggetto JSON corrisponde ai criteri specificati. [cite: 988, 989]</li>
+                [cite_start]<li><strong>🔵 Transform:</strong> I dati estratti vengono convertiti in oggetti di tipo <code>Spectrum</code>. [cite: 990]</li>
+                [cite_start]<li><strong>🔴 Load:</strong> Dopo il calcolo del match con <code>match_spectra</code>, il risultato viene generato con <code>generate_output</code> e salvato come file JSON. [cite: 991]</li>
+            </ul>
+
+            [cite_start]<h4>🛠️ Metodi principali [cite: 85, 992]</h4>
+            <ul>
+                [cite_start]<li><strong><code>matches_filters(item: JSON, filters: str)</code>:</strong> Applica filtri su tipo di macchina, <code>ion_mode</code> e classe del composto. [cite: 993]</li>
+                [cite_start]<li><strong><code>find_ready_reference(base_dir: path)</code>:</strong> Determina la directory attiva (<code>reference_db_a</code> o <code>reference_db_b</code>) che contiene il file <code>.ready</code> (strategia <strong>Zero-Downtime A/B</strong>). [cite: 995, 997]</li>
+                [cite_start]<li><strong><code>load_spectra_from_json(...)</code>:</strong> Carica un file JSON, applica filtri e inserisce i dati in un oggetto <code>Spectrum</code>. [cite: 999, 1000]</li>
+                [cite_start]<li><strong><code>generate_output(...)</code>:</strong> Genera un file JSON con i risultati dei match. [cite: 1002]</li>
+                <li><strong><code>match_spectra(...)</code>:</strong> Metodo principale per il calcolo della similarità. Utilizza il metodo del <strong>Modified Cosine</strong> in modalità simmetrica. [cite_start]Estrae i primi <code>top_n</code> match. [cite: 1005, 1008, 1009]</li>
+            </ul>
+        </article>
     </div>
-    <div class="illustration">
-      <img src="assets/support.jpg" alt="manuale tecnico" loading="lazy"/>
-    </div>
-  </div>
-</section>
-
-<!-- ======================== -->
-<!-- INSTALLAZIONE -->
-<!-- ======================== -->
-
-<section class="section">
-  <div class="container card">
-    <h2>🛠️ Installazione</h2>
-    <p>Il backend può essere eseguito in locale, tramite Docker o distribuito su Kubernetes. Assicurarsi che il database PostgreSQL sia attivo e correttamente configurato.</p>
-
-    <h3>📄 Configurazione (.env)</h3>
-    <pre><code>COMPOSE_PROJECT_NAME=b4web_backend_api
-DB_HOST='host.docker.internal'
-DB_USER='thisuser'
-DB_PASSWORD='xxxxxyyyy123!'
-DB_NAME='b4web'
-APP_DOMAIN='localhost'
-DB_PORT=5432
-APP_PORT=8000
-DB_DATA_PATH=b4web_db_data
-admin_user='pippoAdmin'
-admin_pass='pippoPW'
-admin_email='pippo.disney@topolina.com'
-SECRET_KEY='PIPPO_SECRET_KEY'
-ALGORITHM='HS256'
-SMTP_SERVER='smtp.disney.com'
-SMTP_PORT=313
-SMTP_USERNAME='disney-mail.blablablabla-0123456-yumyum'
-SMTP_PASSWORD='plutoPW'
-EMAIL_SENDER='DoNotReply@mailsend.disney.com'
-ALLOWED_ORIGINS=http://localhost:3000
-EXTTERNAL_ML_DATA_PATH='./external_ml_data'
-</code></pre>
-
-    <h3>▶️ Esecuzione in locale</h3>
-    <pre><code>uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --env-file .env
-</code></pre>
-
-    <h3>🐳 Installazione su Docker</h3>
-    <pre><code>docker-compose up --build -d
-docker-compose down
-</code></pre>
-
-    <h3>☸️ Installazione su Kubernetes</h3>
-
-    <h4>1. Namespace</h4>
-    <pre><code>kubectl create namespace b4web
-</code></pre>
-
-    <h4>2. Secrets</h4>
-    <pre><code>apiVersion: v1
-kind: Secret
-metadata:
-  name: b4web-env-secrets
-  namespace: b4web
-type: Opaque
-stringData:
-  db-password: "xxxxyyyy123!"
-  admin-pass: "pippoPW"
-  smtp-password: "plutoPW"
-  secret-key: "PIPPO_SECRET_KEY"
-</code></pre>
-
-    <h4>3. Deployment</h4>
-    <pre><code>kubectl apply -f deployment.yml
-</code></pre>
-
-    <h4>4. Service</h4>
-    <p>Espone l’applicazione all’interno del cluster Kubernetes.</p>
-
-    <h4>5. Accesso</h4>
-    <p>Per esposizione esterna utilizzare un Ingress Controller o LoadBalancer.</p>
-
-  </div>
-</section>
-
-<!-- ======================== -->
-<!-- ALL’AVVIO DEL SERVER -->
-<!-- ======================== -->
-
-<section class="section">
-  <div class="container">
-
-    <h2>🚀 All’avvio del server</h2>
-
-    <p>Il main.py inizializza l’app FastAPI, carica l’ambiente, registra i router e avvia il server.</p>
-
-    <h3>🧩 Descrizione dei file principali</h3>
-
-    <h4>📄 main.py & models.py</h4>
-    <ul>
-      <li><strong>main.py</strong>: punto di ingresso FastAPI, include router, middleware e config.</li>
-      <li><strong>models.py</strong>: definisce tutte le tabelle SQLAlchemy (utenti, metaboliti, bioassay, tassonomia, spettrometria...).</li>
-    </ul>
-
-    <h4>📄 settings.py</h4>
-    <p>Centralizza le variabili d'ambiente.</p>
-
-    <h4>📄 database_session.py</h4>
-    <p>Gestione connessione DB, espone <code>get_db()</code> per dependency injection.</p>
-
-    <h4>📄 tableparams.py</h4>
-    <p>Definisce parametri e modelli di input (metaboliti, bioassay, tassonomia, utenti...).</p>
-
-    <h4>🔄 Come interagiscono</h4>
-    <ol>
-      <li>main.py → avvio server</li>
-      <li>settings.py → lettura configurazione</li>
-      <li>database_session.py → connessione</li>
-      <li>models.py → strutture DB</li>
-      <li>tableparams.py → modelli di input</li>
-      <li>routers → API</li>
-    </ol>
-
-  </div>
-</section>
-
-<!-- ======================== -->
-<!-- USER MANAGER -->
-<!-- ======================== -->
-
-<section class="section">
-  <div class="container card">
-    <h2>👤 User Manager</h2>
-    <p>Gestione completa utenti: OTP, login, reset password, ruoli, automazioni.</p>
-
-    <h3>🔐 Flusso autenticazione</h3>
-    <ul>
-      <li>/request_access → invio OTP</li>
-      <li>/login → login con password + OTP</li>
-      <li>JWT token → accesso alle rotte protette</li>
-    </ul>
-
-    <h3>🔁 Gestione Password</h3>
-    <ul>
-      <li>/change_password</li>
-      <li>/reset_password</li>
-    </ul>
-
-    <h3>👤 Gestione Utenti</h3>
-    <ul>
-      <li>/create_user</li>
-      <li>/verify_email</li>
-      <li>/get_list</li>
-      <li>/delete/{id}</li>
-      <li>/change_role</li>
-    </ul>
-
-  </div>
-</section>
-
-<!-- ======================== -->
-<!-- API USERS -->
-<!-- ======================== -->
-
-<section class="section">
-  <div class="container">
-
-    <h2>🌐 Endpoint APIusers.py</h2>
-    <p>Endpoint FastAPI per autenticazione, accesso, gestione utenti, verifiche e ruoli.</p>
-
-    <h3>🔐 Autenticazione e Accesso</h3>
-    <ul>
-      <li><strong>/request_access</strong>: richiede OTP</li>
-      <li><strong>/login</strong>: login con OTP</li>
-      <li>Token JWT</li>
-    </ul>
-
-    <h3>🔁 Gestione Password</h3>
-    <ul>
-      <li>/change_password</li>
-      <li>/reset_password</li>
-    </ul>
-
-    <h3>👤 Gestione Utenti</h3>
-    <ul>
-      <li>/create_user</li>
-      <li>/verify_email</li>
-      <li>/get_list</li>
-      <li>/delete/{user_id}</li>
-      <li>/change_role</li>
-    </ul>
-
-  </div>
-</section>
-
-<!-- ======================== -->
-<!-- DATAMANAGER, CONNECTORS, ML -->
-<!-- ======================== -->
-
-<section class="section">
-  <div class="container card">
-
-    <h2>📦 DataManager</h2>
-
-    <h3>🌐 Endpoint APIdata.py</h3>
-    <ul>
-      <li>Modelli Request/Response</li>
-      <li>Logiche interne</li>
-      <li>Endpoint principali</li>
-    </ul>
-
-    <h3>📁 Script ETL principali</h3>
-    <ul>
-      <li>insert_metabolite.py</li>
-      <li>insert_spectrometry.py</li>
-      <li>insert_taxonomy.py</li>
-      <li>insert_bioactivity.py</li>
-      <li>metabolite_detail.py</li>
-    </ul>
-
-    <h2>📦 Connectors</h2>
-    <h3>Da file Excel</h3>
-    <ul>
-      <li>POST /spectrometry_graph</li>
-      <li>POST /add_bioactivity</li>
-      <li>POST /add_taxonomy_and_sample</li>
-      <li>POST /add_experimental_metabolite</li>
-    </ul>
-
-    <h3>Da PubChem</h3>
-    <ul>
-      <li>GET /get_metabolite_data</li>
-      <li>GET /get_pubchem_taxonomy</li>
-      <li>GET /get_pug_view_data</li>
-      <li>GET /get_bioassays_from_cid</li>
-      <li>GET /get_bioassays_from_aid</li>
-    </ul>
-
-    <h2>📦 Machine Learning</h2>
-    <h3>Endpoint APImodel.py</h3>
-    <p>Modelli ML e API predittivi.</p>
-
-    <h3>match_ms2.py</h3>
-    <ul>
-      <li>matches_filters()</li>
-      <li>find_ready_reference()</li>
-      <li>load_spectra_from_json()</li>
-      <li>generate_output()</li>
-      <li>match_spectra()</li>
-    </ul>
-
-  </div>
 </section>
 
 <footer class="footer">
-  <div class="cols container">
-    <div>
-      <div class="brand" style="margin-bottom:.5rem">
-        <img src="assets/logo.svg" alt="" width="28" height="28"/>
-        <span>B4PhytoWeb</span>
-      </div>
-      <p class="muted">
-        B4Web: una tassonomia Biomolecolare delle Biofonti e delle Bioattività – finanziato da Commissione Europea - Next Generation EU, Missione 4.
-      </p>
-    </div>
-  </div>
-</footer>
+    <div class="cols container">
+        <div>
+            <div class="brand" style="margin-bottom:.5rem">
+                <span>B4Web API</span>
+            </div>
+            <p class="muted">
+                B4Web: una tassonomia Biomolecolare, delle Biofonti e delle Bioattività per liberare il potenziale della Biodiversità – finanziato da:
+                [cite_start]Commissione Europea - Next Generation EU, Missione 4 Componente 1 CUP C33C24000340001 [cite: 201]
+            </p>
+        </div>
 
-<script src="assets/script.js"></script>
+        <div>
+            <h3>Sezioni</h3>
+            <ul>
+                <li><a href="#installazione">Installazione</a></li>
+                <li><a href="#usermanager">User Manager</a></li>
+                <li><a href="#datamanager">Data Manager</a></li>
+                <li><a href="#connettori">Connectors</a></li>
+                <li><a href="#machine-learning">Machine Learning</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-logos">
+             </div>
+    </div>
+</footer>
+<script>
+    // Placeholder script for menu toggle, if needed for mobile
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navbarNav = document.querySelector('.navbar nav');
+        if (menuToggle && navbarNav) {
+            menuToggle.addEventListener('click', () => {
+                navbarNav.classList.toggle('active');
+            });
+        }
+    });
+</script>
 </body>
 </html>
