@@ -434,145 +434,145 @@
         <article class="main-content">
 
             <h2 id="installazione">🛠️ INSTALLAZIONE</h2>
-            <p>Questo progetto può essere installato su **Docker** [cite: 91] [cite_start]o su **Kubernetes**[cite: 91].</p>
+            <p>Questo progetto può essere installato su **Docker** o su **Kubernetes**.</p>
             <div class="warning">
-                [cite_start]**⚠️ Attenzione:** Prima di tutto, assicurati che il **database sia avviato** e correttamente configurato. [cite: 91]
+                **⚠️ Attenzione:** Prima di tutto, assicurati che il **database sia avviato** e correttamente configurato.
             </div>
 
             <h3 id="configurazione">📄 Configurazione</h3>
-            [cite_start]<p>Tutte le variabili di ambiente si trovano nel file **`.env`**[cite: 93]:</p>
-            [cite_start]<pre>COMPOSE_PROJECT_NAME=b4web_backend_api [cite: 94]
-[cite_start]DB_HOST='host.docker.internal' [cite: 95]
-[cite_start]DB_USER='thisuser' [cite: 96]
-[cite_start]DB_PASSWORD='xxxxxyyyy123!' [cite: 97]
-[cite_start]DB_NAME='b4web' [cite: 98]
-[cite_start]APP_DOMAIN='localhost' [cite: 99]
-[cite_start]DB_PORT=5432 [cite: 100]
-[cite_start]APP_PORT=8000 [cite: 101]
-[cite_start]DB_DATA_PATH=b4web_db_data [cite: 102]
-[cite_start]admin_user='pippoAdmin' [cite: 103]
-[cite_start]admin_pass='pippoPW' [cite: 104]
-[cite_start]admin_email='pippo.disney@topolina.com' [cite: 105]
-[cite_start]SECRET_KEY='PIPPO_SECRET_KEY' [cite: 106]
-[cite_start]ALGORITHM='HS256' [cite: 107]
-[cite_start]SMTP_SERVER='smtp.disney.com' [cite: 108]
-[cite_start]SMTP_PORT=313 [cite: 109]
-[cite_start]SMTP_USERNAME='disney-mail.blablablabla-0123456-yumyum' [cite: 110]
-[cite_start]SMTP_PASSWORD='plutoPW' [cite: 111]
-[cite_start]EMAIL_SENDER='DoNotReply@mailsend.disney.com' [cite: 112]
-[cite_start]ALLOWED_ORIGINS=http://localhost:3000 [cite: 113]
-[cite_start]EXTTERNAL_ML_DATA_PATH='./external_ml_data' [cite: 114]</pre>
+            <p>Tutte le variabili di ambiente si trovano nel file **`.env`**:</p>
+            <pre>COMPOSE_PROJECT_NAME=b4web_backend_api
+DB_HOST='host.docker.internal'
+DB_USER='thisuser'
+DB_PASSWORD='xxxxxyyyy123!'
+DB_NAME='b4web'
+APP_DOMAIN='localhost'
+DB_PORT=5432
+APP_PORT=8000
+DB_DATA_PATH=b4web_db_data
+admin_user='pippoAdmin'
+admin_pass='pippoPW'
+admin_email='pippo.disney@topolina.com'
+SECRET_KEY='PIPPO_SECRET_KEY'
+ALGORITHM='HS256'
+SMTP_SERVER='smtp.disney.com'
+SMTP_PORT=313
+SMTP_USERNAME='disney-mail.blablablabla-0123456-yumyum'
+SMTP_PASSWORD='plutoPW'
+EMAIL_SENDER='DoNotReply@mailsend.disney.com'
+ALLOWED_ORIGINS=http://localhost:3000
+EXTTERNAL_ML_DATA_PATH='./external_ml_data'</pre>
 
             <h3 id="esecuzione-locale">▶️ Esecuzione in locale</h3>
-            [cite_start]<p>Per eseguire il backend localmente in ambiente di sviluppo[cite: 116]:</p>
-            [cite_start]<pre>uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --env-file .env [cite: 117]</pre>
+            <p>Per eseguire il backend localmente in ambiente di sviluppo:</p>
+            <pre>uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --env-file .env</pre>
 
             <h3 id="docker">🐳 Installazione su Docker</h3>
-            [cite_start]<p>Per avviare il servizio con Docker[cite: 119]:</p>
-            [cite_start]<pre>docker-compose up --build -d [cite: 120]</pre>
-            [cite_start]<p>Per fermare il servizio[cite: 121]:</p>
-            [cite_start]<pre>docker-compose down [cite: 122]</pre>
+            <p>Per avviare il servizio con Docker:</p>
+            <pre>docker-compose up --build -d</pre>
+            <p>Per fermare il servizio:</p>
+            <pre>docker-compose down</pre>
 
             <h3 id="kubernetes">☸️ Installazione su Kubernetes</h3>
-            [cite_start]<p>Richiede cluster Kubernetes attivo e configurato con accesso a **Secrets**, **PVC**, e **Image Registry**[cite: 124].</p>
+            <p>Richiede cluster Kubernetes attivo e configurato con accesso a **Secrets**, **PVC**, e **Image Registry**.</p>
 
             <h4 id="namespace">1. Namespace</h4>
-            [cite_start]<p>Assicurati che il namespace `b4web` esista[cite: 126]:</p>
-            [cite_start]<pre>kubectl create namespace b4web [cite: 127]</pre>
+            <p>Assicurati che il namespace `b4web` esista:</p>
+            <pre>kubectl create namespace b4web</pre>
 
             <h4 id="secrets">2. Secrets</h4>
-            [cite_start]<p>I segreti sensibili (password, token, ecc.) sono montati da `SecretProviderClass` tramite CSI driver[cite: 129].</p>
-            [cite_start]<p>**Esempio di Secret:** [cite: 130]</p>
-            [cite_start]<pre># b4web-env-secrets.yaml [cite: 131]
-[cite_start]apiVersion: v1 [cite: 132]
-[cite_start]kind: Secret [cite: 133]
-[cite_start]metadata: [cite: 134]
-  [cite_start]name: b4web-env-secrets [cite: 135]
-  [cite_start]namespace: b4web [cite: 136]
-[cite_start]type: Opaque [cite: 137]
-[cite_start]stringData: [cite: 138]
-  [cite_start]db-password: "xxxxyyyy123!" [cite: 139]
-  [cite_start]admin-pass: "pippoPW" [cite: 140]
-  [cite_start]smtp-password: "plutoPW" [cite: 141]
-  [cite_start]secret-key: "PIPPO_SECRET_KEY" [cite: 142]</pre>
+            <p>I segreti sensibili (password, token, ecc.) sono montati da `SecretProviderClass` tramite CSI driver.</p>
+            <p>**Esempio di Secret:**</p>
+            <pre># b4web-env-secrets.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: b4web-env-secrets
+  namespace: b4web
+type: Opaque
+stringData:
+  db-password: "xxxxyyyy123!"
+  admin-pass: "pippoPW"
+  smtp-password: "plutoPW"
+  secret-key: "PIPPO_SECRET_KEY"</pre>
             <div class="warning">
-                [cite_start]**⚠️ Attenzione:** Montato su `/mnt/secrets-store` in `deployment.yml`[cite: 143].
+                **⚠️ Attenzione:** Montato su `/mnt/secrets-store` in `deployment.yml`.
             </div>
 
             <h4 id="deployment">3. Deployment</h4>
-            [cite_start]<p>Serve per avviare, aggiornare e mantenere in esecuzione una o più repliche di un’applicazione containerizzata, in questo caso l’API chiamata `b4web-api`[cite: 145].</p>
-            [cite_start]<p>Il file `deployment.yml` definisce l’app[cite: 146]:</p>
-            [cite_start]<pre>kubectl apply -f deployment.yml [cite: 147]</pre>
-            [cite_start]<p>Contiene: [cite: 148]</p>
+            <p>Serve per avviare, aggiornare e mantenere in esecuzione una o più repliche di un’applicazione containerizzata, in questo caso l’API chiamata `b4web-api`.</p>
+            <p>Il file `deployment.yml` definisce l’app:</p>
+            <pre>kubectl apply -f deployment.yml</pre>
+            <p>Contiene:</p>
             <ul>
-                [cite_start]<li>1 replica dell’app [cite: 148]</li>
-                [cite_start]<li>Immagine `inserire_la_tua_immagine_docker` [cite: 148]</li>
-                [cite_start]<li>Montaggio secrets tramite CSI [cite: 148]</li>
-                [cite_start]<li>Variabili d’ambiente per connessione a DB, SMTP, ecc. [cite: 148]</li>
+                <li>1 replica dell’app</li>
+                <li>Immagine `inserire_la_tua_immagine_docker`</li>
+                <li>Montaggio secrets tramite CSI</li>
+                <li>Variabili d’ambiente per connessione a DB, SMTP, ecc.</li>
             </ul>
 
             <h4 id="service">4. Service</h4>
-            [cite_start]<p>Questo file definisce un oggetto Kubernetes di tipo **Service** per l’applicazione `b4web-api`[cite: 149]. [cite_start]Serve per: [cite: 150]</p>
+            <p>Questo file definisce un oggetto Kubernetes di tipo **Service** per l’applicazione `b4web-api`. Serve per:</p>
             <ul>
-                [cite_start]<li>esporre la porta dell’applicazione all’interno del cluster[cite: 151],</li>
-                [cite_start]<li>astrarre l’accesso ai pod dietro un nome DNS stabile[cite: 152],</li>
-                [cite_start]<li>permettere la comunicazione tra servizi Kubernetes (es. da un altro pod)[cite: 153].</li>
+                <li>esporre la porta dell’applicazione all’interno del cluster,</li>
+                <li>astrarre l’accesso ai pod dietro un nome DNS stabile,</li>
+                <li>permettere la comunicazione tra servizi Kubernetes (es. da un altro pod).</li>
             </ul>
-            [cite_start]<p>Espone il backend all’interno del cluster[cite: 154]:</p>
-            [cite_start]<pre>kubectl apply -f service.yml [cite: 155]</pre>
-            [cite_start]<p>Crea un punto di accesso stabile (**ClusterIP**) verso i pod gestiti dal deployment[cite: 156].</p>
-            [cite_start]<p>Permette al traffico interno al cluster di raggiungere l’API `b4web-api` attraverso l’indirizzo: [cite: 157, 158]</p>
-            [cite_start]<pre>http://b4web-api.b4web.svc.cluster.local:8000 [cite: 158]</pre>
-            [cite_start]<p>Rende possibile **scalare i pod** (es. 2, 3, 10) senza dover conoscere i singoli IP: il Service gestisce il bilanciamento[cite: 159].</p>
-            [cite_start]<p>**✅ Schema del flusso:** [cite: 160]</p>
+            <p>Espone il backend all’interno del cluster:</p>
+            <pre>kubectl apply -f service.yml</pre>
+            <p>Crea un punto di accesso stabile (**ClusterIP**) verso i pod gestiti dal deployment.</p>
+            <p>Permette al traffico interno al cluster di raggiungere l’API `b4web-api` attraverso l’indirizzo:</p>
+            <pre>http://b4web-api.b4web.svc.cluster.local:8000</pre>
+            <p>Rende possibile **scalare i pod** (es. 2, 3, 10) senza dover conoscere i singoli IP: il Service gestisce il bilanciamento.</p>
+            <p>**✅ Schema del flusso:**</p>
             <ol>
-                [cite_start]<li>Richiesta dal cluster [cite: 161]</li>
+                <li>Richiesta dal cluster</li>
                 <li>↓</li>
-                [cite_start]<li>Service: `b4web-api` (porta 8000) [cite: 163]</li>
+                <li>Service: `b4web-api` (porta 8000)</li>
                 <li>↓</li>
-                [cite_start]<li>Instrada ai pod con label `app=b4web-api` [cite: 165]</li>
+                <li>Instrada ai pod con label `app=b4web-api`</li>
                 <li>↓</li>
-                [cite_start]<li>Container che ascolta su targetPort: 8000 [cite: 167]</li>
+                <li>Container che ascolta su targetPort: 8000</li>
             </ol>
 
             <h4 id="accesso">5. Accesso</h4>
-            [cite_start]<p>In ambiente cloud (es. AKS), abbina un **Ingress Controller** o un **LoadBalancer** per rendere disponibile il servizio all’esterno[cite: 169].</p>
-            [cite_start]<p>Settare il valore di `APP_DOMAIN` per l’ambiente Kubernetes ad esempio: [cite: 170, 171]</p>
-            [cite_start]<pre>https://b4web-api.neodatagroup.ai [cite: 171]</pre>
-            [cite_start]<p>All’avvio il sistema produrrà uno **SWAGGER** con la descrizione degli endpoint, ad esempio: [cite: 172, 173]</p>
-            [cite_start]<pre>https://b4web-api.neodatagroup.ai/docs#/ [cite: 173]</pre>
-            [cite_start]<p>Settare il valore `ALLOWED_ORIGINS` per evitare problemi di **CORS**[cite: 174].</p>
+            <p>In ambiente cloud (es. AKS), abbina un **Ingress Controller** o un **LoadBalancer** per rendere disponibile il servizio all’esterno.</p>
+            <p>Settare il valore di `APP_DOMAIN` per l’ambiente Kubernetes ad esempio:</p>
+            <pre>https://b4web-api.neodatagroup.ai</pre>
+            <p>All’avvio il sistema produrrà uno **SWAGGER** con la descrizione degli endpoint, ad esempio:</p>
+            <pre>https://b4web-api.neodatagroup.ai/docs#/</pre>
+            <p>Settare il valore `ALLOWED_ORIGINS` per evitare problemi di **CORS**.</p>
 
             <hr/>
 
             <h2 id="avvio-server">🚀 ALL’AVVIO DEL SERVER</h2>
-            [cite_start]<p>Quando esegui `main.py`, **FastAPI** avvia l’app seguendo questi passaggi: [cite: 176]</p>
+            <p>Quando esegui `main.py`, **FastAPI** avvia l’app seguendo questi passaggi:</p>
             <ol>
-                <li>**1. [cite_start]Creazione dell’app FastAPI** [cite: 177]
-                    [cite_start]<pre>app = FastAPI() [cite: 178]</pre>
+                <li>**1. Creazione dell’app FastAPI**
+                    <pre>app = FastAPI()</pre>
                 </li>
-                <li>**2. [cite_start]Caricamento variabili d’ambiente** [cite: 179]
-                    [cite_start]<pre>load_dotenv() [cite: 180]</pre>
-                    [cite_start]Carica `.env` e recupera le origini consentite per il CORS. [cite: 182]
+                <li>**2. Caricamento variabili d’ambiente**
+                    <pre>load_dotenv()</pre>
+                    Carica `.env` e recupera le origini consentite per il CORS.
                 </li>
-                <li>**3. [cite_start]Configurazione CORS** [cite: 183]
-                    [cite_start]<pre>app.add_middleware(CORSMiddleware, ...) [cite: 184]</pre>
-                    [cite_start]Permette a frontend (es. React) su `localhost:3000` o domini configurati di comunicare con l’API. [cite: 185]
+                <li>**3. Configurazione CORS**
+                    <pre>app.add_middleware(CORSMiddleware, ...)</pre>
+                    Permette a frontend (es. React) su `localhost:3000` o domini configurati di comunicare con l’API.
                 </li>
-                <li>**4. [cite_start]Registrazione dei router** [cite: 186]
-                    [cite_start]<pre>app.include_router(...) # utenti, dati, connettori [cite: 187]</pre>
-                    [cite_start]Collega i moduli che gestiscono: [cite: 188]
+                <li>**4. Registrazione dei router**
+                    <pre>app.include_router(...) # utenti, dati, connettori</pre>
+                    Collega i moduli che gestiscono:
                     <ul>
-                        [cite_start]<li>`/users` → autenticazione, gestione utenti [cite: 189]</li>
-                        [cite_start]<li>`/data` → operazioni sul database locale (metaboliti, specie, spettrometria) [cite: 190]</li>
-                        [cite_start]<li>`/conn/pubchem` → integrazione esterna con PubChem [cite: 191]</li>
-                        [cite_start]<li>`/conn/excel` → caricamento dati da file Excel [cite: 192]</li>
+                        <li>`/users` → autenticazione, gestione utenti</li>
+                        <li>`/data` → operazioni sul database locale (metaboliti, specie, spettrometria)</li>
+                        <li>`/conn/pubchem` → integrazione esterna con PubChem</li>
+                        <li>`/conn/excel` → caricamento dati da file Excel</li>
                     </ul>
                 </li>
-                <li>**5. [cite_start]Avvio del server** [cite: 193]
-                    [cite_start]<pre>if __name__ == "__main__": [cite: 194]
-    [cite_start]uvicorn.run(app, host="0.0.0.0", port=8000) [cite: 195]</pre>
-                    [cite_start]Avvia il server FastAPI con Uvicorn, ascoltando sulla porta 8000. [cite: 196]
+                <li>**5. Avvio del server**
+                    <pre>if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)</pre>
+                    Avvia il server FastAPI con Uvicorn, ascoltando sulla porta 8000.
                 </li>
             </ol>
 
@@ -582,446 +582,439 @@
 
             <h3 id="main-models">📄 `main.py` & `models.py`</h3>
             <ul>
-                <li>Il **`main.py`** è il punto d’ingresso dell’applicazione FastAPI. [cite_start]Registra middleware, include i router, carica l’ambiente e avvia il server. [cite: 199, 200]</li>
-                [cite_start]<li>Il **`models.py`** contiene **tutte le tabelle del database**, mappate con **SQLAlchemy ORM**[cite: 201].
+                <li>Il **`main.py`** è il punto d’ingresso dell’applicazione FastAPI. Registra middleware, include i router, carica l’ambiente e avvia il server.</li>
+                <li>Il **`models.py`** contiene **tutte le tabelle del database**, mappate con **SQLAlchemy ORM**.
                     <ul>
-                        [cite_start]<li>**Autenticazione**: `User`, `OTP` [cite: 201]</li>
-                        [cite_start]<li>**Struttura biologica**: `Taxonomy`, `Sample`, `BiologicalReplicate` [cite: 201]</li>
-                        [cite_start]<li>**Dati metabolomici**: `Metabolite`, `ExperimentalMetabolite`, `Spectrometry` [cite: 201]</li>
-                        [cite_start]<li>**Dati PubChem/biochimici**: `Bioassay`, `Substance`, `MetaboliteBioassay`, `Bioactivity`, `BioactivityClass`, `BioassayClass`, `CompoundClass` [cite: 201]</li>
-                        [cite_start]<li>**Altro**: `Province`, `Municipality`, `Setting`, `MolecularClass`, `MolecularFormula`, `MolecularStructure`, `ResearchGroup` [cite: 201]</li>
+                        <li>**Autenticazione**: `User`, `OTP`</li>
+                        <li>**Struttura biologica**: `Taxonomy`, `Sample`, `BiologicalReplicate`</li>
+                        <li>**Dati metabolomici**: `Metabolite`, `ExperimentalMetabolite`, `Spectrometry`</li>
+                        <li>**Dati PubChem/biochimici**: `Bioassay`, `Substance`, `MetaboliteBioassay`, `Bioactivity`, `BioactivityClass`, `BioassayClass`, `CompoundClass`</li>
+                        <li>**Altro**: `Province`, `Municipality`, `Setting`, `MolecularClass`, `MolecularFormula`, `MolecularStructure`, `ResearchGroup`</li>
                     </ul>
                 </li>
             </ul>
 
             <h3 id="settings">📄 `settings.py`</h3>
-            [cite_start]<p>Classe `Config` che legge e centralizza le **variabili di configurazione ambientale** (es. `DB_HOST`, `DB_USER`, `DB_PASSWORD`)[cite: 204]. [cite_start]È utilizzato da `database_session.py` per creare la connessione al database[cite: 204].</p>
+            <p>Classe `Config` che legge e centralizza le **variabili di configurazione ambientale** (es. `DB_HOST`, `DB_USER`, `DB_PASSWORD`). È utilizzato da `database_session.py` per creare la connessione al database.</p>
 
             <h3 id="database-session">📄 `database_session.py`</h3>
-            [cite_start]<p>Gestisce la connessione al database PostgreSQL[cite: 206]. [cite_start]Crea un `SessionLocal` tramite SQLAlchemy [cite: 207] [cite_start]ed espone la funzione **`get_db()`** per usarla nei router via `Depends(get_db)`[cite: 208, 209].</p>
+            <p>Gestisce la connessione al database PostgreSQL. Crea un `SessionLocal` tramite SQLAlchemy ed espone la funzione **`get_db()`** per usarla nei router via `Depends(get_db)`.</p>
 
             <h3 id="tableparams">📄 `tableparams.py`</h3>
-            [cite_start]<p>Definisce classi Python che rappresentano **dati in ingresso** da form, JSON o chiamate esterne[cite: 211]. [cite_start]Questi oggetti sono usati per validare e passare dati ai metodi dei moduli `insert_*`[cite: 213].</p>
+            <p>Definisce classi Python che rappresentano **dati in ingresso** da form, JSON o chiamate esterne. Questi oggetti sono usati per validare e passare dati ai metodi dei moduli `insert_*`.</p>
             <ul>
-                [cite_start]<li>`MetaboliteParams`, `ExperimentalMetaboliteParams` → usati per costruire record da inserire [cite: 212]</li>
-                [cite_start]<li>`BioassayParams`, `TaxonomyParams`, `SubstanceParams` → dati provenienti da PubChem [cite: 212]</li>
-                [cite_start]<li>`UserParams` → gestione utenti [cite: 212]</li>
+                <li>`MetaboliteParams`, `ExperimentalMetaboliteParams` → usati per costruire record da inserire</li>
+                <li>`BioassayParams`, `TaxonomyParams`, `SubstanceParams` → dati provenienti da PubChem</li>
+                <li>`UserParams` → gestione utenti</li>
             </ul>
 
             <h3 id="come-interagiscono">🔄 Come interagiscono</h3>
-            [cite_start]<p>Ecco come i componenti interagiscono tra loro all’avvio e durante l’utilizzo: [cite: 215]</p>
+            <p>Ecco come i componenti interagiscono tra loro all’avvio e durante l’utilizzo:</p>
             <ol>
-                [cite_start]<li>`main.py` → avvia il server FastAPI [cite: 216]</li>
-                [cite_start]<li>`settings.py` → legge configurazioni ambiente [cite: 217]</li>
-                [cite_start]<li>`database_session.py` → apre connessione DB [cite: 218]</li>
-                [cite_start]<li>`models.py` → definisce le tabelle su cui operano gli endpoint [cite: 219]</li>
-                [cite_start]<li>`tableparams.py` → costruisce oggetti input da request/form [cite: 220]</li>
-                [cite_start]<li>`/routers` (APIusers, APIdata, APIconnector) → definiscono le rotte [cite: 221]</li>
-                [cite_start]<li>`/connectors` e `/datamanager` → logiche di elaborazione dati [cite: 222]</li>
-                [cite_start]<li>`/usermanager` → gestione utenti e autenticazione [cite: 223]</li>
+                <li>`main.py` → avvia il server FastAPI</li>
+                <li>`settings.py` → legge configurazioni ambiente</li>
+                <li>`database_session.py` → apre connessione DB</li>
+                <li>`models.py` → definisce le tabelle su cui operano gli endpoint</li>
+                <li>`tableparams.py` → costruisce oggetti input da request/form</li>
+                <li>`/routers` (APIusers, APIdata, APIconnector) → definiscono le rotte</li>
+                <li>`/connectors` e `/datamanager` → logiche di elaborazione dati</li>
+                <li>`/usermanager` → gestione utenti e autenticazione</li>
             </ol>
 
             <hr/>
 
             <h2 id="usermanager">👤 usermanager</h2>
-            [cite_start]<p>Questo modulo contiene l’implementazione delle API per la **gestione degli utenti** della piattaforma[cite: 225]. [cite_start]Le funzionalità includono autenticazione, OTP, gestione password, creazione/verifica utente e operazioni amministrative[cite: 226].</p>
+            <p>Questo modulo contiene l’implementazione delle API per la **gestione degli utenti** della piattaforma. Le funzionalità includono autenticazione, OTP, gestione password, creazione/verifica utente e operazioni amministrative.</p>
 
             <h4>Flusso completo di registrazione e login</h4>
             <ol>
-                [cite_start]<li>Creazione utente (**superuser**) → `/create_user` [cite: 231]</li>
-                [cite_start]<li>Verifica email (utente) → `/verify_email?check=...` [cite: 232]</li>
-                [cite_start]<li>Richiesta OTP (utente) → `/request_access` [cite: 233]</li>
-                [cite_start]<li>Login (utente) → `/login` → Ottieni **`access_token` JWT** per autenticazioni future [cite: 234]</li>
-                [cite_start]<li>Cambia password → `/change_pasword` [cite: 235]</li>
-                [cite_start]<li>Password dimenticata → `/reset_password` [cite: 236]</li>
+                <li>Creazione utente (**superuser**) → `/create_user`</li>
+                <li>Verifica email (utente) → `/verify_email?check=...`</li>
+                <li>Richiesta OTP (utente) → `/request_access`</li>
+                <li>Login (utente) → `/login` → Ottieni **`access_token` JWT** per autenticazioni future</li>
+                <li>Cambia password → `/change_pasword`</li>
+                <li>Password dimenticata → `/reset_password`</li>
             </ol>
-            [cite_start]<p>Il flusso di autenticazione è **two-factor (2FA)** basato su password e OTP via email[cite: 241]. [cite_start]Gli OTP vengono criptati con JWT, memorizzati su DB e verificati lato server[cite: 240].</p>
+            <p>Il flusso di autenticazione è **two-factor (2FA)** basato su password e OTP via email. Gli OTP vengono criptati con JWT, memorizzati su DB e verificati lato server.</p>
 
             <h3 id="endpoints-users">🌐 Endpoint `APIusers.py`</h3>
-            [cite_start]<p>Definisce una serie di endpoint FastAPI per la **gestione completa degli utenti** (registrazione, autenticazione sicura con OTP, gestione delle password, assegnazione dei ruoli e verifica e-mail)[cite: 247, 248]. [cite_start]Utilizza **modelli Pydantic**, **SQLAlchemy** e **JWT**[cite: 249]. [cite_start]L'endpoint è montato in `main.py` con il prefisso `/users`[cite: 254].</p>
+            <p>Definisce una serie di endpoint FastAPI per la **gestione completa degli utenti** (registrazione, autenticazione sicura con OTP, gestione delle password, assegnazione dei ruoli e verifica e-mail). Utilizza **modelli Pydantic**, **SQLAlchemy** e **JWT**. L'endpoint è montato in `main.py` con il prefisso `/users`.</p>
 
             <h4>🔐 Autenticazione e Accesso</h4>
             <ul>
-                [cite_start]<li>**Richiesta OTP (`/request_access` [POST])**: Verifica credenziali e invia un OTP via email[cite: 256, 259, 260].
+                <li>**Richiesta OTP (`/request_access` [POST])**: Verifica credenziali e invia un OTP via email.
                     <ul>
-                        [cite_start]<li>**Funzioni usate**: `generate_otp()`, `store_otp_in_db()`, `send_otp_email()`[cite: 262, 263, 264, 265].</li>
+                        <li>**Funzioni usate**: `generate_otp()`, `store_otp_in_db()`, `send_otp_email()`.</li>
                     </ul>
                 </li>
-                [cite_start]<li>**Login (`/login` [POST])**: Login tramite username, password e OTP[cite: 257, 267, 268].
+                <li>**Login (`/login` [POST])**: Login tramite username, password e OTP.
                     <ul>
-                        [cite_start]<li>**Processo**: Verifica credenziali e OTP usando `verify_otp_from_db()` e controlla gli OTP scaduti[cite: 271, 272, 273]. [cite_start]Ritorna `LoginResponse` con **token JWT** generato[cite: 274].</li>
+                        <li>**Processo**: Verifica credenziali e OTP usando `verify_otp_from_db()` e controlla gli OTP scaduti. Ritorna `LoginResponse` con **token JWT** generato.</li>
                     </ul>
                 </li>
             </ul>
 
             <h4>🔁 Gestione Password</h4>
             <ul>
-                [cite_start]<li>**Cambio Password (`/change_password` [POST])**: Cambio password autenticato[cite: 276, 279]. [cite_start]Richiede autenticazione via token[cite: 281].</li>
-                [cite_start]<li>**Reset Password (`/reset_password` [POST])**: Reset tramite username ed email[cite: 277, 284].
+                <li>**Cambio Password (`/change_password` [POST])**: Cambio password autenticato. Richiede autenticazione via token.</li>
+                <li>**Reset Password (`/reset_password` [POST])**: Reset tramite username ed email.
                     <ul>
-                        [cite_start]<li>**Processo**: Verifica username + email, imposta nuova password, imposta `checked = False` e invia una mail di verifica[cite: 287, 288].</li>
+                        <li>**Processo**: Verifica username + email, imposta nuova password, imposta `checked = False` e invia una mail di verifica.</li>
                     </ul>
                 </li>
             </ul>
 
             <h4>👤 Gestione Utenti</h4>
             <ul>
-                [cite_start]<li>**Creazione Utente (`/create_user` [POST])**: Crea un nuovo utente[cite: 290, 295, 296]. [cite_start]**Restrizioni**: Solo superuser[cite: 290, 298]. [cite_start]Invia mail di verifica (`send_verification_email()`)[cite: 302].</li>
-                <li>**Verifica Email (`/verify_email` [GET])**: Attiva l’account tramite token di conferma in URL. [cite_start]Imposta `user.checked = True`[cite: 291, 305, 307].</li>
-                [cite_start]<li>**Elenco Utenti (`/get_list` [GET])**: Lista utenti con paginazione (default: `page=1`, `limit=10`)[cite: 292, 309, 310, 311, 312]. [cite_start]**Restrizioni**: Solo superuser[cite: 292, 313].</li>
-                [cite_start]<li>**Cancellazione (`/delete/{user_id}` [DELETE])**: Elimina un utente[cite: 293, 315, 316]. [cite_start]**Restrizioni**: Solo superuser[cite: 293, 317].</li>
-                [cite_start]<li>**Cambio Ruolo (`/change_role` [PUT])**: Modifica ruolo utente[cite: 294, 319, 320]. [cite_start]**Restrizioni**: Solo superuser[cite: 294, 321].</li>
+                <li>**Creazione Utente (`/create_user` [POST])**: Crea un nuovo utente. **Restrizioni**: Solo superuser. Invia mail di verifica (`send_verification_email()`).</li>
+                <li>**Verifica Email (`/verify_email` [GET])**: Attiva l’account tramite token di conferma in URL. Imposta `user.checked = True`.</li>
+                <li>**Elenco Utenti (`/get_list` [GET])**: Lista utenti con paginazione (default: `page=1`, `limit=10`). **Restrizioni**: Solo superuser.</li>
+                <li>**Cancellazione (`/delete/{user_id}` [DELETE])**: Elimina un utente. **Restrizioni**: Solo superuser.</li>
+                <li>**Cambio Ruolo (`/change_role` [PUT])**: Modifica ruolo utente. **Restrizioni**: Solo superuser.</li>
             </ul>
 
             <h3 id="esempi-users">🚀 Esempi di utilizzo degli endpoint</h3>
-            [cite_start]<p>Esempi di richieste e risposte per la gestione utenti[cite: 327]:</p>
+            <p>Esempi di richieste e risposte per la gestione utenti:</p>
             <details>
                 <summary>1. Creazione utente (/create_user)</summary>
-                [cite_start]<pre>POST /create_user [cite: 329]
-[cite_start]Authorization: Bearer &lt;token_superuser&gt; [cite: 330]
-[cite_start]{ [cite: 331]
-[cite_start]"username": "mario", [cite: 332]
-[cite_start]"email": "mario@esempio.com", [cite: 333]
-[cite_start]"password": "password123", [cite: 334]
-[cite_start]"type": "guest" [cite: 335]
-[cite_start]} [cite: 336]
-[cite_start]Risposta: [cite: 337]
-[cite_start]{ [cite: 338]
-[cite_start]"message": "User created successfully. Verification email sent.", [cite: 339]
-[cite_start]"username": "mario", [cite: 340]
-[cite_start]"type": "guest" [cite: 341]
-[cite_start]} [cite: 342]</pre>
+                <pre>POST /create_user
+Authorization: Bearer &lt;token_superuser&gt;
+{
+"username": "mario",
+"email": "mario@esempio.com",
+"password": "password123",
+"type": "guest"
+}
+Risposta:
+{
+"message": "User created successfully. Verification email sent.",
+"username": "mario",
+"type": "guest"
+}</pre>
             </details>
             <details>
                 <summary>2. Verifica email (/verify_email)</summary>
-                [cite_start]<p>URL da email: [cite: 343]</p>
-                [cite_start]<pre>GET /verify_email?check=&lt;token&gt; [cite: 344]
-[cite_start]Risposta: [cite: 345]
-[cite_start]{ [cite: 346]
-[cite_start]"message": "Email verified successfully.", [cite: 347]
-[cite_start]"email": "mario@esempio.com" [cite: 348]
-[cite_start]} [cite: 349]</pre>
+                <p>URL da email:</p>
+                <pre>GET /verify_email?check=&lt;token&gt;
+Risposta:
+{
+"message": "Email verified successfully.",
+"email": "mario@esempio.com"
+}</pre>
             </details>
             <details>
                 <summary>3. Richiesta OTP (/request_access)</summary>
-                [cite_start]<pre>POST /request_access [cite: 351]
-[cite_start]{ [cite: 352]
-[cite_start]"username": "mario", [cite: 353]
-[cite_start]"password": "password123" [cite: 354]
-[cite_start]} [cite: 355]
-[cite_start]Risposta: [cite: 356]
-[cite_start]{ [cite: 357]
-[cite_start]"message": "OTP sent to registered email" [cite: 358]
-[cite_start]} [cite: 359]</pre>
+                <pre>POST /request_access
+{
+"username": "mario",
+"password": "password123"
+}
+Risposta:
+{
+"message": "OTP sent to registered email"
+}</pre>
             </details>
             <details>
                 <summary>4. Login con OTP (/login)</summary>
-                [cite_start]<pre>POST /login [cite: 361]
-[cite_start]{ [cite: 362]
-[cite_start]"username": "mario", [cite: 363]
-[cite_start]"password": "password123", [cite: 364]
-[cite_start]"otp": "123456" [cite: 365]
-[cite_start]} [cite: 366]
-[cite_start]Risposta: [cite: 367]
-[cite_start]{ [cite: 368]
-[cite_start]"access_token": "&lt;JWT_TOKEN&gt;", [cite: 369]
-[cite_start]"token_type": "bearer", [cite: 370]
-[cite_start]"user_type": "guest" [cite: 371]
-[cite_start]} [cite: 372]</pre>
+                <pre>POST /login
+{
+"username": "mario",
+"password": "password123",
+"otp": "123456"
+}
+Risposta:
+{
+"access_token": "&lt;JWT_TOKEN&gt;",
+"token_type": "bearer",
+"user_type": "guest"
+}</pre>
             </details>
             <details>
                 <summary>5. Cambio password (/change_password)</summary>
-                [cite_start]<pre>POST /change_password [cite: 374]
-[cite_start]Authorization: Bearer &lt;JWT_TOKEN&gt; [cite: 375]
-[cite_start]{ [cite: 376]
-[cite_start]"username": "mario", [cite: 377]
-[cite_start]"old_password": "password123", [cite: 378]
-[cite_start]"new_password": "nuovaPassword" [cite: 379]
-[cite_start]} [cite: 380]</pre>
+                <pre>POST /change_password
+Authorization: Bearer &lt;JWT_TOKEN&gt;
+{
+"username": "mario",
+"old_password": "password123",
+"new_password": "nuovaPassword"
+}</pre>
             </details>
             <details>
                 <summary>6. Reset password (/reset_password)</summary>
-                [cite_start]<pre>POST /reset_password [cite: 382]
-[cite_start]{ [cite: 383]
-[cite_start]"username": "mario", [cite: 384]
-[cite_start]"email": "mario@esempio.com", [cite: 385]
-[cite_start]"new_password": "passwordReset" [cite: 386]
-[cite_start]} [cite: 387]</pre>
-                [cite_start]<p>Invierà una nuova email di verifica all’utente. [cite: 388]</p>
+                <pre>POST /reset_password
+{
+"username": "mario",
+"email": "mario@esempio.com",
+"new_password": "passwordReset"
+}</pre>
+                <p>Invierà una nuova email di verifica all’utente.</p>
             </details>
             <details>
                 <summary>7. Elenco utenti (/get_list)</summary>
-                [cite_start]<pre>GET /get_list?page=1&limit=10 [cite: 390]
-[cite_start]Authorization: Bearer &lt;token_superuser&gt; [cite: 391]</pre>
+                <pre>GET /get_list?page=1&limit=10
+Authorization: Bearer &lt;token_superuser&gt;</pre>
             </details>
             <details>
                 <summary>8. Cancellazione utente (/delete/{user_id})</summary>
-                [cite_start]<pre>DELETE /delete/5 [cite: 393]
-[cite_start]Authorization: Bearer &lt;token_superuser&gt; [cite: 394]</pre>
+                <pre>DELETE /delete/5
+Authorization: Bearer &lt;token_superuser&gt;</pre>
             </details>
             <details>
                 <summary>9. Modifica ruolo utente (/change_role)</summary>
-                [cite_start]<pre>PUT /change_role [cite: 396]
-[cite_start]Authorization: Bearer &lt;token_superuser&gt; [cite: 397]
-[cite_start]{ [cite: 398]
-[cite_start]"user_id": 5, [cite: 399]
-[cite_start]"new_role": "analyst" [cite: 400]
-[cite_start]} [cite: 401]</pre>
+                <pre>PUT /change_role
+Authorization: Bearer &lt;token_superuser&gt;
+{
+"user_id": 5,
+"new_role": "analyst"
+}</pre>
             </details>
 
             <h3 id="tasks">📁 Script `background_tasks.py`</h3>
-            [cite_start]<p>Script ausiliario per la **pulizia automatica degli OTP scaduti o usati**[cite: 402, 403].</p>
+            <p>Script ausiliario per la **pulizia automatica degli OTP scaduti o usati**.</p>
             <ul>
-                [cite_start]<li>`cleanup_expired_otps(db)`: Cancella gli OTP scaduti o già utilizzati (oltre i 5 minuti)[cite: 405].</li>
-                [cite_start]<li>`schedule_cleanup()`: Avvia un ciclo infinito che esegue `cleanup_expired_otps` ogni 5 minuti[cite: 406].</li>
+                <li>`cleanup_expired_otps(db)`: Cancella gli OTP scaduti o già utilizzati (oltre i 5 minuti).</li>
+                <li>`schedule_cleanup()`: Avvia un ciclo infinito che esegue `cleanup_expired_otps` ogni 5 minuti.</li>
             </ul>
 
             <h3 id="scheduler">📁 Script `scheduler.py`</h3>
-            [cite_start]<p>Script per schedulare automaticamente la **pulizia periodica degli OTP** ogni 5 minuti utilizzando **APScheduler**[cite: 409]. [cite_start]Utilizza `AsyncIOScheduler` e importa `cleanup_expired_otps` da `APIusers.py`[cite: 411, 412].</p>
+            <p>Script per schedulare automaticamente la **pulizia periodica degli OTP** ogni 5 minuti utilizzando **APScheduler**. Utilizza `AsyncIOScheduler` e importa `cleanup_expired_otps` da `APIusers.py`.</p>
 
             <hr/>
 
             <h2 id="datamanager">📦 datamanager</h2>
-            [cite_start]<p>Il modulo gestisce l’inserimento, la trasformazione, la consultazione e l’aggiornamento dei dati relativi ai **metaboliti**, **spettrometria** e dettagli associati alle **specie biologiche**[cite: 415].</p>
+            <p>Il modulo gestisce l’inserimento, la trasformazione, la consultazione e l’aggiornamento dei dati relativi ai **metaboliti**, **spettrometria** e dettagli associati alle **specie biologiche**.</p>
 
             <h3 id="endpoints-data">🌐 Endpoint `APIdata.py`</h3>
-            [cite_start]<p>Implementa diverse API dedicate alla gestione dei dati relativi alla spettrometria, ai metaboliti sperimentali e alla tassonomia, fungendo da controller per il frontend[cite: 417].</p>
-            [cite_start]<p>Funzionalità: [cite: 419, 420, 421, 422, 423]</p>
-            <ul>
-                [cite_start]<li>l’inserimento e aggiornamento dei metaboliti e dati spettrometrici[cite: 420],</li>
-                [cite_start]<li>la ricerca per nome, formula, frammenti o parametri spettrometrici[cite: 421],</li>
-                [cite_start]<li>l’esplorazione di informazioni tassonomiche[cite: 422],</li>
-                [cite_start]<li>l’accesso a dettagli e bioassay associati ai metaboliti[cite: 423].</li>
-            </ul>
-            [cite_start]<p>L'endpoint è montato in `main.py` con il prefisso `/data`[cite: 428].</p>
+            <p>Implementa diverse API dedicate alla gestione dei dati relativi alla spettrometria, ai metaboliti sperimentali e alla tassonomia, fungendo da controller per il frontend.</p>
+            <p>L'endpoint è montato in `main.py` con il prefisso `/data`.</p>
 
             <h4>🧱 Modelli (Request & Response)</h4>
-            [cite_start]<p>Modelli (strutture dati) usati dagli endpoint: [cite: 429, 430]</p>
+            <p>Modelli (strutture dati) usati dagli endpoint:</p>
             <ul>
-                [cite_start]<li>`MetaboliteModel` [cite: 431][cite_start], `SpectrometryRequestModel` [cite: 432][cite_start], `MetaboliteResponse` [cite: 433][cite_start], `MetaboliteDetailResponse` [cite: 437][cite_start], `TaxonomyDetailResponse`[cite: 438].</li>
-                [cite_start]<li>Modelli per la ricerca sperimentale: `ExperimentalMetaboliteResponse` [cite: 439][cite_start], `FormulaRTResponse` [cite: 440][cite_start], `FragmentsResponse`[cite: 441].</li>
-                [cite_start]<li>Modelli per Bioactivity, Bioassay e Replicati Biologici: `BioactivityInsertRequest` [cite: 448][cite_start], `BioassayClassResponse` [cite: 452][cite_start], `BiologicalReplicateItem`[cite: 455].</li>
+                <li>`MetaboliteModel`, `SpectrometryRequestModel`, `MetaboliteResponse`, `MetaboliteDetailResponse`, `TaxonomyDetailResponse`.</li>
+                <li>Modelli per la ricerca sperimentale: `ExperimentalMetaboliteResponse`, `FormulaRTResponse`, `FragmentsResponse`.</li>
+                <li>Modelli per Bioactivity, Bioassay e Replicati Biologici: `BioactivityInsertRequest`, `BioassayClassResponse`, `BiologicalReplicateItem`.</li>
             </ul>
 
             <h4>⚙️ Funzioni interne (logiche)</h4>
-            [cite_start]<p>Le logiche utilizzate provengono da moduli importati come: [cite: 474]</p>
+            <p>Le logiche utilizzate provengono da moduli importati come:</p>
             <ul>
-                [cite_start]<li>`InsertMetaboliteLogic`, `InsertSpectrometryLogic`, `InsertTaxonomyLogic`, `InsertBioactivityLogic` [cite: 475, 476, 477, 478]</li>
-                [cite_start]<li>`FragmentedMetabolites` e metodi `*_data_manipulation` (es. `metabolitedetail_data_manipulation`) [cite: 479, 480]</li>
+                <li>`InsertMetaboliteLogic`, `InsertSpectrometryLogic`, `InsertTaxonomyLogic`, `InsertBioactivityLogic`</li>
+                <li>`FragmentedMetabolites` e metodi `*_data_manipulation` (es. `metabolitedetail_data_manipulation`)</li>
             </ul>
 
             <h4>🚀 Endpoint Data Manager</h4>
-            [cite_start]<p>Sintesi degli endpoint: [cite: 484]</p>
+            <p>Sintesi degli endpoint:</p>
             <details>
                 <summary>🔍 Ricerca Metaboliti</summary>
                 <ul>
-                    [cite_start]<li>`GET /get_all_metabolites` [cite: 486]</li>
-                    [cite_start]<li>`GET /get_metabolite` (per nome) [cite: 487]</li>
-                    [cite_start]<li>`GET /data/metabolite_synonyms` (per sinonimo) [cite: 488]</li>
+                    <li>`GET /get_all_metabolites`</li>
+                    <li>`GET /get_metabolite` (per nome)</li>
+                    <li>`GET /data/metabolite_synonyms` (per sinonimo)</li>
                 </ul>
             </details>
             <details>
                 <summary>🧪 Gestione Spettrometria</summary>
                 <ul>
-                    [cite_start]<li>`GET /get_spectrometry/{id}` (imposta adducts e settings) [cite: 489]</li>
-                    [cite_start]<li>`POST /add_spectrometry` / `POST /data/add_spectrometry` [cite: 490, 496]</li>
-                    [cite_start]<li>`DELETE /data/delete_spectrometry/{id}` [cite: 491]</li>
-                    [cite_start]<li>`GET /data/get_all_spectrometries` (lista con paginazione) [cite: 492]</li>
+                    <li>`GET /get_spectrometry/{id}` (imposta adducts e settings)</li>
+                    <li>`POST /add_spectrometry` / `POST /data/add_spectrometry`</li>
+                    <li>`DELETE /data/delete_spectrometry/{id}`</li>
+                    <li>`GET /data/get_all_spectrometries` (lista con paginazione)</li>
                 </ul>
             </details>
             <details>
                 <summary>➕ Inserimento Metaboliti</summary>
                 <ul>
-                    [cite_start]<li>`POST /add_metabolite` (inserisce o aggiorna) [cite: 498]</li>
+                    <li>`POST /add_metabolite` (inserisce o aggiorna)</li>
                 </ul>
             </details>
             <details>
                 <summary>🧬 Ricerca e Gestione Tassonomica</summary>
                 <ul>
-                    [cite_start]<li>Ricerca per Specie, Genere e Famiglia (`GET /get_all_species`, `GET /get_specie`, `GET /get_all_genera`, `GET /get_genus`, `GET /get_all_families`, `GET /get_family`) [cite: 499, 500, 501, 502, 503, 504]</li>
-                    [cite_start]<li>`DELETE /data/delete_taxonomy/{id_taxa}` (eliminazione a cascata) [cite: 506]</li>
-                    [cite_start]<li>`POST /data/add_taxonomy`, `PUT /data/update_taxonomy` [cite: 509, 510]</li>
-                    [cite_start]<li>`GET /data/taxonomy_synonyms` (ricerca per sinonimi) [cite: 508]</li>
+                    <li>Ricerca per Specie, Genere e Famiglia (`GET /get_all_species`, `GET /get_specie`, `GET /get_all_genera`, `GET /get_genus`, `GET /get_all_families`, `GET /get_family`)</li>
+                    <li>`DELETE /data/delete_taxonomy/{id_taxa}` (eliminazione a cascata)</li>
+                    <li>`POST /data/add_taxonomy`, `PUT /data/update_taxonomy`</li>
+                    <li>`GET /data/taxonomy_synonyms` (ricerca per sinonimi)</li>
                 </ul>
             </details>
             <details>
                 <summary>📋 Dettaglio</summary>
                 <ul>
-                    [cite_start]<li>`GET /metabolite_detail` (dettaglio completo metabolita) [cite: 511]</li>
-                    [cite_start]<li>`GET /taxonomy_detail` (dettaglio completo tassonomia) [cite: 512]</li>
+                    <li>`GET /metabolite_detail` (dettaglio completo metabolita)</li>
+                    <li>`GET /taxonomy_detail` (dettaglio completo tassonomia)</li>
                 </ul>
             </details>
             <details>
                 <summary>🧭 Ricerca per Dati Sperimentali</summary>
                 <ul>
-                    [cite_start]<li>`GET /search_metabolite_by_experimental_mz` [cite: 514]</li>
-                    [cite_start]<li>`GET /search_metabolite_by_formula_rt` [cite: 516]</li>
-                    [cite_start]<li>`GET /search_metabolite_by_fragments` [cite: 520]</li>
+                    <li>`GET /search_metabolite_by_experimental_mz`</li>
+                    <li>`GET /search_metabolite_by_formula_rt`</li>
+                    <li>`GET /search_metabolite_by_fragments`</li>
                 </ul>
             </details>
             <details>
                 <summary>🧫 Gestione Bioactivity, Classi e Replicati</summary>
                 <ul>
-                    [cite_start]<li>Gestione Bioactivity: `POST /data/add_bioactivity`, `PUT /data/update_bioactivity/{id}`, `DELETE /data/delete_bioactivity/{id}`, `GET /data/get_all_bioactivities` [cite: 528, 529, 530, 531]</li>
-                    [cite_start]<li>Gestione Classi: Endpoint separati per `BioactivityClass` e `BioassayClass` (Add/Update/Delete/Get All) [cite: 532, 536]</li>
-                    [cite_start]<li>Gestione Replicati Biologici: `POST /data/add_biological_replicate`, `DELETE /data/delete_biological_replicate`, `GET /data/get_list_biologicalreplicate` [cite: 540, 541, 544]</li>
+                    <li>Gestione Bioactivity: `POST /data/add_bioactivity`, `PUT /data/update_bioactivity/{id}`, `DELETE /data/delete_bioactivity/{id}`, `GET /data/get_all_bioactivities`</li>
+                    <li>Gestione Classi: Endpoint separati per `BioactivityClass` e `BioassayClass` (Add/Update/Delete/Get All)</li>
+                    <li>Gestione Replicati Biologici: `POST /data/add_biological_replicate`, `DELETE /data/delete_biological_replicate`, `GET /data/get_list_biologicalreplicate`</li>
                 </ul>
             </details>
 
             <h3 id="insert-metabolite">📁 Script `insert_metabolite.py`</h3>
-            [cite_start]<p>Contiene diverse funzioni per gestire l’inserimento e la manipolazione dei dati relativi ai metaboliti[cite: 566].</p>
+            <p>Contiene diverse funzioni per gestire l’inserimento e la manipolazione dei dati relativi ai metaboliti.</p>
 
             <h4>Procedura ETL</h4>
             <p>**🟢 Extract**</p>
             <ul>
-                [cite_start]<li>Estrazione dei dati dal JSON tramite `load_bioassay(json_string)` e `load_substance(json_string, compound_name)`[cite: 569, 570].</li>
+                <li>Estrazione dei dati dal JSON tramite `load_bioassay(json_string)` e `load_substance(json_string, compound_name)`.</li>
             </ul>
             <p>**🔵 Transform**</p>
             <ul>
-                [cite_start]<li>Le funzioni di estrazione convertono i dati JSON in oggetti `BioassayParams` e `SubstanceParams`[cite: 571].</li>
-                [cite_start]<li>`metaboliteinsert_data_manipulation(form_data, db)` trasforma i dati del modulo in oggetti da inserire, gestendo anche la conversione di immagini in dati binari[cite: 572].</li>
+                <li>Le funzioni di estrazione convertono i dati JSON in oggetti `BioassayParams` e `SubstanceParams`.</li>
+                <li>`metaboliteinsert_data_manipulation(form_data, db)` trasforma i dati del modulo in oggetti da inserire, gestendo anche la conversione di immagini in dati binari.</li>
             </ul>
             <p>**🔴 Load**</p>
             <ul>
-                [cite_start]<li>Inserimento di nuovi metaboliti, strutture molecolari, bioassay, sostanze, impostazioni, campioni, replicati biologici e metaboliti sperimentali nel database[cite: 573, 574, 575, 576, 577, 578, 579, 580].</li>
+                <li>Inserimento di nuovi metaboliti, strutture molecolari, bioassay, sostanze, impostazioni, campioni, replicati biologici e metaboliti sperimentali nel database.</li>
             </ul>
 
             <h4>🛠️ Metodo `metaboliteinsert_data_manipulation`</h4>
-            [cite_start]<p>Metodo core (`metaboliteinsert_data_manipulation`) che gestisce l'intero flusso ETL per l'inserimento dei dati dei metaboliti nel database[cite: 599, 602, 603]. [cite_start]Gestisce l'estrazione, la trasformazione (conversione immagine 2D in binario) e il caricamento di tutte le entità correlate (strutture molecolari, bioassay, campioni, replicati ecc.)[cite: 609, 610, 611, 615, 616, 622, 623, 627, 628, 632, 633]. [cite_start]Include la gestione delle eccezioni e il **rollback della transazione** in caso di errore[cite: 605].</p>
+            <p>Metodo core (`metaboliteinsert_data_manipulation`) che gestisce l'intero flusso ETL per l'inserimento dei dati dei metaboliti nel database. Gestisce l'estrazione, la trasformazione (conversione immagine 2D in binario) e il caricamento di tutte le entità correlate (strutture molecolari, bioassay, campioni, replicati ecc.). Include la gestione delle eccezioni e il **rollback della transazione** in caso di errore.</p>
 
             <h4>🧩 Classe `BioactivityLoading`</h4>
-            [cite_start]<p>Responsabile del recupero e della trasformazione dei dati **biochimici** (bioassay) e **chimici** (substances) da risposte JSON, tipicamente da PubChem[cite: 634, 635].</p>
+            <p>Responsabile del recupero e della trasformazione dei dati **biochimici** (bioassay) e **chimici** (substances) da risposte JSON, tipicamente da PubChem.</p>
             <ul>
-                [cite_start]<li>`load_bioassay(json_string: str)`: Elabora i dati relativi ai test biochimici (AID, titolo, tipo, descrizione) dal JSON e li raggruppa in un oggetto `BioassayParams`[cite: 638, 639, 642, 643].</li>
-                [cite_start]<li>`load_substance(json_string: str, compound_name: str)`: Elabora le informazioni chimiche (numero di registrazione, nome IUPAC, nome commerciale) e le organizza in un oggetto `SubstanceParams`[cite: 646, 650, 651].</li>
+                <li>`load_bioassay(json_string: str)`: Elabora i dati relativi ai test biochimici (AID, titolo, tipo, descrizione) dal JSON e li raggruppa in un oggetto `BioassayParams`.</li>
+                <li>`load_substance(json_string: str, compound_name: str)`: Elabora le informazioni chimiche (numero di registrazione, nome IUPAC, nome commerciale) e le organizza in un oggetto `SubstanceParams`.</li>
             </ul>
 
             <h3 id="insert-spectrometry">📁 Script `insert_spectrometry.py`</h3>
-            [cite_start]<p>Questo modulo gestisce l’inserimento dei dati di **spettrometria LC-MS** (grafici, picchi, parametri strumentali)[cite: 655].</p>
+            <p>Questo modulo gestisce l’inserimento dei dati di **spettrometria LC-MS** (grafici, picchi, parametri strumentali).</p>
 
             <h4>Procedura ETL</h4>
-            [cite_start]<p>**🟢 Extract**: Ricezione di `intensity_threshold`, `filtered_peaks`, `image_base64` (opzionale), parametri strumentali e `metabolite_name`[cite: 659, 660, 661, 662, 663].</p>
-            [cite_start]<p>**🔵 Transform**: Se non fornita, generazione automatica del grafico dello spettro a partire dai picchi e conversione in base64[cite: 666]. [cite_start]Preparazione della struttura dati per il database[cite: 667].</p>
-            [cite_start]<p>**🔴 Load**: Inserimento di un nuovo record nella tabella **Spectrometry**, associando i dati al metabolita e al setting strumentale[cite: 670].</p>
+            <p>**🟢 Extract**: Ricezione di `intensity_threshold`, `filtered_peaks`, `image_base64` (opzionale), parametri strumentali e `metabolite_name`.</p>
+            <p>**🔵 Transform**: Se non fornita, generazione automatica del grafico dello spettro a partire dai picchi e conversione in base64. Preparazione della struttura dati per il database.</p>
+            <p>**🔴 Load**: Inserimento di un nuovo record nella tabella **Spectrometry**, associando i dati al metabolita e al setting strumentale.</p>
 
             <h4>🧩 Classe `InsertSpectrometryLogic`</h4>
-            [cite_start]<p>Classe principale per elaborare e caricare i dati spettrometrici[cite: 674, 675].</p>
+            <p>Classe principale per elaborare e caricare i dati spettrometrici.</p>
             <ul>
-                [cite_start]<li>`create_graph_base64(filtered_peaks)`: Genera un grafico dello spettro in formato base64[cite: 678].</li>
-                [cite_start]<li>`insert_spectrometry_data(data, db: Session)`: Gestisce l’intero flusso di inserimento dei dati spettrometrici, dalla validazione alla creazione del grafico, fino al salvataggio nel database[cite: 679].</li>
+                <li>`create_graph_base64(filtered_peaks)`: Genera un grafico dello spettro in formato base64.</li>
+                <li>`insert_spectrometry_data(data, db: Session)`: Gestisce l’intero flusso di inserimento dei dati spettrometrici, dalla validazione alla creazione del grafico, fino al salvataggio nel database.</li>
             </ul>
 
             <h3 id="insert-taxonomy">📁 Script `insert_taxonomy.py`</h3>
-            [cite_start]<p>Gestisce l'inserimento, aggiornamento, eliminazione e recupero di **tassonomie** e **campioni**[cite: 684].</p>
+            <p>Gestisce l'inserimento, aggiornamento, eliminazione e recupero di **tassonomie** e **campioni**.</p>
 
             <h4>Procedura ETL</h4>
-            <p>**🟢 Extract**: Dati di tassonomie e campioni ricevuti da API o form. [cite_start]Possibile recupero automatico da PubChem se alcune informazioni tassonomiche sono mancanti[cite: 688, 690].</p>
-            <p>**🔵 Transform**: I dati ricevuti vengono validati e arricchiti. [cite_start]Date e riferimenti a entità collegate (comuni, tassonomie) vengono verificati[cite: 692, 693, 694].</p>
-            [cite_start]<p>**🔴 Load**: Inserimento/Aggiornamento/Eliminazione di tassonomie e gestione dei campioni[cite: 697, 698, 699, 700].</p>
+            <p>**🟢 Extract**: Dati di tassonomie e campioni ricevuti da API o form. Possibile recupero automatico da PubChem se alcune informazioni tassonomiche sono mancanti.</p>
+            <p>**🔵 Transform**: I dati ricevuti vengono validati e arricchiti. Date e riferimenti a entità collegate (comuni, tassonomie) vengono verificati.</p>
+            <p>**🔴 Load**: Inserimento, aggiornamento ed eliminazione di tassonomie e gestione dei campioni.</p>
 
             <h4>🧩 Classe `InsertTaxonomyLogic`</h4>
-            [cite_start]<p>Implementa tutti i metodi necessari per la gestione delle tassonomie e dei campioni[cite: 702].</p>
+            <p>Implementa tutti i metodi necessari per la gestione delle tassonomie e dei campioni.</p>
             <ul>
-                [cite_start]<li>**Tassonomie**: `add_taxonomy` (recupera dati mancanti da PubChem se necessario) [cite: 705][cite_start], `update_taxonomy` [cite: 706][cite_start], `delete_taxonomy`[cite: 707].</li>
-                [cite_start]<li>**Campioni**: `add_sample` [cite: 710][cite_start], `update_sample` [cite: 712][cite_start], `delete_sample`[cite: 713].</li>
+                <li>**Tassonomie**: `add_taxonomy` (recupera dati mancanti da PubChem se necessario), `update_taxonomy`, `delete_taxonomy`.</li>
+                <li>**Campioni**: `add_sample`, `update_sample`, `delete_sample`.</li>
             </ul>
 
             <h3 id="metabolite-detail">📁 Script `metabolite_detail.py`</h3>
-            [cite_start]<p>Responsabile della generazione e aggregazione dei **dettagli completi relativi a un metabolita**[cite: 717, 718]. [cite_start]Lavora su dati esistenti combinandoli per fornire una visione completa[cite: 720].</p>
+            <p>Responsabile della generazione e aggregazione dei **dettagli completi relativi a un metabolita**. Lavora su dati esistenti combinandoli per fornire una visione completa.</p>
 
             <h4>Procedura ETL (interpretata come aggregazione)</h4>
-            [cite_start]<p>**🟢 Extract**: I metodi interrogano il DB (usando SQLAlchemy Session) per estrarre informazioni chimiche, bioassay, tassonomiche, frammenti sperimentali e spettri LC-MS[cite: 723].</p>
-            [cite_start]<p>**🔵 Transform**: I dati estratti sono trasformati in dizionari Python strutturati e formattati (raggruppati per specie/impostazione sperimentale)[cite: 725, 726].</p>
-            [cite_start]<p>**🔴 Load**: Corrisponde alla preparazione di una **risposta aggregata** per il client API[cite: 728, 729].</p>
+            <p>**🟢 Extract**: I metodi interrogano il DB (usando SQLAlchemy Session) per estrarre informazioni chimiche, bioassay, tassonomiche, frammenti sperimentali e spettri LC-MS.</p>
+            <p>**🔵 Transform**: I dati estratti sono trasformati in dizionari Python strutturati e formattati (raggruppati per specie/impostazione sperimentale).</p>
+            <p>**🔴 Load**: Corrisponde alla preparazione di una **risposta aggregata** per il client API.</p>
 
             <h4>🛠️ Metodo `metabolitedetail_data_manipulation`</h4>
-            [cite_start]<p>Aggrega tutte le informazioni disponibili su un metabolita (formula, massa, struttura, bioassay, dati spettrometrici, tassonomici), organizzando frammenti e dati LC-MS per specie e configurazione strumentale[cite: 731, 732, 733].</p>
+            <p>Aggrega tutte le informazioni disponibili su un metabolita (formula, massa, struttura, bioassay, dati spettrometrici, tassonomici), organizzando frammenti e dati LC-MS per specie e configurazione strumentale.</p>
 
             <h4>🧩 Classe `FragmentedMetabolites`</h4>
             <ul>
-                [cite_start]<li>`get_fragmented_metabolites_by_name_species`: Raccoglie tutti i frammenti LC-MS registrati per un metabolita e una specie, con i relativi parametri sperimentali[cite: 743, 745].</li>
+                <li>`get_fragmented_metabolites_by_name_species`: Raccoglie tutti i frammenti LC-MS registrati per un metabolita e una specie, con i relativi parametri sperimentali.</li>
             </ul>
 
             <h4>🧩 Classe `UpdateMetabolite`</h4>
             <ul>
-                [cite_start]<li>`update_metabolite_check(forms: dict, db: Session)`: Permette la modifica controllata dei dati di un metabolita (rinomina, formula, massa, parametri spettrometrici, ecc.), mantenendo l'integrità delle relazioni[cite: 751, 752].</li>
+                <li>`update_metabolite_check(forms: dict, db: Session)`: Permette la modifica controllata dei dati di un metabolita (rinomina, formula, massa, parametri spettrometrici, ecc.), mantenendo l'integrità delle relazioni.</li>
             </ul>
 
             <h3 id="insert-bioactivity">📁 Script `insert_bioactivity.py`</h3>
-            [cite_start]<p>Garantisce l’inserimento di un nuovo record di bioattività[cite: 754].</p>
+            <p>Garantisce l’inserimento di un nuovo record di bioattività.</p>
 
             <h4>Procedura ETL</h4>
-            [cite_start]<p>**🟢 Extract**: Il dizionario di dati fornito in input è considerato il dato estratto[cite: 756].</p>
-            [cite_start]<p>**🔵 Transform**: I metodi della classe interrogano il database per verificare l'esistenza e creare, se necessario, i record correlati (`ResearchGroup`, `Taxonomy`, `Municipality`, `Sample`, `Setting`, `BiologicalReplicate`, `BioassayClass`, `BioactivityClass`)[cite: 757, 758, 763, 766, 767, 769, 773, 776, 779, 783, 788].</p>
-            [cite_start]<p>**🔴 Load**: Creazione e salvataggio del nuovo record **Bioactivity**[cite: 759, 791, 792].</p>
+            <p>**🟢 Extract**: Il dizionario di dati fornito in input è considerato il dato estratto.</p>
+            <p>**🔵 Transform**: I metodi della classe interrogano il database per verificare l'esistenza e creare, se necessario, i record correlati (`ResearchGroup`, `Taxonomy`, `Municipality`, `Sample`, `Setting`, `BiologicalReplicate`, `BioassayClass`, `BioactivityClass`).</p>
+            <p>**🔴 Load**: Creazione e salvataggio del nuovo record **Bioactivity**.</p>
 
             <h3 id="index-py">📁 Script `index.py`</h3>
-            [cite_start]<p>Script di **orchestrazione**[cite: 797]: coordina le chiamate tra moduli, gestisce input e li inoltra ai componenti logici. [cite_start]Funge da facciata coordinatrice[cite: 798, 799].</p>
+            <p>Script di **orchestrazione**: coordina le chiamate tra moduli, gestisce input e li inoltra ai componenti logici. Funge da facciata coordinatrice.</p>
 
             <h4>🔍 Metodi search</h4>
-            [cite_start]<p>Metodi per la ricerca di metaboliti, specie e famiglie[cite: 803, 804].</p>
+            <p>Metodi per la ricerca di metaboliti, specie e famiglie.</p>
             <ul>
-                [cite_start]<li>`search_metabolites`, `search_species`, `search_all_genus`, `search_all_families` [cite: 804, 805, 806, 807]</li>
-                [cite_start]<li>`search_metabolite`, `search_specie`, `search_genu`, `search_family` [cite: 808, 809, 811, 813]</li>
-                [cite_start]<li>`search_experimental_mz`: Ricerca per m/z sperimentale, tipo e finestra di errore [cite: 815]</li>
-                [cite_start]<li>`search_formula_rt`: Ricerca opzionale per formula molecolare e/o valore RT e finestra di errore RT [cite: 817, 818]</li>
-                [cite_start]<li>`search_metabolites_by_fragments`: Ricerca attraverso frammenti, definendo finestra di errore e filtro per frammenti positivi/negativi [cite: 820, 821]</li>
+                <li>`search_metabolites`, `search_species`, `search_all_genus`, `search_all_families`</li>
+                <li>`search_metabolite`, `search_specie`, `search_genu`, `search_family`</li>
+                <li>`search_experimental_mz`: Ricerca per m/z sperimentale, tipo e finestra di errore</li>
+                <li>`search_formula_rt`: Ricerca opzionale per formula molecolare e/o valore RT e finestra di errore RT</li>
+                <li>`search_metabolites_by_fragments`: Ricerca attraverso frammenti, definendo finestra di errore e filtro per frammenti positivi/negativi</li>
             </ul>
 
             <hr/>
 
             <h2 id="connettori">📦 Connectors</h2>
-            [cite_start]<p>Modulo che permette di interagire con dati esterni, come quelli da **PubChem** e da **file Excel**[cite: 824]. [cite_start]Tutti gli endpoint sono protetti da autenticazione (`current_user`)[cite: 825].</p>
+            <p>Modulo che permette di interagire con dati esterni, come quelli da **PubChem** e da **file Excel**. Tutti gli endpoint sono protetti da autenticazione (`current_user`).</p>
 
             <h3 id="connector-excel">Da file Excel</h3>
-            <p>API per l'importazione di dati da file Excel. [cite_start]Montate con prefisso `/conn/excel`[cite: 827, 831].</p>
+            <p>API per l'importazione di dati da file Excel. Montate con prefisso `/conn/excel`.</p>
             <h4>🚀 Endpoint Excel</h4>
             <ul>
-                [cite_start]<li>**`🧫 POST /spectrometry_graph`**: Carica file Excel spettrometria, filtra i picchi per soglia di intensità relativa (%BIC) e restituisce dati filtrati e grafico in base64[cite: 833, 834, 835, 836].</li>
-                [cite_start]<li>**`🔬 POST /add_bioactivity`**: Importa e inserisce dati di bioactivity da file Excel o CSV[cite: 854, 855].</li>
-                [cite_start]<li>**`🔬 POST /add_taxonomy_and_sample`**: Carica file Excel con dati di tassonomia e/o campioni, li valida e li inserisce[cite: 863, 864, 865].</li>
-                [cite_start]<li>**`🔬 POST /add_experimental_metabolite`**: Carica file Excel o CSV con dati degli experimental metabolite (template ufficiale), li valida e li inserisce[cite: 875, 876].</li>
+                <li>**`🧫 POST /spectrometry_graph`**: Carica file Excel spettrometria, filtra i picchi per soglia di intensità relativa (%BIC) e restituisce dati filtrati e grafico in base64.</li>
+                <li>**`🔬 POST /add_bioactivity`**: Importa e inserisce dati di bioactivity da file Excel o CSV.</li>
+                <li>**`🔬 POST /add_taxonomy_and_sample`**: Carica file Excel con dati di tassonomia e/o campioni, li valida e li inserisce.</li>
+                <li>**`🔬 POST /add_experimental_metabolite`**: Carica file Excel o CSV con dati degli experimental metabolite (template ufficiale), li valida e li inserisce.</li>
             </ul>
 
             <h3 id="connector-pubchem">Da PubChem</h3>
-            <p>API per l'importazione di dati da PubChem. [cite_start]Montate con prefisso `/conn/pubchem`[cite: 886, 890].</p>
+            <p>API per l'importazione di dati da PubChem. Montate con prefisso `/conn/pubchem`.</p>
             <h4>🚀 Endpoint PubChem</h4>
             <ul>
-                [cite_start]<li>**`🔬 GET /get_metabolite_data`**: Dato il nome di un metabolita, ottiene da PubChem informazioni chimiche di base (formula molecolare, peso, SMILES, InChI)[cite: 892, 893].</li>
-                [cite_start]<li>**`🧬 GET /get_pubchem_taxonomy`**: Dato il nome di un organismo, restituisce l’intera tassonomia PubChem[cite: 906, 907].</li>
-                [cite_start]<li>**`📖 GET /get_pug_view_data`**: Restituisce il contenuto completo della pagina PUG-View di PubChem, dato il `cid` del composto[cite: 922, 923].</li>
-                [cite_start]<li>**`🧪 GET /get_bioassays_from_cid`**: Ottiene tutti i bioassay associati a un metabolita da PubChem, usando il suo `cid`[cite: 929, 930].</li>
-                [cite_start]<li>**`📊 GET /get_bioassays_from_aid`**: Cerca i bioassay prendendo gli AID dal database interno (`MetaboliteBioassay`) e recuperando i dettagli da PubChem[cite: 937, 938].</li>
+                <li>**`🔬 GET /get_metabolite_data`**: Dato il nome di un metabolita, ottiene da PubChem informazioni chimiche di base (formula molecolare, peso, SMILES, InChI).</li>
+                <li>**`🧬 GET /get_pubchem_taxonomy`**: Dato il nome di un organismo, restituisce l’intera tassonomia PubChem.</li>
+                <li>**`📖 GET /get_pug_view_data`**: Restituisce il contenuto completo della pagina PUG-View di PubChem, dato il `cid` del composto.</li>
+                <li>**`🧪 GET /get_bioassays_from_cid`**: Ottiene tutti i bioassay associati a un metabolita da PubChem, usando il suo `cid`.</li>
+                <li>**`📊 GET /get_bioassays_from_aid`**: Cerca i bioassay prendendo gli AID dal database interno (`MetaboliteBioassay`) e recuperando i dettagli da PubChem.</li>
             </ul>
 
             <hr/>
 
             <h2 id="machine-learning">📦 machine_learning</h2>
-            [cite_start]<p>Modulo per elaborare in maniera avanzata le spettrometrie concentrandosi sulle **similarità**[cite: 965].</p>
+            <p>Modulo per elaborare in maniera avanzata le spettrometrie concentrandosi sulle **similarità**.</p>
 
             <h3 id="endpoints-ml">🌐 Endpoint `APImodel.py`</h3>
-            [cite_start]<p>Definisce un endpoint FastAPI che permette di calcolare la **similarità tra spettri** forniti in input con spettri presenti nella base di dati di **MassBank**[cite: 967, 968]. [cite_start]L'endpoint è montato con prefisso `/ml`[cite: 973].</p>
+            <p>Definisce un endpoint FastAPI che permette di calcolare la **similarità tra spettri** forniti in input con spettri presenti nella base di dati di **MassBank**. L'endpoint è montato con prefisso `/ml`.</p>
 
             <h4>🚀 Endpoint Machine Learning</h4>
-            [cite_start]<p>Protetti da autenticazione; utenti `visitor` o `guest` non hanno accesso[cite: 980, 981].</p>
+            <p>Protetti da autenticazione; utenti `visitor` o `guest` non hanno accesso.</p>
             <ul>
-                [cite_start]<li>**`🧪 POST /ml/spectrum_match`**: Calcola la similarità dello spettro, accettando query params per file di input, `top_n`, `machine`, `ion_mode` e `compound_class`[cite: 982].</li>
+                <li>**`🧪 POST /ml/spectrum_match`**: Calcola la similarità dello spettro, accettando query params per file di input, `top_n`, `machine`, `ion_mode` e `compound_class`.</li>
             </ul>
 
             <h3 id="match-ms2">📁 Script `match_ms2.py`</h3>
-            [cite_start]<p>Contiene metodi per gestire il caricamento dello spettro e il calcolo della similarità[cite: 985].</p>
+            <p>Contiene metodi per gestire il caricamento dello spettro e il calcolo della similarità.</p>
 
             <h4>Procedura ETL</h4>
-            [cite_start]<p>**🟢 Extract**: La procedura di estrazione dati è effettuata in `load_spectra_from_json`[cite: 988, 989]. [cite_start]È possibile applicare filtri (`matches_filters`)[cite: 989].</p>
-            [cite_start]<p>**🔵 Transform**: I dati estratti vengono elaborati per essere convertiti in oggetti di tipo `Spectrum`[cite: 990].</p>
-            [cite_start]<p>**🔴 Load**: Dopo il calcolo del match (`match_spectra`), il risultato viene generato tramite `generate_output` e salvato come file JSON[cite: 991].</p>
+            <p>**🟢 Extract**: La procedura di estrazione dati è effettuata in `load_spectra_from_json`. È possibile applicare filtri (`matches_filters`).</p>
+            <p>**🔵 Transform**: I dati estratti vengono elaborati per essere convertiti in oggetti di tipo `Spectrum`.</p>
+            <p>**🔴 Load**: Dopo il calcolo del match (`match_spectra`), il risultato viene generato tramite `generate_output` e salvato come file JSON.</p>
 
             <h4>🛠️ Metodi principali</h4>
             <ul>
-                [cite_start]<li>`matches_filters(item: JSON, filters: str)`: Applica filtri su tipo di macchina, `ion_mode` e classe del composto[cite: 992, 993].</li>
-                [cite_start]<li>`find_ready_reference(base_dir: path)`: Determina la directory attiva tra `reference_db_a` e `reference_db_b` (strategia **Zero-Downtime A/B**)[cite: 995, 997].</li>
-                [cite_start]<li>`load_spectra_from_json(...)`: Carica un file JSON e inserisce i dati (intesità, metadati, m/z) in un oggetto `Spectrum`[cite: 998, 999, 1000].</li>
-                <li>`match_spectra(...)`: Metodo principale. Calcola la similarità mediante metodo del **Modified Cosine** in modalità simmetrica. [cite_start]Estrae i primi `top_n` match[cite: 1005, 1008, 1009].</li>
+                <li>`matches_filters(item: JSON, filters: str)`: Applica filtri su tipo di macchina, `ion_mode` e classe del composto.</li>
+                <li>`find_ready_reference(base_dir: path)`: Determina la directory attiva tra `reference_db_a` e `reference_db_b` (strategia **Zero-Downtime A/B**).</li>
+                <li>`load_spectra_from_json(...)`: Carica un file JSON e inserisce i dati (intesità, metadati, m/z) in un oggetto `Spectrum`.</li>
+                <li>`match_spectra(...)`: Metodo principale. Calcola la similarità mediante metodo del **Modified Cosine** in modalità simmetrica. Estrae i primi `top_n` match.</li>
             </ul>
         </article>
     </div>
